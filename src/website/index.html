@@ -19,6 +19,10 @@
             --title-text-shadow: var(--text-shadow-offset) var(--text-shadow-offset) var(--text-shadow-size) var(--shadow-color);
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         .red {
             --button-top-color: #ea7f79;
             --button-bottom-color: #cc3934;
@@ -262,12 +266,29 @@
         }
 
         .pickle-footer {
+            position: relative;
             flex: 1 1 auto;
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
             gap: 1em;
+            padding: 2em;
+            color: #fff;
+            font-size: 1.5em;
+
+            & > .pickle-box {
+                position: absolute;
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
         }
 
     </style>
@@ -373,11 +394,16 @@
     </div>
 </footer>
 <footer class="pickle-footer">
-    <img src="./pickle-icon.png" alt="A green pickle">
-    <img src="./pickle-icon.png" alt="A green pickle">
-    <img src="./pickle-icon.png" alt="A green pickle">
-    <img src="./pickle-icon.png" alt="A green pickle">
-    <img src="./pickle-icon.png" alt="A green pickle">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+    </div>
 </footer>
 </body>
 </html>
