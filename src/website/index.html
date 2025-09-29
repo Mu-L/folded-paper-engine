@@ -1,0 +1,77 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <style>
+        /* Font: ZCOOLKuaiLe-Regular.ttf */
+        @font-face {
+            font-family: 'ZCOOLKuaiLe-Regular';
+            src: url('./ZCOOLKuaiLe-Regular.ttf');
+            font-weight: normal;
+        }
+
+        .sticker-text {
+            text-shadow: -0.1em -0.1em 0 #fff,
+            0.1em -0.1em 0 #fff,
+            -0.1em 0.1em 0 #fff,
+            0.1em 0.1em 0 #fff,
+            0.1em 0.1em 0.2em #000;
+        }
+
+        .sticker {
+            filter:
+                    drop-shadow(-0.15em -0.10em 0 #fff)
+                    drop-shadow(0.15em -0.10em 0 #fff)
+                    drop-shadow(-0.15em 0.15em 0 #fff)
+                    drop-shadow(0.15em 0.15em 0 #fff)
+                    drop-shadow(0.15em 0.15em 0.25em #000);
+        }
+
+        html,
+        body {
+            background-color: #FFC100;
+            color: black;
+            font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2em;
+            background: linear-gradient(to bottom, #fdbd00 60%, #ffe380 100%);
+        }
+
+        .logo-icon {
+            width: 5em;
+        }
+    </style>
+</head>
+<body>
+<header
+        class="header"
+>
+    <img class="logo-icon sticker" src="./logo.svg" alt="Logo">
+    <h1 class="sticker-text">
+        folded paper engine
+    </h1>
+</header>
+<main>
+    <section
+            class="web-splash"
+    >
+        <img class="web-splash-img" src="./web-splash.png" alt="Splash">
+    </section>
+</main>
+<footer>
+
+</footer>
+</body>
+</html>
