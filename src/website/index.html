@@ -148,6 +148,12 @@
                     filter: drop-shadow(var(--basic-shadow));
                 }
 
+                & > .demo-button {
+                    position: absolute;
+                    left: 18%;
+                    bottom: 35%;
+                }
+
                 @media screen and (max-width: 768px) {
                     & > .web-splash-img {
                         opacity: 0;
@@ -321,6 +327,10 @@
         >
             <img class="web-splash-img" src="./web-splash.png" alt="Splash">
             <img class="apple-sticker" src="./apple-sticker.png" alt="Apple Sticker">
+            <button class="demo-button button red">
+                Play the Demo!
+                <img class="button-icon" src="./mug-icon.png" alt="A latte in a small, white coffee mug">
+            </button>
         </div>
     </section>
     <section
