@@ -160,10 +160,8 @@
 
                 & > .star-sticker {
                     position: absolute;
-                    left: 38%;
-                    bottom: 22%;
                     filter: drop-shadow(var(--basic-shadow));
-                    offset-path: circle(5px at center);
+                    offset-path: circle(5px at 50% 50%);
                     offset-distance: 0%;
                     offset-rotate: 0deg;
                     animation: item-float 5s linear infinite;
@@ -171,12 +169,11 @@
 
                 & > .demo-button {
                     position: absolute;
-                    left: 18%;
-                    bottom: 35%;
-                    offset-path: circle(5px at center);
+                    offset-path: circle(5px at 35% 52%);
                     offset-distance: 0%;
                     offset-rotate: 0deg;
                     animation: inverse-item-float 5s linear infinite;
+                    will-change: transform;
                 }
 
                 @media screen and (max-width: 768px) {
@@ -195,6 +192,7 @@
                     & > .demo-button {
                         left: 50%;
                         bottom: 50%;
+                        offset-path: none;
                         transform: translate(-50%, 50%);
                         animation: none;
                     }
