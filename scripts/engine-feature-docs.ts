@@ -51,11 +51,15 @@ const PropertyGroupLabelMap: Record<string, string> = FoldedPaperEngineAddon.pan
     } as Record<string, string>;
   }, {});
 const MDProp = ({label, type, subType, description}: BlenderPanelPropertyProps) => {
-  const subTypeText = type === "collection" ? ` of ${PropertyGroupLabelMap[subType as string] ?? "Unknown"}` : ""
+  const subTypeText = type === "collection" ? ` of [${PropertyGroupLabelMap[subType as string] ?? "Unknown"}](#${PropertyGroupLabelMap[subType as string] ?? "Unknown"})` : ""
 
   return `- ${label}: (${EngineFeatureLegendLabelMap[type as EngineFeatureLegendMapKeys]}${subTypeText}) ${description}.`
 };
-const MDSection = ({label, properties}: BlenderPanelProps) => `### ${label}
+const MDSection = ({
+                     label,
+                     noPanel,
+                     properties
+                   }: BlenderPanelProps) => `### <span class="${noPanel ? "property-group" : "panel"}">${label}</span>
 
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
 const IndexFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
@@ -64,7 +68,15 @@ const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
 const EngineFeatureLegendInsertionPoint = "${ENGINE_FEATURE_LEGEND}";
 const EngineFeatureDocs = FoldedPaperEngineAddon.panels
-  .sort(p => p.noPanel ? -1 : 1)
+  .sort((a, b) => {
+    if (a.noPanel && !b.noPanel) {
+      return 1;
+    } else if (!a.noPanel && b.noPanel) {
+      return -1;
+    } else {
+      return 0;
+    }
+  })
   .map((p) => MDSection(p))
   .join("\n\n");
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
