@@ -6,7 +6,24 @@
     <meta name="description" content="Folded Paper Engine">
     <title>Folded Paper Engine</title>
     <style>
-        /* Font: ZCOOLKuaiLe-Regular.ttf */
+        :root {
+            --button-top-color: #9acd32;
+            --button-bottom-color: #2e8b57;
+            --button-glow-color: #2e8b57;
+        }
+
+        .red {
+            --button-top-color: #ea7f79;
+            --button-bottom-color: #cc3934;
+            --button-glow-color: #f13e83;
+        }
+
+        .blue {
+            --button-top-color: #779f9c;
+            --button-bottom-color: #4c7379;
+            --button-glow-color: #4c7379;
+        }
+
         @font-face {
             font-family: 'ZCOOLKuaiLe-Regular';
             src: url('./ZCOOLKuaiLe-Regular.ttf');
@@ -26,11 +43,8 @@
         }
 
         .button {
-            --top-color: #9acd32;
-            --bottom-color: #2e8b57;
-            --glow-color: #2e8b57;
             font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
-            background: linear-gradient(to bottom, #9acd32 0%, #2e8b57 100%);
+            background: linear-gradient(to bottom, var(--button-top-color) 0%, var(--button-bottom-color) 100%);
             border-radius: 0.5em;
             border: 0.125em solid #fff;
             color: #fff;
@@ -42,17 +56,11 @@
             transition: background 0.5s;
 
             &:hover {
-                background: linear-gradient(to bottom, var(--top-color) 25%, var(--bottom-color) 100%);
+                background: linear-gradient(to bottom, var(--button-top-color) 25%, var(--button-bottom-color) 100%);
             }
 
             &:active {
-                background: linear-gradient(to bottom, var(--top-color) 25%, var(--bottom-color) 75%, var(--glow-color) 100%);
-            }
-
-            &.red {
-                --top-color: #9acd32;
-                --bottom-color: #2e8b57;
-                --glow-color: #2e8b57;
+                background: linear-gradient(to bottom, var(--button-top-color) 25%, var(--button-bottom-color) 75%, var(--button-glow-color) 100%);
             }
         }
 
@@ -115,7 +123,7 @@
     </h1>
     <div class="spacer"></div>
     <button
-            class="button"
+            class="button blue"
     >
         Download
         <img class="dl-icon" src="./dl-icon.png" alt="Download">
