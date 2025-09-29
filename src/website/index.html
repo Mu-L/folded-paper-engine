@@ -238,6 +238,24 @@
             }
         }
 
+        .footer {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #e28903;
+            padding: 2em;
+
+            & > .social {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 1em;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -324,8 +342,21 @@
         </main>
     </section>
 </main>
-<footer>
-
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img src="./papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div>
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="./github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="./github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="./github-logo.png" alt="GitHub">
+        </a>
+    </div>
 </footer>
 </body>
 </html>
