@@ -46,6 +46,7 @@ const MDProp = ({label, type, description}: BlenderPanelPropertyProps) =>
 const MDSection = ({label, properties}: BlenderPanelProps) => `### ${label}
 
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
+const IndexFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
 const BlenderPanelDocsFilePath = Path.resolve(__dirname, "..", "dist", "blender-panel-docs.html");
 const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
@@ -57,21 +58,30 @@ const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
   (k) => `- ${EngineFeatureLegendLabelMap[k as EngineFeatureLegendMapKeys]}: ${EngineFeatureLegendMap[k as EngineFeatureLegendMapKeys]}`
 ).join("\n");
 const exportHTML = async () => {
+  const IndexTemplate = FS.readFileSync(IndexFilePath, "utf8");
   const EngineTemplate = FS.readFileSync(BlenderPanelDocsFilePath, "utf8");
   const FeaturesHTML = await marked(EngineFeatureDocs);
   const LegendHTML = await marked(EngineFeatureLegend);
+  const FullIndexHTML = IndexTemplate
+    .replace(
+      EngineVersionInsertionPoint,
+      VERSION,
+    );
   const FullEngineDocHTML = EngineTemplate
     .replace(
       EngineFeatureDocsInsertionPoint,
       FeaturesHTML,
-    ).replace(
+    )
+    .replace(
       EngineFeatureLegendInsertionPoint,
       LegendHTML,
-    ).replace(
+    )
+    .replace(
       EngineVersionInsertionPoint,
       VERSION,
     );
 
+  FS.writeFileSync(IndexFilePath, FullIndexHTML, "utf8");
   FS.writeFileSync(BlenderPanelDocsFilePath, FullEngineDocHTML, "utf8");
 };
 
