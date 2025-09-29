@@ -26,6 +26,9 @@
         }
 
         .button {
+            --top-color: #9acd32;
+            --bottom-color: #2e8b57;
+            --glow-color: #2e8b57;
             font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
             background: linear-gradient(to bottom, #9acd32 0%, #2e8b57 100%);
             border-radius: 0.5em;
@@ -34,6 +37,23 @@
             font-size: 2em;
             padding: 0.5em;
             box-shadow: 0.1em 0.1em 0.25em black;
+            cursor: pointer;
+
+            transition: background 0.5s;
+
+            &:hover {
+                background: linear-gradient(to bottom, var(--top-color) 25%, var(--bottom-color) 100%);
+            }
+
+            &:active {
+                background: linear-gradient(to bottom, var(--top-color) 25%, var(--bottom-color) 75%, var(--glow-color) 100%);
+            }
+
+            &.red {
+                --top-color: #9acd32;
+                --bottom-color: #2e8b57;
+                --glow-color: #2e8b57;
+            }
         }
 
         .spacer {
