@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Folded Paper Engine">
     <title>Folded Paper Engine</title>
     <style>
@@ -37,19 +37,8 @@
             font-weight: normal;
         }
 
-        .sticker-text {
-            text-shadow: -0.1em -0.1em 0 #fff,
-            0.1em -0.1em 0 #fff,
-            -0.1em 0.1em 0 #fff,
-            0.1em 0.1em 0 #fff,
-            var(--basic-shadow);
-        }
-
-        .sticker {
-            filter: drop-shadow(-0.15em -0.10em 0 #fff) drop-shadow(0.15em -0.10em 0 #fff) drop-shadow(-0.15em 0.15em 0 #fff) drop-shadow(0.15em 0.15em 0 #fff) drop-shadow(0.15em 0.15em 0.25em #000);
-        }
-
         .button {
+            flex: 0 0 auto;
             font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
             background: linear-gradient(to bottom, var(--button-top-color) 0%, var(--button-bottom-color) 100%);
             border-radius: 0.5em;
@@ -80,6 +69,8 @@
             background-color: #FFC100;
             color: black;
             font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
+            width: 100dvw;
+            height: 100dvh;
             margin: 0;
             padding: 0;
             display: flex;
@@ -93,13 +84,25 @@
             flex-direction: row;
             align-items: center;
             justify-content: stretch;
+            flex-wrap: wrap;
             padding: 2em;
             background: linear-gradient(to bottom, #fdbd00 60%, #ffe380 100%);
-        }
 
-        .logo-icon {
-            width: 8em;
-            box-shadow: var(--basic-shadow);
+            .logo {
+                max-width: 80dvw;
+            }
+
+            @media screen and (max-width: 768px) {
+                justify-content: center;
+
+                & > .spacer {
+                    display: none;
+                }
+
+                & > .logo {
+                    margin-bottom: 1em;
+                }
+            }
         }
 
         .dl-icon {
@@ -148,10 +151,7 @@
 <header
         class="header"
 >
-    <img class="logo-icon" src="./logo.svg" alt="Logo">
-    <h1 class="sticker-text">
-        folded paper engine
-    </h1>
+    <img class="logo" src="./logo.png" alt="Logo">
     <div class="spacer"></div>
     <button
             class="button"
