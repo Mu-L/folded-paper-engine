@@ -57,9 +57,8 @@ const MDProp = ({label, type, subType, description}: BlenderPanelPropertyProps) 
 };
 const MDSection = ({
                      label,
-                     noPanel,
                      properties
-                   }: BlenderPanelProps) => `### <span class="${noPanel ? "property-group" : "panel"}">${label}</span>
+                   }: BlenderPanelProps) => `### ${label}
 
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
 const IndexFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
