@@ -116,6 +116,22 @@
             justify-content: center;
             align-items: center;
             background-color: #E28903;
+
+            & > .web-splash-inner {
+                position: relative;
+
+                & > .web-splash-img {
+                    max-width: 100dvw;
+                }
+
+                & > .apple-sticker {
+                    position: absolute;
+                    left: 12.5%;
+                    bottom: -12%;
+                    width: 20%;
+                    filter: drop-shadow(var(--basic-shadow));
+                }
+            }
         }
 
         .section-title {
@@ -164,7 +180,12 @@
     <section
             class="web-splash"
     >
-        <img class="web-splash-img" src="./web-splash.png" alt="Splash">
+        <div
+                class="web-splash-inner"
+        >
+            <img class="web-splash-img" src="./web-splash.png" alt="Splash">
+            <img class="apple-sticker" src="./apple-sticker.png" alt="Apple Sticker">
+        </div>
     </section>
     <section
             class="section"
