@@ -79,7 +79,12 @@ const EngineFeatureDocs = FoldedPaperEngineAddon.panels
   .map((p) => {
     const {label, noPanel} = p;
 
-    return `<p id="${label}" class="${noPanel ? "property-group" : "panel"}">${MDSection(p)}</p>`;
+    return `<p id="${label}" class="${noPanel ? "property-group" : "panel"}">${marked(
+      MDSection(p),
+      {
+        async: false,
+      }
+    )}</p>`;
   })
   .join("\n\n");
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
@@ -88,7 +93,6 @@ const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
 const exportHTML = async () => {
   const IndexTemplate = FS.readFileSync(IndexFilePath, "utf8");
   const EngineTemplate = FS.readFileSync(BlenderPanelDocsFilePath, "utf8");
-  const FeaturesHTML = await marked(EngineFeatureDocs);
   const LegendHTML = await marked(EngineFeatureLegend);
   const FullIndexHTML = IndexTemplate
     .replace(
@@ -98,7 +102,7 @@ const exportHTML = async () => {
   const FullEngineDocHTML = EngineTemplate
     .replace(
       EngineFeatureDocsInsertionPoint,
-      FeaturesHTML,
+      EngineFeatureDocs,
     )
     .replace(
       EngineFeatureLegendInsertionPoint,
