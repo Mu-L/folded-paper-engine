@@ -177,7 +177,11 @@
                 margin-bottom: 4em;
 
                 &.flipped {
-                    justify-content: flex-end;
+                    flex-direction: row-reverse;
+
+                    & > .section-title {
+                        text-align: right;
+                    }
                 }
 
                 .title-graphic {
@@ -297,7 +301,7 @@
             id="download"
             class="section"
     >
-        <header>
+        <header class="flipped">
             <img class="title-graphic" src="./doc-owl.png" alt="Documentation">
             <div
                     class="section-title"
