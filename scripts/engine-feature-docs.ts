@@ -46,13 +46,7 @@ const MDProp = ({label, type, description}: BlenderPanelPropertyProps) =>
 const MDSection = ({label, properties}: BlenderPanelProps) => `### ${label}
 
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
-const EngineTemplateFilePath = Path.resolve(
-  __dirname,
-  ".",
-  "engine-feature-docs",
-  "engine.md"
-);
-const EngineOutputFilePath = Path.resolve(__dirname, "..", "dist", "blender-panel-docs.html");
+const BlenderPanelDocsFilePath = Path.resolve(__dirname, "..", "dist", "blender-panel-docs.html");
 const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
 const EngineFeatureLegendInsertionPoint = "${ENGINE_FEATURE_LEGEND}";
@@ -62,26 +56,27 @@ const EngineFeatureDocs = FoldedPaperEngineAddon.panels
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
   (k) => `- ${EngineFeatureLegendLabelMap[k as EngineFeatureLegendMapKeys]}: ${EngineFeatureLegendMap[k as EngineFeatureLegendMapKeys]}`
 ).join("\n");
-const EngineTemplate = FS.readFileSync(EngineTemplateFilePath, "utf8");
-const FullEngineDoc = EngineTemplate
-  .replace(
-    EngineFeatureDocsInsertionPoint,
-    EngineFeatureDocs,
-  ).replace(
-    EngineFeatureLegendInsertionPoint,
-    EngineFeatureLegend,
-  ).replace(
-    EngineVersionInsertionPoint,
-    VERSION,
-  );
 const exportHTML = async () => {
-  const FullEngineDocHTML = await marked(FullEngineDoc);
+  const EngineTemplate = FS.readFileSync(BlenderPanelDocsFilePath, "utf8");
+  const FeaturesHTML = await marked(EngineFeatureDocs);
+  const LegendHTML = await marked(EngineFeatureLegend);
+  const FullEngineDocHTML = EngineTemplate
+    .replace(
+      EngineFeatureDocsInsertionPoint,
+      FeaturesHTML,
+    ).replace(
+      EngineFeatureLegendInsertionPoint,
+      LegendHTML,
+    ).replace(
+      EngineVersionInsertionPoint,
+      VERSION,
+    );
 
-  FS.writeFileSync(EngineOutputFilePath, FullEngineDocHTML, "utf8");
+  FS.writeFileSync(BlenderPanelDocsFilePath, FullEngineDocHTML, "utf8");
 };
 
 exportHTML()
   .then(
-    () => console.log("Exported engine docs to", EngineOutputFilePath),
+    () => console.log("Exported engine docs to", BlenderPanelDocsFilePath),
     (error) => console.error("Error exporting engine docs", error)
   );
