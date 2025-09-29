@@ -41,8 +41,20 @@ const EngineFeatureLegendLabelMap: Record<EngineFeatureLegendMapKeys, string> = 
   color: "Color",
   csv: "CSV",
 };
-const MDProp = ({label, type, description}: BlenderPanelPropertyProps) =>
-  `- ${label}: (${EngineFeatureLegendLabelMap[type as EngineFeatureLegendMapKeys]}) ${description}.`;
+const PropertyGroupLabelMap: Record<string, string> = FoldedPaperEngineAddon.panels
+  .reduce((acc, {label, noPanel, name}) => {
+    return {
+      ...acc,
+      ...(noPanel ? {
+        [`${name}PropertyGroup`]: label,
+      } : {})
+    } as Record<string, string>;
+  }, {});
+const MDProp = ({label, type, subType, description}: BlenderPanelPropertyProps) => {
+  const subTypeText = type === "collection" ? ` of ${PropertyGroupLabelMap[subType as string] ?? "Unknown"}` : ""
+
+  return `- ${label}: (${EngineFeatureLegendLabelMap[type as EngineFeatureLegendMapKeys]}${subTypeText}) ${description}.`
+};
 const MDSection = ({label, properties}: BlenderPanelProps) => `### ${label}
 
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
@@ -52,6 +64,7 @@ const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
 const EngineFeatureLegendInsertionPoint = "${ENGINE_FEATURE_LEGEND}";
 const EngineFeatureDocs = FoldedPaperEngineAddon.panels
+  .sort(p => p.noPanel ? -1 : 1)
   .map((p) => MDSection(p))
   .join("\n\n");
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
