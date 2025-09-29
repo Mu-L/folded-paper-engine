@@ -161,8 +161,12 @@
             flex-direction: column;
             align-items: stretch;
             justify-content: flex-start;
-            background: linear-gradient(to bottom, #ffe380 0%, #fdbd00 15%, #ffc100 100%);
+            background: #ffc100;
             padding: 8em;
+
+            &.top-section {
+                background: linear-gradient(to bottom, #ffe380 0%, #fdbd00 15%, #ffc100 100%);
+            }
 
             header {
                 display: flex;
@@ -258,7 +262,7 @@
         </div>
     </section>
     <section
-            class="section"
+            class="section top-section"
     >
         <header>
             <img class="title-graphic" src="./doc-owl.png" alt="Documentation">
