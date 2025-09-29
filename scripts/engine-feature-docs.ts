@@ -79,12 +79,12 @@ const EngineFeatureDocs = FoldedPaperEngineAddon.panels
   .map((p) => {
     const {label, noPanel} = p;
 
-    return `<p id="${label}" class="${noPanel ? "property-group" : "panel"}">${marked(
+    return `<div id="${label}" class="${noPanel ? "property-group" : "panel"}">${marked(
       MDSection(p),
       {
         async: false,
       }
-    )}</p>`;
+    )}</div>`;
   })
   .join("\n\n");
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
