@@ -52,7 +52,7 @@ const EngineTemplateFilePath = Path.resolve(
   "engine-feature-docs",
   "engine.md"
 );
-const EngineOutputFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
+const EngineOutputFilePath = Path.resolve(__dirname, "..", "dist", "blender-panel-docs.html");
 const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
 const EngineFeatureLegendInsertionPoint = "${ENGINE_FEATURE_LEGEND}";
