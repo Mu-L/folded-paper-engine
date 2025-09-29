@@ -39,6 +39,11 @@
 
         .button {
             flex: 0 0 auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
             font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
             background: linear-gradient(to bottom, var(--button-top-color) 0%, var(--button-bottom-color) 100%);
             border-radius: 0.5em;
@@ -48,6 +53,7 @@
             padding: 0.5em;
             box-shadow: var(--basic-shadow);
             cursor: pointer;
+            text-decoration: none;
 
             transition: background 0.5s;
 
@@ -57,6 +63,10 @@
 
             &:active {
                 background: linear-gradient(to bottom, var(--button-top-color) 25%, var(--button-bottom-color) 75%, var(--button-glow-color) 100%);
+            }
+
+            & > .button-icon {
+                margin: -0.5em;
             }
         }
 
@@ -160,6 +170,11 @@
                 align-items: center;
                 justify-content: flex-start;
                 gap: 1.5em;
+                margin-bottom: 4em;
+
+                &.flipped {
+                    justify-content: flex-end;
+                }
 
                 .title-graphic {
                     max-width: 15%;
@@ -180,7 +195,7 @@
                 flex: 1 1 auto;
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
                 gap: 2em;
 
@@ -190,6 +205,22 @@
                     align-items: flex-start;
                     justify-content: flex-start;
                     gap: 2em;
+
+                    & > .stack-link {
+                        color: #fff;
+                        font-size: 2em;
+                        text-shadow: var(--title-text-shadow);
+                        margin-left: 0.5em;
+
+                        &:hover,
+                        &:active {
+                            color: #e28903;
+                        }
+
+                        &:visited {
+                            color: #fff;
+                        }
+                    }
                 }
             }
 
@@ -207,12 +238,13 @@
 >
     <img class="logo" src="./logo.png" alt="Logo">
     <div class="spacer"></div>
-    <button
+    <a
             class="button"
+            href="#download"
     >
         Download
         <img class="dl-icon" src="./dl-icon.png" alt="Download">
-    </button>
+    </a>
 </header>
 <main>
     <section
@@ -242,16 +274,49 @@
         <main>
             <button class="button">
                 Blender Panels
-                <img class="dl-icon" src="./dl-icon.png" alt="Download">
+                <img class="button-icon" src="./blender-logo-icon.png" alt="Blender Logo">
             </button>
             <div
                     class="stack"
             >
                 <button class="button">
                     Blender Panels
-                    <img class="dl-icon" src="./dl-icon.png" alt="Download">
+                    <img class="button-icon" src="./godot-logo-icon.png" alt="Godot Logo">
                 </button>
-                <a href="./godot-api-docs">
+                <a class="stack-link" href="./godot-api-docs">
+                    Godot API
+                </a>
+            </div>
+        </main>
+    </section>
+    <section
+            id="download"
+            class="section"
+    >
+        <header>
+            <img class="title-graphic" src="./doc-owl.png" alt="Documentation">
+            <div
+                    class="section-title"
+            >
+                Pack for Your Adventure...
+                <div class="section-subtitle">
+                    Download Now!
+                </div>
+            </div>
+        </header>
+        <main>
+            <button class="button">
+                Blender Panels
+                <img class="button-icon" src="./blender-logo-icon.png" alt="Blender Logo">
+            </button>
+            <div
+                    class="stack"
+            >
+                <button class="button">
+                    Blender Panels
+                    <img class="button-icon" src="./godot-logo-icon.png" alt="Godot Logo">
+                </button>
+                <a class="stack-link" href="./godot-api-docs">
                     Godot API
                 </a>
             </div>
