@@ -176,6 +176,23 @@
                 }
             }
 
+            main {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 2em;
+
+                & > .stack {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    gap: 2em;
+                }
+            }
+
             @media screen and (max-width: 768px) {
                 font-size: 0.75em;
                 padding: 2em;
@@ -222,6 +239,23 @@
                 </div>
             </div>
         </header>
+        <main>
+            <button class="button">
+                Blender Panels
+                <img class="dl-icon" src="./dl-icon.png" alt="Download">
+            </button>
+            <div
+                    class="stack"
+            >
+                <button class="button">
+                    Blender Panels
+                    <img class="dl-icon" src="./dl-icon.png" alt="Download">
+                </button>
+                <a href="./godot-api-docs">
+                    Godot API
+                </a>
+            </div>
+        </main>
     </section>
 </main>
 <footer>
