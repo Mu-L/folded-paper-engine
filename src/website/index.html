@@ -122,6 +122,18 @@
             margin: -2em -1em -1em -0.5em;
         }
 
+        @keyframes item-float {
+            to {
+                offset-distance: 100%;
+            }
+        }
+
+        @keyframes inverse-item-float {
+            to {
+                offset-distance: -100%;
+            }
+        }
+
         .web-splash {
             display: flex;
             flex-direction: row;
@@ -146,10 +158,25 @@
                     filter: drop-shadow(var(--basic-shadow));
                 }
 
+                & > .star-sticker {
+                    position: absolute;
+                    left: 38%;
+                    bottom: 22%;
+                    filter: drop-shadow(var(--basic-shadow));
+                    offset-path: circle(5px at center);
+                    offset-distance: 0%;
+                    offset-rotate: 0deg;
+                    animation: item-float 5s linear infinite;
+                }
+
                 & > .demo-button {
                     position: absolute;
                     left: 18%;
                     bottom: 35%;
+                    offset-path: circle(5px at center);
+                    offset-distance: 0%;
+                    offset-rotate: 0deg;
+                    animation: inverse-item-float 5s linear infinite;
                 }
 
                 @media screen and (max-width: 768px) {
@@ -161,10 +188,15 @@
                         display: none;
                     }
 
+                    & > .star-sticker {
+                        display: none;
+                    }
+
                     & > .demo-button {
                         left: 50%;
                         bottom: 50%;
                         transform: translate(-50%, 50%);
+                        animation: none;
                     }
                 }
             }
@@ -331,6 +363,7 @@
         >
             <img class="web-splash-img" src="./web-splash.png" alt="Splash">
             <img class="apple-sticker" src="./apple-sticker.png" alt="Apple Sticker">
+            <img class="star-sticker" src="./splash-star.png" alt="Star Sticker">
             <a class="demo-button button red" href="./demo-game">
                 Play the Demo!
                 <img class="button-icon" src="./mug-icon.png" alt="A latte in a small, white coffee mug">
