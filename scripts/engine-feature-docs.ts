@@ -51,7 +51,7 @@ const PropertyGroupLabelMap: Record<string, string> = FoldedPaperEngineAddon.pan
     } as Record<string, string>;
   }, {});
 const MDProp = ({label, type, subType, description}: BlenderPanelPropertyProps) => {
-  const subTypeText = type === "collection" ? ` of [${PropertyGroupLabelMap[subType as string] ?? "Unknown"}](#${PropertyGroupLabelMap[subType as string] ?? "Unknown"})` : ""
+  const subTypeText = type === "collection" ? ` of [${PropertyGroupLabelMap[subType as string] ?? "Unknown"}](<#${PropertyGroupLabelMap[subType as string] ?? "Unknown"}>)` : ""
 
   return `- ${label}: (${EngineFeatureLegendLabelMap[type as EngineFeatureLegendMapKeys]}${subTypeText}) ${description}.`
 };
@@ -76,7 +76,11 @@ const EngineFeatureDocs = FoldedPaperEngineAddon.panels
       return 0;
     }
   })
-  .map((p) => MDSection(p))
+  .map((p) => {
+    const {label, noPanel} = p;
+
+    return `<p id="${label}" class="${noPanel ? "property-group" : "panel"}">${MDSection(p)}</p>`;
+  })
   .join("\n\n");
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
   (k) => `- ${EngineFeatureLegendLabelMap[k as EngineFeatureLegendMapKeys]}: ${EngineFeatureLegendMap[k as EngineFeatureLegendMapKeys]}`
