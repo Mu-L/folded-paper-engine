@@ -10,6 +10,13 @@
             --button-top-color: #9acd32;
             --button-bottom-color: #2e8b57;
             --button-glow-color: #2e8b57;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --shadow-offset: 0.1em;
+            --shadow-size: 0.25em;
+            --text-shadow-offset: 0.0625em;
+            --text-shadow-size: 0.0625em;
+            --basic-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-size) var(--shadow-color);
+            --title-text-shadow: var(--text-shadow-offset) var(--text-shadow-offset) var(--text-shadow-size) var(--shadow-color);
         }
 
         .red {
@@ -35,7 +42,7 @@
             0.1em -0.1em 0 #fff,
             -0.1em 0.1em 0 #fff,
             0.1em 0.1em 0 #fff,
-            0.1em 0.1em 0.2em #000;
+            var(--basic-shadow);
         }
 
         .sticker {
@@ -50,7 +57,7 @@
             color: #fff;
             font-size: 2em;
             padding: 0.5em;
-            box-shadow: 0.1em 0.1em 0.25em black;
+            box-shadow: var(--basic-shadow);
             cursor: pointer;
 
             transition: background 0.5s;
@@ -75,7 +82,7 @@
             font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
             margin: 0;
             padding: 0;
-            diplay: flex;
+            display: flex;
             flex-direction: column;
             align-items: stretch;
             justify-content: flex-start;
@@ -92,6 +99,7 @@
 
         .logo-icon {
             width: 8em;
+            box-shadow: var(--basic-shadow);
         }
 
         .dl-icon {
@@ -107,10 +115,33 @@
             background-color: #E28903;
         }
 
-        .read-the-docs {
-            min-height: 30em;
-            background: linear-gradient(to bottom, #ffe380 0%, #fdbd00 15%, #fdbd00 100%);
+        .section-title {
+            font-size: 4em;
+            color: #fff;
+            text-shadow: var(--title-text-shadow);
         }
+
+        .section-subtitle {
+            font-size: 0.5em;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            background: linear-gradient(to bottom, #ffe380 0%, #fdbd00 15%, #fdbd00 100%);
+            padding: 8em;
+
+            header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1.5em;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -136,9 +167,19 @@
         <img class="web-splash-img" src="./web-splash.png" alt="Splash">
     </section>
     <section
-            class="read-the-docs"
+            class="section"
     >
-
+        <header>
+            <img src="./doc-owl.png" alt="Documentation">
+            <div
+                    class="section-title"
+            >
+                Get Wise!
+                <div class="section-subtitle">
+                    Read the Docs...
+                </div>
+            </div>
+        </header>
     </section>
 </main>
 <footer>
