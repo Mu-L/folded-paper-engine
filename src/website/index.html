@@ -250,6 +250,7 @@
                 align-items: flex-start;
                 justify-content: center;
                 gap: 2em;
+                flex-wrap: wrap;
 
                 & > .stack {
                     display: flex;
@@ -271,6 +272,14 @@
 
                         &:visited {
                             color: #fff;
+                        }
+                    }
+
+                    @media screen and (max-width: 768px) {
+                        align-items: center;
+
+                        & > .stack-link {
+                            margin-left: 0;
                         }
                     }
                 }
@@ -297,12 +306,20 @@
                 text-decoration: none;
             }
 
+            & .papercraft-logo {
+                max-width: 80dvw;
+            }
+
             & > .social {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
                 gap: 2em;
+
+                & img {
+                    max-width: 20dvw;
+                }
             }
         }
 
@@ -429,7 +446,7 @@
 </main>
 <footer class="footer">
     <a href="https://papercraft.games" target="_blank">
-        <img src="./papercraft-games-logo.png" alt="Papercraft Games">
+        <img class="papercraft-logo" src="./papercraft-games-logo.png" alt="Papercraft Games">
     </a>
     <div class="social">
         <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
