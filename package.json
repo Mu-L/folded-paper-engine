@@ -4,7 +4,7 @@
   "description": "Folded Paper Engine",
   "scripts": {
     "deploy": "yarn deploy-website && yarn deploy-addon && yarn deploy-godot-addon && yarn engine-feature-docs",
-    "deploy-website": "mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME",
+    "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME",
     "deploy-addon": "ts-node ./scripts/blender-addon.ts",
     "deploy-godot-addon": "ts-node ./scripts/godot-addon.ts",
     "deploy-godot-addon-docs": "ts-node ./scripts/gen-addon-docs.ts",
