@@ -38,8 +38,18 @@ function esc(s = ""): string {
 }
 
 function escCode(s = ""): string {
-  // Escape HTML meta characters but leave newlines untouched
+  // escape only HTML meta chars; preserve \n so <pre> shows real lines
   return s.replace(/[&<>]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]!));
+}
+
+function decodeEntities(s = ""): string {
+  // just the ones Godot uses in attributes
+  return s
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
 }
 
 // --- pretty code -------------------------------------------------------------
@@ -98,10 +108,8 @@ function formatSnippet(raw = ""): string {
 
 function bb(s = ""): string {
   return s
-    .replace(/\[codeblock\]([\s\S]*?)\[\/codeblock\]/g,
-      (_m, g) => `<pre class="code"><code>${escCode(formatSnippet(g))}</code></pre>`)
-    .replace(/\[code\]([\s\S]*?)\[\/code\]/g,
-      (_m, g) => `<code class="code">${escCode(formatSnippet(g))}</code>`)
+    .replace(/\[codeblock\]([\s\S]*?)\[\/codeblock\]/g, (_m, g) => `<pre class="code"><code>${escCode(formatSnippet(g))}</code></pre>`)
+    .replace(/\[code\]([\s\S]*?)\[\/code\]/g, (_m, g) => `<code class="code">${escCode(formatSnippet(g))}</code>`)
     .replace(/\[b\]([\s\S]*?)\[\/b\]/g, "<strong>$1</strong>")
     .replace(/\[i\]([\s\S]*?)\[\/i\]/g, "<em>$1</em>")
     .replace(/\[br\]/g, "<br/>")
@@ -203,12 +211,18 @@ async function main() {
       .join("");
 
     const consts = arr((C.constants as any)?.constant)
-      .map((x: any) =>
-        `<li>
-          <code class="code">${esc(x["@_name"])} = ${esc(x["@_value"])}</code>
-          ${x.description ? `<div class="small">${bb(x.description)}</div>` : ""}
-        </li>`
-      )
+      .map((x: any) => {
+        const name = String(x["@_name"] ?? "");
+        const raw = decodeEntities(String(x["@_value"] ?? ""));
+        const pretty = formatSnippet(raw);
+        const code = pretty.includes("\n")
+          ? `<pre class="code"><code>${escCode(`${name} = ${pretty}`)}</code></pre>`
+          : `<code class="code">${escCode(`${name} = ${pretty}`)}</code>`;
+        return `<li>
+      ${code}
+      ${x.description ? `<div class="small">${bb(x.description)}</div>` : ""}
+    </li>`;
+      })
       .join("");
 
     const body = `
