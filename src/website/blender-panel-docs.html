@@ -8,28 +8,34 @@
     <link rel="stylesheet" href="./index.css">
     <style>
         .section {
-            background-color: #fff;
-
-            &.first-content {
-                padding-top: 0;
-            }
-
-            & > main {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: flex-start;
-                gap: 1em;
+            &.content-section {
+                background-color: #fff;
+                padding-top: 4em;
+                padding-bottom: 8em;
                 color: black;
-                font-family: sans-serif;
 
-                & a {
-                    color: #e28903;
-                    text-decoration: none;
+                & > header {
+                    & > .section-title {
+                        text-shadow: none;
+                    }
                 }
 
-                & .property-group {
-                    color: #444444;
+                & > main {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    gap: 1em;
+                    font-family: sans-serif;
+
+                    & a {
+                        color: #e28903;
+                        text-decoration: none;
+                    }
+
+                    & .property-group {
+                        color: #555555;
+                    }
                 }
             }
         }
@@ -62,7 +68,7 @@
         </div>
     </section>
     <section
-            class="section top-section"
+            class="section content-section"
     >
         <header>
             <div
@@ -71,16 +77,12 @@
                 Blender Panels
             </div>
         </header>
-    </section>
-    <section
-            class="section first-content"
-    >
         <main>
             ${ENGINE_FEATURE_DOCS}
         </main>
     </section>
     <section
-            class="section last"
+            class="section content-section"
     >
         <header>
             <div
