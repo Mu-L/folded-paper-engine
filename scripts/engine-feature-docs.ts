@@ -41,47 +41,84 @@ const EngineFeatureLegendLabelMap: Record<EngineFeatureLegendMapKeys, string> = 
   color: "Color",
   csv: "CSV",
 };
-const MDProp = ({label, type, description}: BlenderPanelPropertyProps) =>
-  `- ${label}: (${EngineFeatureLegendLabelMap[type as EngineFeatureLegendMapKeys]}) ${description}.`;
-const MDSection = ({label, properties}: BlenderPanelProps) => `### ${label}
+const PropertyGroupLabelMap: Record<string, string> = FoldedPaperEngineAddon.panels
+  .reduce((acc, {label, noPanel, name}) => {
+    return {
+      ...acc,
+      ...(noPanel ? {
+        [`${name}PropertyGroup`]: label,
+      } : {})
+    } as Record<string, string>;
+  }, {});
+const MDProp = ({label, type, subType, description}: BlenderPanelPropertyProps) => {
+  const subTypeText = type === "collection" || type === "object" ? ` of [${PropertyGroupLabelMap[subType as string] ?? "Unknown"}](<#${PropertyGroupLabelMap[subType as string] ?? "Unknown"}>)` : ""
+
+  return `- ${label}: (${EngineFeatureLegendLabelMap[type as EngineFeatureLegendMapKeys]}${subTypeText}) ${description}.`
+};
+const MDSection = ({
+                     label,
+                     properties
+                   }: BlenderPanelProps) => `### ${label}
 
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
-const EngineTemplateFilePath = Path.resolve(
-  __dirname,
-  ".",
-  "engine-feature-docs",
-  "engine.md"
-);
-const EngineOutputFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
+const IndexFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
+const BlenderPanelDocsFilePath = Path.resolve(__dirname, "..", "dist", "blender-panel-docs.html");
 const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
 const EngineFeatureLegendInsertionPoint = "${ENGINE_FEATURE_LEGEND}";
 const EngineFeatureDocs = FoldedPaperEngineAddon.panels
-  .map((p) => MDSection(p))
+  .sort((a, b) => {
+    if (a.noPanel && !b.noPanel) {
+      return 1;
+    } else if (!a.noPanel && b.noPanel) {
+      return -1;
+    } else {
+      return 0;
+    }
+  })
+  .map((p) => {
+    const {label, noPanel} = p;
+
+    return `<div id="${label}" class="${noPanel ? "property-group" : "panel"}">${marked(
+      MDSection(p),
+      {
+        async: false,
+      }
+    )}</div>`;
+  })
   .join("\n\n");
 const EngineFeatureLegend: string = Object.keys(EngineFeatureLegendMap).map(
   (k) => `- ${EngineFeatureLegendLabelMap[k as EngineFeatureLegendMapKeys]}: ${EngineFeatureLegendMap[k as EngineFeatureLegendMapKeys]}`
 ).join("\n");
-const EngineTemplate = FS.readFileSync(EngineTemplateFilePath, "utf8");
-const FullEngineDoc = EngineTemplate
-  .replace(
-    EngineFeatureDocsInsertionPoint,
-    EngineFeatureDocs,
-  ).replace(
-    EngineFeatureLegendInsertionPoint,
-    EngineFeatureLegend,
-  ).replace(
-    EngineVersionInsertionPoint,
-    VERSION,
-  );
 const exportHTML = async () => {
-  const FullEngineDocHTML = await marked(FullEngineDoc);
+  const IndexTemplate = FS.readFileSync(IndexFilePath, "utf8");
+  const EngineTemplate = FS.readFileSync(BlenderPanelDocsFilePath, "utf8");
+  const LegendHTML = await marked(EngineFeatureLegend);
+  const FullIndexHTML = IndexTemplate
+    .replace(
+      EngineVersionInsertionPoint,
+      VERSION,
+    );
+  const FullEngineDocHTML = EngineTemplate
+    .replace(
+      EngineFeatureDocsInsertionPoint,
+      EngineFeatureDocs,
+    )
+    .replace(
+      EngineFeatureLegendInsertionPoint,
+      LegendHTML,
+    )
+    .replace(
+      EngineVersionInsertionPoint,
+      VERSION,
+    );
 
-  FS.writeFileSync(EngineOutputFilePath, FullEngineDocHTML, "utf8");
+  FS.writeFileSync(IndexFilePath, FullIndexHTML, "utf8");
+  FS.writeFileSync(BlenderPanelDocsFilePath, FullEngineDocHTML, "utf8");
 };
 
 exportHTML()
   .then(
-    () => console.log("Exported engine docs to", EngineOutputFilePath),
+    () => console.log("Exported engine docs to", BlenderPanelDocsFilePath),
     (error) => console.error("Error exporting engine docs", error)
   );
