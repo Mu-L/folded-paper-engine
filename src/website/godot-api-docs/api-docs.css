@@ -1,0 +1,10 @@
+.api-input {
+    padding: 0.5em;
+    border-radius: 0.25em;
+    margin-bottom: 1em;
+}
+
+.api-input-reset {
+    font-size: 1em;
+    display: inline;
+}
