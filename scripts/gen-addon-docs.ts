@@ -185,20 +185,25 @@ async function main() {
   const indexBody = `
 <div class="api-card">
   <form class="api-index-header">
-    <input id="q" class="api-input" placeholder="Search…"/>
+    <input id="api-input" class="api-input" placeholder="Search…"/>
     <button type="reset" class="button blue api-input-reset">Clear</button>
   </form>
   <ul id="list" class="api-list" style="margin-top:10px">${items}</ul>
 </div>
 <script>
-  const q = document.getElementById('q');
-  const L = [...document.querySelectorAll('#list li')];
-  q.addEventListener('input', () => {
+  const inp = document.getElementsByClassName('api-input')[0];
+  const clearBtn = document.getElementsByClassName('api-input-reset')[0];
+  const list = [...document.querySelectorAll('#list li')];
+  const onInputChange = () => {
     const s = q.value.toLowerCase();
-    for (const li of L) {
+    
+    for (const li of list) {
       li.style.display = li.textContent.toLowerCase().includes(s) ? '' : 'none';
     }
-  });
+  };
+  
+  inp.addEventListener('input', onInputChange);
+  clearBtn.addEventListener('click', onInputChange);
 </script>`.trim();
 
   const indexHtml = await page("API Index", indexBody);
