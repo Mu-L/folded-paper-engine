@@ -56,6 +56,29 @@
                 <li>Click <code>Close</code>.</li>
                 <li>Restart Godot.</li>
             </ol>
+
+            <h3>Setup your Scene:</h3>
+            <ol>
+                <li>Create a new 3D Scene.</li>
+                <li>Right click on the base node in your new Scene and select <code>Add Child Node...</code>.</li>
+                <li>Search for and add a <code>WorldEnvironment</code>.</li>
+                <li>Add another child node, search for and add a <code>FoldedPaperEngine</code> node.</li>
+                <li>Select the <code>FoldedPaperEngine</code> node in the Scene tree.</li>
+                <li>In the <code>Inspector</code> panel on the right side of the editor, click the document icon next to
+                    the <code>Path</code> property.
+                </li>
+                <li>Find and select your <code>GLB/GLTF</code> file.</li>
+                <li>Click <code>Open</code>.</li>
+                <li>Next to the <code>Environment</code> property, click <code>Assign...</code>.</li>
+                <li>Select your <code>WorldEnvironment</code> and click <code>OK</code>.</li>
+                <li>You may want to add some lighting, like a <code>DirectionalLight3D</code> so that you can see what's
+                    in your Scene.
+                </li>
+                <li><strong>CONGRATS!</strong> You can now run your game! (Controllers and
+                    <key>WASD</key>
+                    keys will control your Player.)
+                </li>
+            </ol>
         </main>
     </section>
 </main>
