@@ -8,15 +8,6 @@
     <link rel="stylesheet" href="./index.css">
     <style>
         .section {
-            background-color: #ffedbd;
-
-            & > header {
-                & > .section-title {
-                    color: #9fb837;
-                    text-shadow: none;
-                }
-            }
-
             & > main {
                 display: flex;
                 flex-direction: column;
@@ -34,10 +25,6 @@
                 & .property-group {
                     color: #777777;
                 }
-            }
-
-            &.last {
-                padding-bottom: 8em;
             }
         }
     </style>
@@ -69,7 +56,7 @@
         </div>
     </section>
     <section
-            class="section"
+            class="section top-section"
     >
         <header>
             <div
@@ -78,6 +65,10 @@
                 Blender Panels
             </div>
         </header>
+    </section>
+    <section
+            class="section"
+    >
         <main>
             ${ENGINE_FEATURE_DOCS}
         </main>
