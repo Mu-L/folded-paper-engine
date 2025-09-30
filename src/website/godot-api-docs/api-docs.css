@@ -8,3 +8,8 @@
     font-size: 1em;
     display: inline;
 }
+
+.code {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
