@@ -10,12 +10,15 @@
         .section {
             &.content-section {
                 background-color: #fff;
-                padding-top: 4em;
-                padding-bottom: 8em;
                 color: black;
+
+                &.last {
+                    padding-bottom: 8em;
+                }
 
                 & > header {
                     & > .section-title {
+                        color: black;
                         text-shadow: none;
                     }
                 }
@@ -82,7 +85,7 @@
         </main>
     </section>
     <section
-            class="section content-section"
+            class="section content-section last"
     >
         <header>
             <div
