@@ -82,27 +82,36 @@
         </header>
         <main>
             <h3>Install the Blender Addon to get started:</h3>
-            Go to `Edit > Preferences > Add-ons` and then click the down arrow `ˇ` in the upper right.
-            Click `Install` and select the `Folded Paper Engine` Blender addon zip file.
+            Go to <code>Edit &gt; Preferences &gt; Add-ons</code> and then click the down arrow <code>ˇ</code> in the
+            upper right.
+            Click <code>Install</code> and select the <code>Folded Paper Engine</code> Blender addon zip file.
             Then restart Blender.
+
             <h3>Create some ground to stand on:</h3>
             Once back in Blender, add a Mesh Cube to the scene.
-            Make it a static body for Godot by simply adding `-col` to the end of the name.
+            Make it a static body for Godot by simply adding <code>-col</code> to the end of the name.
             This is something Godot already supports in Blender exports.
-            See all the options here: <a href="https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html" target="_blank">https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html</a>
-            <h3> Make a basic player object with Folded Paper Engine:</h3>
+            See all the options here: <a
+                href="https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html"
+                target="_blank">https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html</a>
+
+            <h3>Make a basic player object with Folded Paper Engine:</h3>
             Make a new mesh object. A sphere should be just fine to start with.
-            Select the Sphere and press `N` to open the viewport properties panel.
-            Make sure you are on the `Item` tab.
-            Under the Folded Paper Engine section in the `Item` tab, check the box that says `Player`.
+            Select the Sphere and press <code>N</code> to open the viewport properties panel.
+            Make sure you are on the <code>Item</code> tab.
+            Under the Folded Paper Engine section in the <code>Item</code> tab, check the box that says
+            <code>Player</code>.
             <strong>CONGRATS!</strong> You now have a player!
+
             <h3>Export a GLB/GLTF for use with Godot:</h3>
-            Under `File > Export` choose `glTF`.
-            Check the box that says `Remember Export Settings`. (You'll thank me later 😊)
-            Click the down arrow `ˇ` next to `Include` and check the box that says `Custom Properties`.
-            Optionally check the boxes for `Cameras` and `Punctual Lights` if exporting cameras and lights.
+            Under <code>File &gt; Export</code> choose <code>glTF</code>.
+            Check the box that says <code>Remember Export Settings</code>. (You'll thank me later 😊)
+            Click the down arrow <code>ˇ</code> next to <code>Include</code> and check the box that says <code>Custom
+            Properties</code>.
+            Optionally check the boxes for <code>Cameras</code> and <code>Punctual Lights</code> if exporting cameras
+            and lights.
             Give your file a name and select a location inside your Godot project folder.
-            Click `Export`.
+            Click <code>Export</code>.
             You now have a file that's ready to be used by Folded Paper Engine in Godot!
             See how to get your file setup in godot <a href="./godot-feature-docs.html">here</a>.
         </main>
