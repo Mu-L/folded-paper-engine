@@ -91,7 +91,7 @@ async function page(title: string, body: string, extraHead = ""): Promise<string
 // --- main --------------------------------------------------------------------
 
 async function main() {
-  await fse.emptyDir(OUTPUT_DIR);
+  await fse.ensureDir(OUTPUT_DIR);
 
   const files = await listXml(XML_DIR);
   const parser = new XMLParser({
