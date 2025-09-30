@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="./index.css">
     <style>
         .section {
+            background-color: #fff;
+
+            &.first-content {
+                padding-top: 0;
+            }
+
             & > main {
                 display: flex;
                 flex-direction: column;
@@ -18,12 +24,12 @@
                 font-family: sans-serif;
 
                 & a {
-                    color: #9fb837;
+                    color: #e28903;
                     text-decoration: none;
                 }
 
                 & .property-group {
-                    color: #777777;
+                    color: #444444;
                 }
             }
         }
@@ -67,7 +73,7 @@
         </header>
     </section>
     <section
-            class="section"
+            class="section first-content"
     >
         <main>
             ${ENGINE_FEATURE_DOCS}
