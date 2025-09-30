@@ -185,7 +185,7 @@ async function main() {
   const indexBody = `
 <div class="api-card">
   <div class="api-index-header">
-    <input id="q" class="api-input" placeholder="Search classes…" autofocus/>
+    <input id="q" class="api-input" placeholder="Search…"/>
   </div>
   <ul id="list" class="api-list" style="margin-top:10px">${items}</ul>
 </div>
