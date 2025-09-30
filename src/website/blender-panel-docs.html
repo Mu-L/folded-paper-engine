@@ -71,6 +71,37 @@
         </div>
     </section>
     <section
+            class="section top-section"
+    >
+        <header>
+            <div
+                    class="section-title"
+            >
+                Quick Start Guide
+            </div>
+        </header>
+        <main>
+            <h3>Install the Blender Addon to get started:</h3>
+            Go to `Edit > Preferences > Add-ons` and then click the down arrow `ˇ` in the upper right.
+            Click `Install` and select the `Folded Paper Engine` Blender addon zip file.
+            Then restart Blender.
+            <h3>Create some ground to stand on:</h3>
+            Once back in Blender, add a Mesh Cube to the scene.
+            Make it a static body for Godot by simply adding `-col` to the end of the name.
+            This is something Godot already supports in Blender exports.
+            See all the options here: <a href="https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html" target="_blank">https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html</a>
+            <h3> Make a basic player object with Folded Paper Engine:</h3>
+            Make a new mesh object. A sphere should be just fine to start with.
+            Select the Sphere and press `N` to open the viewport properties panel.
+            Make sure you are on the `Item` tab.
+            Under the Folded Paper Engine section in the `Item` tab, check the box that says `Player`.
+            <strong>CONGRATS!</strong> You now have a player!
+            <h3>Export a GLB/GLTF for use with Godot:</h3>
+            Under `File > Export` choose `glTF`.
+            
+        </main>
+    </section>
+    <section
             class="section content-section"
     >
         <header>
