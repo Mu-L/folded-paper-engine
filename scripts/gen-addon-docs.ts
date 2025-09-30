@@ -34,16 +34,67 @@ async function listXml(dir: string): Promise<string[]> {
 }
 
 function esc(s = ""): string {
-  return s.replace(
-    /[&<>"']/g,
-    c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]!)
-  );
+  return s.replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]!));
 }
+
+// --- pretty code -------------------------------------------------------------
+
+function tryJsonPretty(s: string): string {
+  let out = s;
+  try {
+    const parsed = JSON.parse(s);
+    out = JSON.stringify(parsed, null, 2);
+  } catch {
+    out = s;
+  }
+  return out;
+}
+
+function prettyGodotContainer(s: string): string {
+  const t = s.trim();
+
+  let inner = "";
+  let dictMatch = t.match(/^Dictionary\[[^\]]*\]\s*\(\s*(\{[\s\S]*\})\s*\)\s*$/);
+  if (dictMatch) {
+    inner = dictMatch[1];
+  } else {
+    let arrMatch = t.match(/^Array\[[^\]]*\]\s*\(\s*(\[[\s\S]*\])\s*\)\s*$/);
+    if (arrMatch) {
+      inner = arrMatch[1];
+    }
+  }
+
+  let out = t;
+  if (inner) {
+    out = tryJsonPretty(inner);
+  } else if (/^\s*[\[{][\s\S]*[\]}]\s*$/.test(t)) {
+    out = tryJsonPretty(t);
+  } else {
+    out = t
+      .replace(/([{\[])\s*/g, "$1\n")
+      .replace(/\s*([}\]])/g, "\n$1")
+      .replace(/,\s*/g, ",\n")
+      .replace(/\n{2,}/g, "\n");
+  }
+
+  return out;
+}
+
+function formatSnippet(raw = ""): string {
+  const t = raw.trim();
+  let out = raw;
+  if (t.length > 0) {
+    out = prettyGodotContainer(t);
+  }
+  return out;
+}
+
+// --- bbcode -> html ----------------------------------------------------------
 
 function bb(s = ""): string {
   return s
-    .replace(/\[codeblock\]([\s\S]*?)\[\/codeblock\]/g, (_, g) => `<pre class="code"><code>${esc(g)}</code></pre>`)
-    .replace(/\[code\]([\s\S]*?)\[\/code\]/g, (_, g) => `<code class="code">${esc(g)}</code>`)
+    .replace(/\[codeblock\]([\s\S]*?)\[\/codeblock\]/g, (_m, g) => `<pre class="code"><code>${esc(formatSnippet(g))}</code></pre>`)
+    .replace(/\[code\]([\s\S]*?)\[\/code\]/g, (_m, g) => `<code class="code">${esc(formatSnippet(g))}</code>`)
     .replace(/\[b\]([\s\S]*?)\[\/b\]/g, "<strong>$1</strong>")
     .replace(/\[i\]([\s\S]*?)\[\/i\]/g, "<em>$1</em>")
     .replace(/\[br\]/g, "<br/>")
@@ -80,7 +131,7 @@ async function loadTemplate(): Promise<string> {
 }
 
 function renderTemplate(tpl: string, data: Record<string, string>): string {
-  return tpl.replace(/{{\s*([A-Z_]+)\s*}}/g, (_, k) => data[k] ?? "");
+  return tpl.replace(/{{\s*([A-Z_]+)\s*}}/g, (_m, k) => data[k] ?? "");
 }
 
 async function page(title: string, body: string, extraHead = ""): Promise<string> {
@@ -194,23 +245,21 @@ async function main() {
   const inp = document.getElementsByClassName('api-input')[0];
   const clearBtn = document.getElementsByClassName('api-input-reset')[0];
   const list = [...document.querySelectorAll('#list li')];
-  const onInputChange = () => {
+
+  function filterList() {
     const s = inp.value.toLowerCase();
-    
     for (const li of list) {
       li.style.display = li.textContent.toLowerCase().includes(s) ? '' : 'none';
     }
-  };
-  const onClear = () => {
-    const s = "";
-    
-    for (const li of list) {
-      li.style.display = li.textContent.toLowerCase().includes(s) ? '' : 'none';
-    }
-  };
-  
-  inp.addEventListener('input', onInputChange);
-  clearBtn.addEventListener('click', onClear);
+  }
+
+  function resetList(ev) {
+    // allow the form reset to clear the input, then filter
+    setTimeout(filterList, 0);
+  }
+
+  inp.addEventListener('input', filterList);
+  clearBtn.addEventListener('click', resetList);
 </script>`.trim();
 
   const indexHtml = await page("API Index", indexBody);
