@@ -169,7 +169,7 @@ body {
         }
 
         @media screen and (max-width: 768px) {
-            & > .web-splash-img {
+            & > .index-web-splash {
                 opacity: 0;
             }
 
