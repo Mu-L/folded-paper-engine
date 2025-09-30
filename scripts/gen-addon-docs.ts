@@ -195,7 +195,14 @@ async function main() {
   const clearBtn = document.getElementsByClassName('api-input-reset')[0];
   const list = [...document.querySelectorAll('#list li')];
   const onInputChange = () => {
-    const s = q.value.toLowerCase();
+    const s = inp.value.toLowerCase();
+    
+    for (const li of list) {
+      li.style.display = li.textContent.toLowerCase().includes(s) ? '' : 'none';
+    }
+  };
+  const onClear = () => {
+    const s = "";
     
     for (const li of list) {
       li.style.display = li.textContent.toLowerCase().includes(s) ? '' : 'none';
@@ -203,7 +210,7 @@ async function main() {
   };
   
   inp.addEventListener('input', onInputChange);
-  clearBtn.addEventListener('click', onInputChange);
+  clearBtn.addEventListener('click', onClear);
 </script>`.trim();
 
   const indexHtml = await page("API Index", indexBody);
