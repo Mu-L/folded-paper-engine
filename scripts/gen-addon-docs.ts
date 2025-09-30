@@ -37,6 +37,11 @@ function esc(s = ""): string {
   return s.replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]!));
 }
 
+function escCode(s = ""): string {
+  // Escape HTML meta characters but leave newlines untouched
+  return s.replace(/[&<>]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]!));
+}
+
 // --- pretty code -------------------------------------------------------------
 
 function tryJsonPretty(s: string): string {
@@ -93,8 +98,10 @@ function formatSnippet(raw = ""): string {
 
 function bb(s = ""): string {
   return s
-    .replace(/\[codeblock\]([\s\S]*?)\[\/codeblock\]/g, (_m, g) => `<pre class="code"><code>${esc(formatSnippet(g))}</code></pre>`)
-    .replace(/\[code\]([\s\S]*?)\[\/code\]/g, (_m, g) => `<code class="code">${esc(formatSnippet(g))}</code>`)
+    .replace(/\[codeblock\]([\s\S]*?)\[\/codeblock\]/g,
+      (_m, g) => `<pre class="code"><code>${escCode(formatSnippet(g))}</code></pre>`)
+    .replace(/\[code\]([\s\S]*?)\[\/code\]/g,
+      (_m, g) => `<code class="code">${escCode(formatSnippet(g))}</code>`)
     .replace(/\[b\]([\s\S]*?)\[\/b\]/g, "<strong>$1</strong>")
     .replace(/\[i\]([\s\S]*?)\[\/i\]/g, "<em>$1</em>")
     .replace(/\[br\]/g, "<br/>")
