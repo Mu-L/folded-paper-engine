@@ -1,6 +1,6 @@
 class_name FrameEventRunner extends Node
 
-const FRAME_TOLERANCE: float = 1.5  # 1 frame tolerance
+const FRAME_TOLERANCE: float = 1.5  # 1.5 frames tolerance
 
 var FEATURE_UTILS: FeatureUtils
 
