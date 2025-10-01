@@ -1,5 +1,4 @@
 
-
 .section {
     &.content-section {
         background-color: #fff;
@@ -23,6 +22,7 @@
             justify-content: flex-start;
             gap: 1em;
             font-family: sans-serif;
+            word-break: break-word;
 
             & a {
                 color: #e28903;
