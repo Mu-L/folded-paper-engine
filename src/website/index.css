@@ -135,24 +135,23 @@ body {
 
     & > .web-splash-inner {
         position: relative;
-        background: url('./web-splash-bg.png') center center no-repeat;
-        background-size: cover;
+
+        &.base-background {
+            background: url('./web-splash-bg.png') center center no-repeat;
+            background-size: cover;
+            aspect-ratio: 27 / 10;
+        }
 
         /* size box: 1080×400 target, shrink on narrow screens */
         width: min(100dvw, 1080px);
-        aspect-ratio: 27 / 10;
         margin: 0 auto;
         overflow: hidden;
 
         /* Godot canvas fills this box */
 
         & > canvas.godot-canvas {
-            position: absolute;
-            inset: 0;
             width: 100%;
             height: 100%;
-            display: block;
-            z-index: 0;
         }
 
         /* frame overlay above canvas (hidden at runtime by JS) */
