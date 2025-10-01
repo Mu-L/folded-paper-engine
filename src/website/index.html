@@ -15,8 +15,6 @@
     <style>
         .web-splash {
             & > .web-splash-inner {
-                background: url('./web-splash-bg.png') center / cover no-repeat;
-
                 &.web-splash-loading {
                     --stripe: 15px;
                     --tile-ratio: calc(2 / cos(45deg));
@@ -31,6 +29,16 @@
                     );
                     background-size: calc(var(--stripe) * var(--tile-ratio)) calc(var(--stripe) * var(--tile-ratio));
                     animation: web-splash-candy var(--speed) linear infinite;
+                }
+
+                & > .demo-fs-div {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2em;
+                    font-size: 0.5em;
+                    background-color: #e28903;
                 }
             }
         }
@@ -64,7 +72,6 @@
         fsDiv.classList.add("demo-fs-div");
         fsBtn.classList.add("demo-fs-btn");
         fsBtn.classList.add("button");
-        fsBtn.classList.add("blue");
         fsBtn.innerText = "Full Screen";
         fsDiv.append(fsBtn);
 
@@ -82,6 +89,7 @@
         webSplashInner.classList.remove('web-splash-loading');
         webSplashInner.classList.remove('base-background');
         webSplashInner.appendChild(fsDiv);
+        fsBtn.addEventListener("click", fullscreenDemoGame);
       };
 
       demoButton.addEventListener('click', loadDemoGame);
