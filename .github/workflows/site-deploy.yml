@@ -102,7 +102,7 @@ jobs:
             --gdscript-docs res://addons/folded_paper_engine
 
       - name: Convert Addon Docs XML → HTML
-        run: yarn deploy-godot-addon-docs
+        run: yarn deploy-docs
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4

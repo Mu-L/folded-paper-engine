@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Folded Paper Engine",
   "scripts": {
-    "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME && yarn deploy-docs",
+    "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME",
     "deploy-docs": "yarn deploy-blender-addon-docs && yarn deploy-godot-addon-docs",
     "deploy-blender-addon": "ts-node ./scripts/blender-addon.ts",
     "deploy-blender-addon-docs": "ts-node ./scripts/engine-feature-docs.ts",
