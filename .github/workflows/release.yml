@@ -1,0 +1,59 @@
+name: Release (build zips + update version)
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 18 }
+
+      - name: Export VERSION from tag
+        run: |
+          V="${{ github.event.release.tag_name }}"
+          V="${V#v}"
+          echo "VERSION=$V" >> $GITHUB_ENV
+          echo "Using VERSION=$V"
+
+      - name: Install deps
+        run: yarn
+
+      # Build only the add-on artifacts (no website)
+      - name: Make dist
+      - run: mkdir -p dist
+      - name: Build Blender add-on ZIP
+        run: yarn deploy-addon
+      - name: Build Godot add-on ZIP
+        run: yarn deploy-godot-addon
+
+      # Attach zips to the release
+      - name: Upload ZIPs to release
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" dist/*.zip --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Update the dedicated `version` branch using your PAT
+      - name: Update VERSION.txt on version branch
+        env:
+          PAT: ${{ secrets.RELEASE_PAT }}
+        run: |
+          set -euo pipefail
+          git config user.name "fpe-release-bot"
+          git config user.email "fpe-release-bot@users.noreply.github.com"
+          git fetch origin version
+          git switch --detach origin/version
+          printf "%s\n" "$VERSION" > VERSION.txt
+          git add VERSION.txt
+          git commit -m "Set VERSION $VERSION"
+          git branch -f version
+          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}"
+          git push -f origin version
