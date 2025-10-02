@@ -28,7 +28,7 @@ jobs:
 
       # Build only the add-on artifacts (no website)
       - name: Make dist
-      - run: mkdir -p dist
+        run: mkdir -p dist
       - name: Build Blender add-on ZIP
         run: yarn deploy-blender-addon
       - name: Build Godot add-on ZIP
