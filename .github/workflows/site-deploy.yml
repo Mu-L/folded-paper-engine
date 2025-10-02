@@ -2,7 +2,7 @@ name: Site Deploy (gh-pages)
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -53,12 +53,18 @@ jobs:
       - name: Install Blender 4.5
         if: steps.cache-blender.outputs.cache-hit != 'true'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
+          set -euo pipefail
           mkdir -p ~/.cache/blender ~/.local/bin
-          wget -q https://download.blender.org/release/Blender4.5/blender-4.5.0-linux-x64.tar.xz -O /tmp/blender.tar.xz
-          tar -xf /tmp/blender.tar.xz -C ~/.cache/blender
-          ln -s ~/.cache/blender/blender-4.5.0-linux-x64/blender ~/.local/bin/blender
+          if [ ! -x ~/.cache/blender/blender-4.5.0-linux-x64/blender ]; then
+            sudo apt-get update
+            sudo apt-get install -y wget xz-utils
+            wget -q https://download.blender.org/release/Blender4.5/blender-4.5.0-linux-x64.tar.xz -O /tmp/blender.tar.xz
+            tar -xf /tmp/blender.tar.xz -C ~/.cache/blender
+            chmod +x ~/.cache/blender/blender-4.5.0-linux-x64/blender
+          fi
+
+          # Make symlink creation safe if it already exists
+          ln -sfn ~/.cache/blender/blender-4.5.0-linux-x64/blender ~/.local/bin/blender
 
       - name: Install Godot 4.5 + templates
         if: steps.cache-godot.outputs.cache-hit != 'true'
