@@ -16,27 +16,6 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
 
-      - name: Who am I (PAT identity)
-        env:
-          PAT: ${{ secrets.RELEASE_PAT }}
-        run: |
-          set -e
-          curl -s -H "Authorization: token ${PAT}" https://api.github.com/user | jq '{login, id, type}'
-
-      - name: Dump branch protection (classic)
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_PAT }}
-        run: |
-          set -e
-          gh api repos/${{ github.repository }}/branches/version/protection || true
-
-      - name: Dump repository rulesets
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_PAT }}
-        run: |
-          set -e
-          gh api repos/${{ github.repository }}/rulesets --paginate | jq '.[] | {name, enforcement, target: .bypass_actors, conditions: .conditions}'
-
       - name: Export VERSION from tag
         run: |
           V="${{ github.event.release.tag_name }}"
@@ -61,20 +40,3 @@ jobs:
           gh release upload "${{ github.event.release.tag_name }}" dist/*.zip --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Update the dedicated `version` branch using your PAT
-      - name: Update VERSION.txt on version branch
-        env:
-          PAT: ${{ secrets.RELEASE_PAT }}
-        run: |
-          set -euo pipefail
-          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}"
-          git fetch origin version
-          git switch --detach origin/version
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          printf "%s\n" "$VERSION" > VERSION.txt
-          git add VERSION.txt
-          git commit -m "Set VERSION $VERSION"
-          # Fast-forward push; honors 'block force pushes'
-          git push origin HEAD:version
