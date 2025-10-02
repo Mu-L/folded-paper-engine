@@ -2,7 +2,9 @@ name: Site Deploy (gh-pages)
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - version   # redeploy site when VERSION.txt changes
   workflow_dispatch:
 
 permissions:
