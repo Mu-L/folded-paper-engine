@@ -68,6 +68,10 @@
 
 .spacer {
     flex: 1 1 auto;
+
+    &.section-spacer {
+        height: 8em;
+    }
 }
 
 html,
