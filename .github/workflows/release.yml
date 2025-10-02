@@ -16,14 +16,6 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
 
-      - name: Who am I (debug)
-        env:
-          PAT: ${{ secrets.RELEASE_PAT }}
-        run: |
-          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}"
-          git ls-remote --heads origin version >/dev/null
-          echo "Pushing as: $(git config user.name) <$(git config user.email)>"
-
       - name: Export VERSION from tag
         run: |
           V="${{ github.event.release.tag_name }}"
@@ -55,13 +47,19 @@ jobs:
           PAT: ${{ secrets.RELEASE_PAT }}
         run: |
           set -euo pipefail
-          git config user.name "fpe-release-bot"
-          git config user.email "fpe-release-bot@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}"
+
+          # fetch branch tip
           git fetch origin version
           git switch --detach origin/version
+
+          # author can be anything; perms come from PAT owner
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
           printf "%s\n" "$VERSION" > VERSION.txt
           git add VERSION.txt
           git commit -m "Set VERSION $VERSION"
-          git branch -f version
-          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}"
-          git push -f origin version
+
+          # push WITHOUT force (respects 'Block force pushes')
+          git push origin HEAD:version
