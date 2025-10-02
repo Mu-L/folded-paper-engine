@@ -5,24 +5,12 @@ export type VersionInfo = {
 };
 
 export const getVersion = (): string => {
-  const v = process.env.VERSION ?? "1.0.0";
-
-  return v.replace(/[a-zA-Z]/gmi, "");
+  // CI always sets VERSION from the version branch
+  return (process.env.VERSION ?? "0.0.0").trim().replace(/^v/i, "");
 };
 
 export const getVersionInfo = (): VersionInfo => {
-  const v = getVersion();
-  const [major, minor, patch] = v.split(".");
-  const majorClean: string = major.replace(/[a-zA-Z]/gmi, "");
-  const minorClean: string = minor.replace(/[a-zA-Z]/gmi, "");
-  const patchClean: string = patch.replace(/[a-zA-Z]/gmi, "");
-  const majorInt = parseInt(majorClean);
-  const minorInt = parseInt(minorClean);
-  const patchInt = parseInt(patchClean);
-
-  return {
-    major: majorInt,
-    minor: minorInt,
-    patch: patchInt,
-  };
+  const [maj = "0", min = "0", pat = "0"] = getVersion().split(".");
+  const n = (s: string) => parseInt((s || "0").replace(/\D/g, "") || "0", 10);
+  return {major: n(maj), minor: n(min), patch: n(pat)};
 };
