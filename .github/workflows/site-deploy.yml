@@ -1,57 +1,39 @@
-name: Build and Deploy
+name: Site Deploy (gh-pages)
 
 on:
-  release:
-    types: [ published ]
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
-    concurrency: ci-${{ github.ref }}
+  site:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      - uses: actions/setup-node@v4
+        with: { node-version: 18 }
 
-      - name: Export VERSION (tag/release or CI fallback)
-        id: version
-        shell: bash
+      - name: Read VERSION from version branch
         run: |
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            v="${{ github.event.release.tag_name }}"
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            v="${GITHUB_REF_NAME}"
-          else
-            short_sha="$(echo "${GITHUB_SHA}" | cut -c1-7)"
-            v="0.0.0-dev.${GITHUB_RUN_NUMBER}+${short_sha}"
-          fi
-          v="${v#v}"
-          echo "VERSION=$v" | tee -a "$GITHUB_ENV"
-          echo "version=$v" >> "$GITHUB_OUTPUT"
+          git fetch --no-tags --depth=1 origin version
+          V=$(git show origin/version:VERSION.txt)
+          echo "VERSION=$V" >> $GITHUB_ENV
+          echo "Using VERSION=$V"
 
-      - name: Validate semver-ish
-        shell: bash
-        run: |
-          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]] || { echo "Bad VERSION: $VERSION"; exit 1; }
-          echo "Using VERSION=$VERSION"
+      - name: Install deps
+        run: yarn
 
-      - name: Install and Build 🔧
-        run: |
-          yarn
-          yarn deploy
+      # Build website + docs (no need to package ZIPs here)
+      - name: Build website
+        run: yarn deploy-website
 
-      - name: Cache Godot 🎮
-        id: cache-godot
+      # Godot bits (same as your current flow) — keeps demo + docs fresh
+      - name: Cache Godot
         uses: actions/cache@v4
         with:
           path: |
@@ -60,8 +42,7 @@ jobs:
             ~/.local/bin/godot
           key: godot-4.5-${{ runner.os }}
 
-      - name: Cache Blender 🖌️
-        id: cache-blender
+      - name: Cache Blender
         uses: actions/cache@v4
         with:
           path: |
@@ -69,7 +50,7 @@ jobs:
             ~/.local/bin/blender
           key: blender-4.5-${{ runner.os }}
 
-      - name: Install Blender 4.5 🖌️
+      - name: Install Blender 4.5
         if: steps.cache-blender.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
@@ -79,7 +60,7 @@ jobs:
           tar -xf /tmp/blender.tar.xz -C ~/.cache/blender
           ln -s ~/.cache/blender/blender-4.5.0-linux-x64/blender ~/.local/bin/blender
 
-      - name: Install Godot 4.5 + templates 🎮
+      - name: Install Godot 4.5 + templates
         if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
           mkdir -p ~/.local/bin ~/.local/share/godot/export_templates/4.5.stable
@@ -90,24 +71,21 @@ jobs:
           wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_export_templates.tpz -O /tmp/templates.tpz
           unzip -q /tmp/templates.tpz -d /tmp/templates
           mv /tmp/templates/templates/* ~/.local/share/godot/export_templates/4.5.stable/
-          rm -rf /tmp/templates /tmp/*.zip /tmp/*.tpz
 
-      - name: Configure Godot Blender path 🛠️
+      - name: Configure Godot Blender path
         run: |
           mkdir -p ~/.config/godot
           cat > ~/.config/godot/editor_settings-4.tres <<'EOF'
           [gd_resource type="EditorSettings" format=3]
-
           [resource]
           filesystem/import/blender/blender3_path = "/home/runner/.local/bin/blender"
           filesystem/import/blender/blender_path = "/home/runner/.local/bin/blender"
           EOF
 
-      - name: Export Godot Web Demo 🕹️
+      - name: Export Godot Web Demo
         run: |
           mkdir -p dist/demo-game
-          ~/.local/bin/godot --headless --path src/Game \
-            --export-release "Web" ../../dist/demo-game/index.html
+          ~/.local/bin/godot --headless --path src/Game --export-release "Web" ../../dist/demo-game/index.html
 
       - name: Generate Addon Docs (XML)
         run: |
@@ -120,7 +98,7 @@ jobs:
       - name: Convert Addon Docs XML → HTML
         run: yarn deploy-godot-addon-docs
 
-      - name: Deploy 🚀
+      - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
