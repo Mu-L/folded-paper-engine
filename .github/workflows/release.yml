@@ -16,6 +16,13 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
 
+      - name: Who am I (debug)
+        env: { PAT: ${ { secrets.RELEASE_PAT } } }
+        run: |
+          git remote set-url origin "https://x-access-token:${PAT}@github.com/${{ github.repository }}"
+          git ls-remote --heads origin version >/dev/null
+          echo "Pushing as: $(git config user.name) <$(git config user.email)>"      
+
       - name: Export VERSION from tag
         run: |
           V="${{ github.event.release.tag_name }}"
