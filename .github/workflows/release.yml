@@ -2,7 +2,7 @@ name: Release (build zips + update version)
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 permissions:
   contents: write
@@ -30,7 +30,7 @@ jobs:
       - name: Make dist
       - run: mkdir -p dist
       - name: Build Blender add-on ZIP
-        run: yarn deploy-addon
+        run: yarn deploy-blender-addon
       - name: Build Godot add-on ZIP
         run: yarn deploy-godot-addon
 

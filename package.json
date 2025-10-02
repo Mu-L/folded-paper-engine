@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Folded Paper Engine",
   "scripts": {
-    "deploy": "yarn deploy-website && yarn deploy-addon && yarn deploy-godot-addon && yarn engine-feature-docs",
-    "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME",
-    "deploy-addon": "ts-node ./scripts/blender-addon.ts",
+    "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME && yarn deploy-docs",
+    "deploy-docs": "yarn deploy-blender-addon-docs && yarn deploy-godot-addon-docs",
+    "deploy-blender-addon": "ts-node ./scripts/blender-addon.ts",
+    "deploy-blender-addon-docs": "ts-node ./scripts/engine-feature-docs.ts",
     "deploy-godot-addon": "ts-node ./scripts/godot-addon.ts",
-    "deploy-godot-addon-docs": "ts-node ./scripts/gen-addon-docs.ts",
-    "engine-feature-docs": "ts-node ./scripts/engine-feature-docs.ts"
+    "deploy-godot-addon-docs": "ts-node ./scripts/gen-addon-docs.ts"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",
