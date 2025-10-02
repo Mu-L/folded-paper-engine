@@ -40,7 +40,7 @@ jobs:
             ~/.local/share/godot
             ~/.config/godot
             ~/.local/bin/godot
-          key: godot-4.5-${{ runner.os }}
+          key: godot-4.5-stable-${{ runner.os }}
 
       - name: Cache Blender
         uses: actions/cache@v4
@@ -48,7 +48,7 @@ jobs:
           path: |
             ~/.cache/blender
             ~/.local/bin/blender
-          key: blender-4.5-${{ runner.os }}
+          key: blender-4.5.0-${{ runner.os }}
 
       - name: Install Blender 4.5
         if: steps.cache-blender.outputs.cache-hit != 'true'
@@ -69,14 +69,25 @@ jobs:
       - name: Install Godot 4.5 + templates
         if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
-          mkdir -p ~/.local/bin ~/.local/share/godot/export_templates/4.5.stable
-          wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_linux.x86_64.zip -O /tmp/godot.zip
-          unzip -q /tmp/godot.zip -d ~/.local/bin
-          mv ~/.local/bin/Godot_v4.5-stable_linux.x86_64 ~/.local/bin/godot
-          chmod +x ~/.local/bin/godot
-          wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_export_templates.tpz -O /tmp/templates.tpz
-          unzip -q /tmp/templates.tpz -d /tmp/templates
-          mv /tmp/templates/templates/* ~/.local/share/godot/export_templates/4.5.stable/
+          set -euo pipefail
+          GODOT_BIN="$HOME/.local/bin/godot"
+          TEMPLATES_DIR="$HOME/.local/share/godot/export_templates/4.5.stable"
+
+          mkdir -p "$(dirname "$GODOT_BIN")" "$TEMPLATES_DIR"
+
+          if [ ! -x "$GODOT_BIN" ]; then
+            wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_linux.x86_64.zip -O /tmp/godot.zip
+            unzip -q /tmp/godot.zip -d "$HOME/.local/bin"
+            mv "$HOME/.local/bin/Godot_v4.5-stable_linux.x86_64" "$GODOT_BIN"
+            chmod +x "$GODOT_BIN"
+          fi
+
+          if [ ! -f "$TEMPLATES_DIR/web_nothreads_release.zip" ]; then
+            wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_export_templates.tpz -O /tmp/templates.tpz
+            rm -rf /tmp/templates && mkdir -p /tmp/templates
+            unzip -q /tmp/templates.tpz -d /tmp/templates
+            cp -a /tmp/templates/templates/* "$TEMPLATES_DIR"/
+          fi
 
       - name: Configure Godot Blender path
         run: |
