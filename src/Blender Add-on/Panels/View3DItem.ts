@@ -15,7 +15,7 @@ export const View3DItem: BlenderPanelProps = {
       name: "Player",
       label: "Player",
       type: "boolean",
-      description: "Create a player. IMPORTANT: A player should be about 1 meter tall.",
+      description: "Create a player. IMPORTANT: A player should be about 1 meter tall",
       defaultValue: "False",
     },
     {
