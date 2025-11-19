@@ -45,7 +45,13 @@ func _exit_tree() -> void:
 	Input.mouse_mode = _previous_mouse_mode
 
 func set_device_proxy(device_proxy: DeviceProxy) -> void:
+	if DEVICE_PROXY and DEVICE_PROXY.get_parent() == self:
+		remove_child(DEVICE_PROXY)
+	
 	DEVICE_PROXY = device_proxy
+	
+	if DEVICE_PROXY and DEVICE_PROXY.get_parent() == null:
+		add_child(DEVICE_PROXY)
 
 func _setup() -> void:
 	var shape: Shape3D
