@@ -1,0 +1,96 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                UI, Cursors, and On-Screen Options
+                <div class="section-subtitle">Creator-friendly crosshairs, menu options, and prompts</div>
+            </div>
+        </header>
+        <main>
+            <h2>Mark a UI Element in Blender</h2>
+            <ol>
+                <li>Select the mesh you want to use as a cursor or clickable option.</li>
+                <li>Open the <strong>UI Element</strong> panel and choose either <strong>UI Cursor</strong> or <strong>UI Option</strong>. These are the only behaviors UI Elements provide.</li>
+                <li>Keep the object in view with your camera framing—UI Elements do not auto-anchor to the screen, so plan your camera rigs and animations so the UI stays visible.</li>
+            </ol>
+
+            <h2>Create a cursor</h2>
+            <ul>
+                <li>Enable <strong>UI Cursor</strong> to let the engine track and display the object as an interactive cursor.</li>
+                <li>Set <strong>UI Cursor Depth</strong> if you want the cursor to float in front of the camera, and enable <strong>UI Cursor Look At Camera</strong> if it should always face the player.</li>
+                <li>Optionally provide a <strong>UI Cursor Select Animation</strong> name and play that animation when the player selects a UI Option.</li>
+            </ul>
+
+            <h2>Create UI options</h2>
+            <ul>
+                <li>Enable <strong>UI Option</strong> on the meshes you want to select with the cursor. These options are stored globally so menus can read them at runtime.</li>
+                <li>Use <strong>UI Option Command Delay</strong> to postpone a command after selection—helpful for playing a click animation before the action runs.</li>
+                <li>Pair options with triggers or commands (like <strong>Load Level</strong> or <strong>Start Conversation</strong>) so selections do something in the world.</li>
+            </ul>
+
+            <h2>Input, prompts, and accessibility</h2>
+            <ul>
+                <li>Show an on-screen prompt (“Press Use”) when the player is inside a trigger that will open a menu or run a UI Option. This keeps non-technical players oriented.</li>
+                <li>If you temporarily unlock the mouse for menus, remember to restore pointer capture when closing the UI so gameplay controls resume.</li>
+                <li>Group your UI Option nodes for easy enabling/disabling in Godot when switching between menus.</li>
+            </ul>
+        </main>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>

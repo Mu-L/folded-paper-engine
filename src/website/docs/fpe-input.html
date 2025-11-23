@@ -29,27 +29,38 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Conversations and UI
-                <div class="section-subtitle">Dialogue data, cursors, and UI options</div>
+                Input and Controls
+                <div class="section-subtitle">Action maps, devices, and accessibility for players</div>
             </div>
         </header>
         <main>
-            <h2>Conversation system</h2>
+            <h2>Turn on player controls in Blender</h2>
+            <ol>
+                <li>Select your player rig and open the <strong>Player Controls</strong> panel.</li>
+                <li>Choose <strong>First Person</strong> or <strong>Third Person</strong> (or both if you plan to switch at runtime).</li>
+                <li>If you want pickups, enable <strong>Can Hold Items</strong> and adjust <strong>Hold Zone Distance</strong> and <strong>Hold Zone Size</strong> so reach feels natural.</li>
+            </ol>
+
+            <h2>Default actions to know</h2>
             <ul>
-                <li>Conversation data includes comments, replies, required characters, and optional sidekicks. Instances receive participant names from the conversation owner and initializer.</li>
-                <li>When started (via command or script), a conversation instance is created with a unique ID and tracks the current comment until no replies remain.</li>
-                <li>Use <code>ConversationUtils.select_reply</code> to advance based on player input and mark completion when replies end.</li>
+                <li><strong>Movement:</strong> Player Move (WASD/left stick) and Player Turn (mouse/right stick) are mapped out of the box.</li>
+                <li><strong>Use / Interact:</strong> bound to the Use action for triggers, pickups, and UI selections.</li>
+                <li><strong>Jump / Run:</strong> available when Character Controls are active on the player.</li>
+                <li><strong>Drop:</strong> lets the player release a holdable item if <strong>Can Hold Items</strong> is checked.</li>
             </ul>
-            <h2>UI cursors and options</h2>
+
+            <h2>Controller and mouse handling</h2>
             <ul>
-                <li>UI options registered by the engine are stored in globals so you can render menus or toggles based on the available entries.</li>
-                <li>Cursor objects can be tracked globally; the engine captures the mouse when active and restores the prior mode on exit so editors stay usable.</li>
-                <li>Combine trigger events with UI prompts (e.g., “Press Use”) by monitoring player tracking areas and gating input via the global UI deactivate flag.</li>
+                <li>Device proxies normalize keyboard, mouse, and gamepad so you can hot-plug controllers while testing.</li>
+                <li>Mouse look uses a configurable ratio to balance sensitivity with joystick turning.</li>
+                <li>If you unlock the cursor for menus, recapture it when closing the UI so movement resumes.</li>
             </ul>
-            <h2>Prompts and overlays</h2>
+
+            <h2>Adjust input mappings in Godot</h2>
             <ul>
-                <li>Mark UI elements in Blender to keep them screen-aligned in Godot. HUD planes or text can follow the camera for diegetic overlays.</li>
-                <li>Use groups and ScriptPath to attach custom UI scripts to imported nodes if the built-in options do not cover your layout.</li>
+                <li>Open <strong>Project → Project Settings → Input Map</strong> to remap actions like <strong>Use</strong>, <strong>Jump</strong>, or <strong>Drop</strong> for your players.</li>
+                <li>Add gamepad-friendly bindings for living room setups, then test by hot-plugging a controller while the scene is running.</li>
+                <li>Keep prompts consistent with your mappings (for example, update on-screen text if you swap Use from <strong>E</strong> to another key).</li>
             </ul>
         </main>
     </section>

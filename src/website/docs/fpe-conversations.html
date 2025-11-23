@@ -1,0 +1,102 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Conversations
+                <div class="section-subtitle">Friendly dialogue setup for creators</div>
+            </div>
+        </header>
+        <main>
+            <h2>Prepare your characters</h2>
+            <ul>
+                <li>Give each speaking character a clear object name in Blender so the conversation shows the right speaker labels in Godot.</li>
+                <li>Use the <strong>Character Controls</strong> panel on NPCs and the <strong>Player Controls</strong> panel on the player so names and sidekicks are registered by the engine.</li>
+                <li>Add a <strong>Speaker</strong> checkbox to a character if you also want positional voice or sound to play from that actor during a conversation.</li>
+            </ul>
+
+            <h2>Create conversation resources in Godot</h2>
+            <ol>
+                <li>In Godot, create a new <strong>Conversation</strong> resource (<em>Conversation.tres</em>) and fill in comments and replies. Use the required/optional characters fields to tie lines to specific speakers.</li>
+                <li>Save conversation files somewhere in your project (for example under <code>res://Conversations/</code>).</li>
+                <li>Optionally add event data to a comment if you want it to trigger an action (like opening a door) when that line appears.</li>
+            </ol>
+
+            <h2>Start a conversation from the game world</h2>
+            <ol>
+                <li>In Blender, pick the trigger, character, or object that should start talking.</li>
+                <li>Open the FPE command list and enable <strong>Start Conversation</strong>. Add one or more <code>.tres/.res</code> conversation files. The engine chooses the best match based on the character names involved.</li>
+                <li>Export and run the scene. When the trigger fires (player entry, interact key, or another event command), the conversation manager loads the resource, shows the first comment, and waits for your reply selection.</li>
+            </ol>
+
+            <h2>Advancing replies</h2>
+            <ul>
+                <li>Use your UI prompt or input handler to call <strong>Select Reply</strong> on the conversation manager. The built-in manager keeps track of the current comment and stops automatically when there are no replies.</li>
+                <li>Attach your UI (choices, next button) to the conversation manager signals if you want to animate portraits, subtitles, or sound on each line.</li>
+            </ul>
+
+            <h2>Troubleshooting conversations</h2>
+            <ul>
+                <li>If a conversation does not start, confirm the trigger actually fires and that the <strong>Start Conversation</strong> command points to existing files.</li>
+                <li>If the wrong speaker names show up, rename the Blender objects for the owner/initializer or adjust the required character names inside the conversation resource.</li>
+                <li>If events tied to comments are not running, check that the comment’s event data is filled in and that the target nodes exist in the scene.</li>
+            </ul>
+        </main>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>

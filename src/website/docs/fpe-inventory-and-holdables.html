@@ -30,26 +30,40 @@
         <header>
             <div class="section-title">
                 Inventory and Holdables
-                <div class="section-subtitle">Item kinds, slots, hold zones, and deposits</div>
+                <div class="section-subtitle">Two separate systems: backpack inventory vs. physics-based holdables</div>
             </div>
         </header>
         <main>
-            <h2>Inventory model</h2>
+            <h2>Inventory items (backpack slots)</h2>
+            <ol>
+                <li>In Blender, select the item and open the <strong>Item</strong> properties. Check <strong>Trigger</strong> if you want entering the trigger to add it to the inventory.</li>
+                <li>Under the <strong>Folded Paper Engine</strong> section, enable <strong>Inventory Item</strong>. Set the <strong>Inventory Item Kind</strong> ID and <strong>Quantity</strong>. Duplicate the object if you want multiple pickups.</li>
+                <li>In Godot, add an <strong>FPE Inventory Config</strong> node to your scene. In the inspector, add matching <strong>Inventory Item Kind</strong> entries and set your inventory size. The IDs must match the kinds you set in Blender.</li>
+                <li>Run the scene: when the player enters the item’s trigger, the quantity is added to the backpack slots. Overflow stays on the trigger so nothing is lost.</li>
+            </ol>
+            <p class="aside">Video refresher: <a href="https://youtube.com/shorts/taqB2UVxQUk?si=XuA9_pYd-jSD7Ka0" target="_blank">Inventory setup (short)</a>.</p>
+
+            <h2>Holdable items (physics in your hands)</h2>
+            <ol>
+                <li>Select your player in Blender. In <strong>Player Controls</strong>, choose <strong>First Person</strong> (optional) and check <strong>Can Hold Items</strong>. Adjust <strong>Hold Zone Distance</strong> and <strong>Hold Zone Size</strong> if needed.</li>
+                <li>Select the item you want to hold. Make sure it is rigid (has a collider) and, under the <strong>Folded Paper Engine</strong> tab in the Items section, check <strong>Holdable</strong>.</li>
+                <li>Export and run the scene. The player can press the <strong>Use</strong> key to pick up the holdable. It floats in the Hold Zone and uses physics instead of teleporting.</li>
+                <li>Press <strong>Drop</strong> to release it; sway and distance limits prevent the item from stretching too far from the camera.</li>
+            </ol>
+            <p class="aside">Video refresher: <a href="https://youtube.com/shorts/izeH6LC6yfs?si=3U8tDzjxYsaSOmsF" target="_blank">Holdable setup (short)</a>.</p>
+
+            <h2>Using both together</h2>
             <ul>
-                <li>Inventory types: player and character inventories use registered size definitions to cap slot counts.</li>
-                <li>Item kinds are registered by ID so triggers and hold zones can spawn the correct <code>InventoryItemSlot</code> when transferring quantities.</li>
-                <li>Player inventory persistence can be toggled; by default it is cleared when the engine unloads unless <code>KeepPlayerInventory</code> is set.</li>
+                <li>Use inventory for collectibles and stackable resources (keys, coins, ammo). Use holdables for physical objects the player can carry in front of them (lamps, boxes, tools).</li>
+                <li>It is fine to keep both features in the same scene: inventory tracks quantities in slots, while holdables are single physics items controlled by the Hold Zone.</li>
+                <li>If you want to remove a holdable after adding it to inventory, run a command on pickup to delete or hide the held object once the quantity is stored.</li>
             </ul>
-            <h2>Holdable items</h2>
+
+            <h2>Troubleshooting</h2>
             <ul>
-                <li>Mark an object as <strong>Holdable</strong> in Blender to allow pickup. Holdables ride physics and use a force-based hold zone rather than teleporting.</li>
-                <li>Player configs that enable <strong>CanHoldItems</strong> spawn a <code>HoldZone</code> in front of the camera. Adjust distance, size, and optional zone scene for UI or VFX.</li>
-                <li>Hold zones dampen motion, apply sway, and drop items if they stray beyond the maximum range or hit the floor.</li>
-            </ul>
-            <h2>Deposits and pickups</h2>
-            <ul>
-                <li>Triggers can carry inventory slots. When a player enters, the slot auto-adds into the player inventory; overflow remains on the trigger.</li>
-                <li>Hold zones listen for nearby <code>TrackingArea3D</code> instances so you can drop or withdraw items when standing over a deposit volume.</li>
+                <li><strong>Inventory items not appearing:</strong> confirm the trigger surrounds the item, the Inventory Config has the matching kind ID, and the inventory size is large enough.</li>
+                <li><strong>Holdables won’t pick up:</strong> ensure <strong>Can Hold Items</strong> is checked on the player and the object is marked <strong>Holdable</strong>. Items with no collider will not be held.</li>
+                <li><strong>Items wobble or fall:</strong> shrink the <strong>Hold Zone Size</strong> or shorten <strong>Hold Zone Distance</strong> for a steadier grip.</li>
             </ul>
         </main>
     </section>

@@ -54,15 +54,11 @@
             </div>
         </header>
         <main>
-            <p>
-                The Folded Paper Engine documentation lives across focused reference pages so you can jump directly to
-                the system you need. Everything here mirrors the actual Blender exporter and Godot runtime code so that
-                the behavior you see in-game matches what is described.
+            <p class="lede">
+                The Folded Paper Engine documentation is organized into small, friendly guides. Start with setup, then dive into gameplay systems, presentation, and level flow. Every page mirrors the actual Blender panels and Godot runtime so what you read is what you see in the editor.
             </p>
-            <p>
-                Start with installation, then explore pipeline, scene configuration, runtime features, and troubleshooting
-                topics using the links below.
-            </p>
+
+            <h2>Start here</h2>
             <div class="doc-grid">
                 <a class="doc-card" href="./fpe-installation.html">
                     <div class="doc-card-title">Installation</div>
@@ -70,19 +66,35 @@
                 </a>
                 <a class="doc-card" href="./fpe-pipeline.html">
                     <div class="doc-card-title">Pipeline and Runtime</div>
-                    <div class="doc-card-body">GLB import flow, load/unload lifecycle, and feature registration.</div>
+                    <div class="doc-card-body">GLB export flow, load/unload lifecycle, and feature registration.</div>
                 </a>
-                <a class="doc-card" href="./fpe-scene-settings.html">
-                    <div class="doc-card-title">Scene Settings</div>
-                    <div class="doc-card-body">Sky color, gravity overrides, music, and scene-level events.</div>
+                <a class="doc-card" href="./fpe-troubleshooting.html">
+                    <div class="doc-card-title">Troubleshooting</div>
+                    <div class="doc-card-body">Common pipeline pitfalls and quick validation checks.</div>
                 </a>
+            </div>
+
+            <h2>Gameplay and interactions</h2>
+            <div class="doc-grid">
                 <a class="doc-card" href="./fpe-object-behaviors.html">
                     <div class="doc-card-title">Objects and Characters</div>
                     <div class="doc-card-body">Player rigs, characters, physics bodies, speakers, cameras.</div>
                 </a>
-                <a class="doc-card" href="./fpe-physics-and-colliders.html">
-                    <div class="doc-card-title">Physics and Colliders</div>
-                    <div class="doc-card-body">Rigid bodies, collider generation, holdable bodies, and movement.</div>
+                <a class="doc-card" href="./fpe-inventory-and-holdables.html">
+                    <div class="doc-card-title">Inventory and Holdables</div>
+                    <div class="doc-card-body">Inventory items, kinds, slots, hold zones, and deposits.</div>
+                </a>
+                <a class="doc-card" href="./fpe-triggers-commands.html">
+                    <div class="doc-card-title">Triggers and Commands</div>
+                    <div class="doc-card-body">Areas, trigger filters, command catalog, and automation.</div>
+                </a>
+                <a class="doc-card" href="./fpe-conversations.html">
+                    <div class="doc-card-title">Conversations</div>
+                    <div class="doc-card-body">Friendly dialogue setup with conversation resources and commands.</div>
+                </a>
+                <a class="doc-card" href="./fpe-ui.html">
+                    <div class="doc-card-title">UI, Cursors, Options</div>
+                    <div class="doc-card-body">UI Elements, cursor setup, prompts, and menu interactions.</div>
                 </a>
                 <a class="doc-card" href="./fpe-animation-and-events.html">
                     <div class="doc-card-title">Animation and Frame Events</div>
@@ -92,33 +104,37 @@
                     <div class="doc-card-title">Audio</div>
                     <div class="doc-card-body">Speakers, autoplay, looping, and background music playlists.</div>
                 </a>
-                <a class="doc-card" href="./fpe-triggers-commands.html">
-                    <div class="doc-card-title">Triggers and Commands</div>
-                    <div class="doc-card-body">Areas, trigger filters, command catalog, and automation.</div>
+            </div>
+
+            <h2>Presentation and control</h2>
+            <div class="doc-grid">
+                <a class="doc-card" href="./fpe-input.html">
+                    <div class="doc-card-title">Input and Controls</div>
+                    <div class="doc-card-body">Action maps, devices, hot-plugging, and accessibility tips.</div>
                 </a>
-                <a class="doc-card" href="./fpe-inventory-and-holdables.html">
-                    <div class="doc-card-title">Inventory and Holdables</div>
-                    <div class="doc-card-body">Item kinds, slots, pickup zones, deposits, and player UI hooks.</div>
+                <a class="doc-card" href="./fpe-cameras.html">
+                    <div class="doc-card-title">Cameras</div>
+                    <div class="doc-card-body">Player camera defaults, cutscenes, and camera switching.</div>
                 </a>
-                <a class="doc-card" href="./fpe-conversations-and-ui.html">
-                    <div class="doc-card-title">Conversations and UI</div>
-                    <div class="doc-card-body">Dialogue data, UI options, cursors, and on-screen interactions.</div>
+                <a class="doc-card" href="./fpe-scene-settings.html">
+                    <div class="doc-card-title">Scene Settings</div>
+                    <div class="doc-card-body">Sky color, gravity overrides, music, and scene-level events.</div>
                 </a>
-                <a class="doc-card" href="./fpe-input-and-cameras.html">
-                    <div class="doc-card-title">Input and Cameras</div>
-                    <div class="doc-card-body">Action maps, controllers, camera activation, and player toggles.</div>
+                <a class="doc-card" href="./fpe-physics-and-colliders.html">
+                    <div class="doc-card-title">Physics and Colliders</div>
+                    <div class="doc-card-body">Rigid bodies, collider generation, holdable bodies, and movement.</div>
                 </a>
+            </div>
+
+            <h2>Levels and flow</h2>
+            <div class="doc-grid">
                 <a class="doc-card" href="./fpe-subscenes-and-levels.html">
                     <div class="doc-card-title">Sub Scenes and Level Loading</div>
-                    <div class="doc-card-body">Level streaming, pausing, and load/unload triggers.</div>
-                </a>
-                <a class="doc-card" href="./fpe-troubleshooting.html">
-                    <div class="doc-card-title">Troubleshooting</div>
-                    <div class="doc-card-body">Common pipeline pitfalls and quick validation checks.</div>
+                    <div class="doc-card-body">Level streaming, doorways, pauses, and load/unload triggers.</div>
                 </a>
                 <a class="doc-card" href="./fpe-doc-coverage.html">
                     <div class="doc-card-title">Coverage Map</div>
-                    <div class="doc-card-body">See where every feature is documented and close any gaps fast.</div>
+                    <div class="doc-card-body">See where each feature is documented and spot gaps fast.</div>
                 </a>
             </div>
         </main>
