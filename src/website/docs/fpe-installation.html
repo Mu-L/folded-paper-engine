@@ -36,24 +36,30 @@
         <main>
             <h2>Blender add-on</h2>
             <ol>
-                <li>Open <strong>Edit → Preferences → Add-ons</strong> in Blender.</li>
-                <li>Click the upper-right arrow and choose <strong>Install from Disk…</strong>, then select the Folded Paper Engine
-                    add-on ZIP.</li>
-                <li>Enable the add-on and restart Blender to register the FPE property panels.</li>
-                <li>Enable <strong>Custom Properties</strong> when exporting to GLB/GLTF so FPE metadata travels with the file.</li>
+                <li>Download the Blender add-on ZIP from the Folded Paper Engine site.</li>
+                <li>In Blender, open <strong>Edit → Preferences → Add-ons</strong>, click the upper-right arrow, and choose <strong>Install from Disk…</strong>. Select the ZIP you downloaded.</li>
+                <li>Enable the add-on, close Preferences, and press <strong>N</strong> to confirm you can see the <strong>Folded Paper Engine</strong> panel in the sidebar.</li>
+                <li>When you export your scene to GLTF/GLB, open <strong>Include</strong> and check <strong>Custom Properties</strong> (plus Cameras and Punctual Lights). Turn on <strong>Remember Export Settings</strong> so you do not forget this step.</li>
+                <li>See the <a href="../blender-panel-docs.html" target="_blank">Blender panel reference</a> for every property name with the same wording you see in Blender.</li>
+                <li>Need a quick visual? Watch the <a href="https://youtube.com/shorts/41J92UUPx5M?si=7ZvsJZE1cFuEgJdF" target="_blank">Blender setup short</a> for the click-by-click install flow.</li>
             </ol>
+
             <h2>Godot plug-in</h2>
             <ol>
-                <li>In Godot, open <strong>Project → Project Settings → Plugins</strong> and enable the <strong>Folded Paper Engine</strong> plug-in.</li>
-                <li>Add a <code>WorldEnvironment</code> and a <code>FoldedPaperEngine</code> node to your scene.</li>
-                <li>In the <code>FoldedPaperEngine</code> inspector, set <strong>Path</strong> to your exported <code>.glb/.gltf</code> and assign your <code>WorldEnvironment</code> to <strong>Environment</strong>.</li>
-                <li>Run the scene: pointer capture, player controls, and feature registration are handled automatically when the engine enters the tree.</li>
+                <li>Download the Godot add-on ZIP from the Folded Paper Engine site.</li>
+                <li>In Godot, open the <strong>Asset Library</strong>, click <strong>Import</strong>, select the add-on ZIP, and click <strong>Install</strong>.</li>
+                <li>Open <strong>Project → Project Settings → Plugins</strong> and enable <strong>Folded Paper Engine</strong>, then restart Godot once.</li>
+                <li>Create a new 3D scene and add a <strong>Folded Paper Engine</strong> node as a child of the root. Add a <strong>Sun</strong> (DirectionalLight3D) and a <strong>WorldEnvironment</strong> to finish the starter scene.</li>
+                <li>In the engine inspector, set <strong>Path</strong> to your exported <code>.glb/.gltf</code> and assign your <strong>WorldEnvironment</strong> to <strong>Environment</strong>. Press play to confirm the player spawns and the mouse is captured.</li>
+                <li>See the <a href="../godot-feature-docs.html" target="_blank">Godot plug-in reference</a> for every inspector field spelled the same way you see it in Godot, plus a feature tour.</li>
+                <li>Prefer a quick overview? Watch the <a href="https://youtube.com/shorts/YRTf65f2L3g?si=fFwQCJ50yx3NkM0h" target="_blank">Godot setup short</a> that walks through import, enabling, and pointing at your GLB.</li>
             </ol>
+
             <h2>Project hygiene</h2>
             <ul>
                 <li>Keep exported GLB/GLTF files under version control so Godot’s importer can rebuild instances consistently.</li>
                 <li>When updating a GLB, re-export from Blender with transforms applied and let Godot reimport before running.</li>
-                <li>Verify the plug-in is active any time you clone the repo or switch machines; FPE nodes rely on the runtime scripts being enabled.</li>
+                <li>Verify the plug-in is active any time you clone the repo or switch machines; Folded Paper Engine nodes rely on the runtime scripts being enabled.</li>
             </ul>
         </main>
     </section>

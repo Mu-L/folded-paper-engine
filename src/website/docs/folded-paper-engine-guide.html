@@ -15,111 +15,72 @@
     <link rel="stylesheet" href="../docs.css">
 </head>
 <body>
-<header
-        class="header"
->
+<header class="header">
     <a href="https://fpe.papercraft.games">
         <img class="logo" src="../logo.png" alt="Logo">
     </a>
     <div class="spacer"></div>
-    <a
-            class="button"
-            href="../index.html#download"
-    >
+    <a class="button" href="../index.html#download">
         Download
         <img class="dl-icon" src="../dl-icon.png" alt="Download">
     </a>
 </header>
 <main>
-    <section
-            class="web-splash"
-    >
-        <div
-                class="web-splash-inner base-background"
-        >
+    <section class="web-splash">
+        <div class="web-splash-inner base-background">
             <img class="web-splash-img" src="../doc-owl.png" alt="Folded Paper Engine docs owl">
         </div>
     </section>
-    <section
-            class="section top-section"
-    >
+    <section class="section top-section">
         <header>
-            <div
-                    class="section-title"
-            >
+            <div class="section-title">
                 Folded Paper Engine Documentation Hub
                 <div class="section-subtitle">
-                    Blender → Godot workflows, behaviors, and runtime reference
+                    Friendly, feature-complete reference for Blender → Godot creators
                 </div>
             </div>
         </header>
         <main>
             <p>
-                The Folded Paper Engine documentation lives across focused reference pages so you can jump directly to
-                the system you need. Everything here mirrors the actual Blender exporter and Godot runtime code so that
-                the behavior you see in-game matches what is described.
+                Use this hub as a guided table of contents. Each link below points to a focused page with step-by-step recipes, the exact property names you see in Blender or Godot, and plenty of context so minimally technical creators can follow along.
             </p>
-            <p>
-                Start with installation, then explore pipeline, scene configuration, runtime features, and troubleshooting
-                topics using the links below.
-            </p>
-            <div class="doc-grid">
-                <a class="doc-card" href="./fpe-installation.html">
-                    <div class="doc-card-title">Installation</div>
-                    <div class="doc-card-body">Blender add-on, Godot plug-in, and project setup.</div>
-                </a>
-                <a class="doc-card" href="./fpe-pipeline.html">
-                    <div class="doc-card-title">Pipeline and Runtime</div>
-                    <div class="doc-card-body">GLB import flow, load/unload lifecycle, and feature registration.</div>
-                </a>
-                <a class="doc-card" href="./fpe-scene-settings.html">
-                    <div class="doc-card-title">Scene Settings</div>
-                    <div class="doc-card-body">Sky color, gravity overrides, music, and scene-level events.</div>
-                </a>
-                <a class="doc-card" href="./fpe-object-behaviors.html">
-                    <div class="doc-card-title">Objects and Characters</div>
-                    <div class="doc-card-body">Player rigs, characters, physics bodies, speakers, cameras.</div>
-                </a>
-                <a class="doc-card" href="./fpe-physics-and-colliders.html">
-                    <div class="doc-card-title">Physics and Colliders</div>
-                    <div class="doc-card-body">Rigid bodies, collider generation, holdable bodies, and movement.</div>
-                </a>
-                <a class="doc-card" href="./fpe-animation-and-events.html">
-                    <div class="doc-card-title">Animation and Frame Events</div>
-                    <div class="doc-card-body">Animation imports, frame-timed events, and playback control.</div>
-                </a>
-                <a class="doc-card" href="./fpe-audio.html">
-                    <div class="doc-card-title">Audio</div>
-                    <div class="doc-card-body">Speakers, autoplay, looping, and background music playlists.</div>
-                </a>
-                <a class="doc-card" href="./fpe-triggers-commands.html">
-                    <div class="doc-card-title">Triggers and Commands</div>
-                    <div class="doc-card-body">Areas, trigger filters, command catalog, and automation.</div>
-                </a>
-                <a class="doc-card" href="./fpe-inventory-and-holdables.html">
-                    <div class="doc-card-title">Inventory and Holdables</div>
-                    <div class="doc-card-body">Item kinds, slots, pickup zones, deposits, and player UI hooks.</div>
-                </a>
-                <a class="doc-card" href="./fpe-conversations-and-ui.html">
-                    <div class="doc-card-title">Conversations and UI</div>
-                    <div class="doc-card-body">Dialogue data, UI options, cursors, and on-screen interactions.</div>
-                </a>
-                <a class="doc-card" href="./fpe-input-and-cameras.html">
-                    <div class="doc-card-title">Input and Cameras</div>
-                    <div class="doc-card-body">Action maps, controllers, camera activation, and player toggles.</div>
-                </a>
-                <a class="doc-card" href="./fpe-subscenes-and-levels.html">
-                    <div class="doc-card-title">Sub Scenes and Level Loading</div>
-                    <div class="doc-card-body">Level streaming, pausing, and load/unload triggers.</div>
-                </a>
-                <a class="doc-card" href="./fpe-troubleshooting.html">
-                    <div class="doc-card-title">Troubleshooting</div>
-                    <div class="doc-card-body">Common pipeline pitfalls and quick validation checks.</div>
-                </a>
-                <a class="doc-card" href="./fpe-doc-coverage.html">
-                    <div class="doc-card-title">Coverage Map</div>
-                    <div class="doc-card-body">See where every feature is documented and close any gaps fast.</div>
-                </a>
+
+            <div class="doc-columns">
+                <div class="doc-column">
+                    <h3>Start here</h3>
+                    <ul>
+                        <li><a href="./fpe-installation.html">Installation</a> — add-ons, exports with Custom Properties, and first scene setup.</li>
+                        <li><a href="./fpe-pipeline.html">Pipeline and Runtime</a> — GLB import flow, load/unload lifecycle, and feature registration.</li>
+                        <li><a href="./fpe-scene-settings.html">Scene Settings</a> — sky color, gravity overrides, music defaults, and scene-level events.</li>
+                    </ul>
+
+                    <h3>Gameplay and interactions</h3>
+                    <ul>
+                        <li><a href="./fpe-object-behaviors.html">Objects and Characters</a> — Players, Characters, Physics bodies, Speakers, and cameras.</li>
+                        <li><a href="./fpe-physics-and-colliders.html">Physics and Colliders</a> — Rigid bodies, colliders, reflective and material swaps.</li>
+                        <li><a href="./fpe-triggers-commands.html">Triggers and Commands</a> — trigger setup, command catalog, and puzzle patterns.</li>
+                        <li><a href="./fpe-animation-and-events.html">Animation and Frame Events</a> — mark frames in Blender and call events in Godot.</li>
+                        <li><a href="./fpe-audio.html">Audio</a> — Speakers, autoplay/looping, background music, and troubleshooting.</li>
+                    </ul>
+                </div>
+
+                <div class="doc-column">
+                    <h3>Items and UI</h3>
+                    <ul>
+                        <li><a href="./fpe-inventory-and-holdables.html">Inventory and Holdables</a> — inventory kinds and sizes, plus how held items differ from stored items.</li>
+                        <li><a href="./fpe-conversations.html">Conversations</a> — creating Speaker-tagged actors, starting dialogue, and advancing replies.</li>
+                        <li><a href="./fpe-ui.html">UI and Cursors</a> — UI Options, UI Cursor, keeping UI in view with your camera, and menu prompts.</li>
+                        <li><a href="./fpe-input.html">Input</a> — player and UI actions, capture settings, and device hot-plug notes.</li>
+                        <li><a href="./fpe-cameras.html">Cameras</a> — first- vs. third-person rigs, camera activation, and cutscene tips.</li>
+                    </ul>
+
+                    <h3>Levels and troubleshooting</h3>
+                    <ul>
+                        <li><a href="./fpe-subscenes-and-levels.html">Sub Scenes and Level Loading</a> — doorways, hubs, streaming interiors, and fades.</li>
+                        <li><a href="./fpe-troubleshooting.html">Troubleshooting</a> — export checks, trigger fixes, and common runtime hiccups.</li>
+                        <li><a href="./fpe-doc-coverage.html">Coverage Map</a> — quick index to confirm every feature has a friendly home.</li>
+                    </ul>
+                </div>
             </div>
         </main>
     </section>
