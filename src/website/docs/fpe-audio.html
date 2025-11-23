@@ -34,24 +34,25 @@
             </div>
         </header>
         <main>
-            <h2>Speakers on objects</h2>
-            <ul>
-                <li>Assign a <strong>SpeakerFile</strong> path to any object to create an <code>AudioStreamPlayer3D</code> on load.</li>
-                <li>Optional flags: <strong>SpeakerLoop</strong>, <strong>SpeakerVolume</strong> (in dB), <strong>SpeakerMaxDistance</strong>, and <strong>SpeakerAutoplay</strong>.</li>
-                <li>Looping prefers the audio resource’s native loop support (OGGVorbis/Sample) and falls back to restarting the player when finished.</li>
-                <li>Speakers clean up when their node exits the tree, removing entries from the global speaker map.</li>
-            </ul>
-            <h2>Background music</h2>
-            <ul>
-                <li>Scene-level <strong>BackgroundMusic</strong> entries create <code>AudioStreamPlayer</code> instances stored on the globals object.</li>
-                <li><strong>BackgroundMusicVolume</strong> sets volume before playback. Music is queued and started via the audio utils after scene load.</li>
-                <li>Music stops and globals clear during level unload so new scenes can repopulate the playlist.</li>
-            </ul>
-            <h2>Triggering audio</h2>
-            <ul>
-                <li>Use the <strong>SpeakerTrigger</strong> and <strong>SpeakerTriggerSelf</strong> commands from triggers or frame events to play audio programmatically.</li>
-                <li>Pair triggers with proximity sensors to start or fade sounds when the player enters an area.</li>
-            </ul>
+            <h2>Speakers on objects (Blender setup)</h2>
+            <ol>
+                <li>Select the object that should play a sound (an ambient prop, a humming machine, an NPC, etc.).</li>
+                <li>In the <strong>Folded Paper Engine</strong> panel, check the <strong>Speaker</strong> box (this creates a 3D audio player when the scene loads in Godot).</li>
+                <li>Set <strong>SpeakerFile</strong> to the audio file name you will place in your Godot project (for example, <code>sounds/vent_hum.ogg</code>).</li>
+                <li>Optional: turn on <strong>SpeakerAutoplay</strong> to start playing as soon as the level loads, and <strong>SpeakerLoop</strong> if it should repeat. You can also adjust <strong>SpeakerVolume</strong> (dB) and <strong>SpeakerMaxDistance</strong> for how far the sound carries.</li>
+                <li>Export the GLB and import it into Godot. The FPE plugin spawns an <code>AudioStreamPlayer3D</code> on that object, wires up the loop/autoplay settings, and removes it cleanly when the node is freed.</li>
+            </ol>
+            <h2>Background music (scene-wide)</h2>
+            <ol>
+                <li>Select the <strong>Scene</strong> settings object in Blender.</li>
+                <li>Add <strong>BackgroundMusic</strong> with the track name you will place in Godot (for example, <code>music/forest_theme.ogg</code>).</li>
+                <li>Use <strong>BackgroundMusicVolume</strong> to set the starting loudness. FPE queues and starts the track after the level loads, and stops it automatically when you change scenes.</li>
+            </ol>
+            <h2>Triggering audio with interactions</h2>
+            <ol>
+                <li>Create a trigger volume (or use an animation frame event) and call <strong>SpeakerTrigger</strong> or <strong>SpeakerTriggerSelf</strong> to start or stop a sound on demand.</li>
+                <li>Common pattern: pair a trigger with a <strong>Speaker</strong> object to start a loop when the player enters an area, then stop it when they leave.</li>
+            </ol>
         </main>
     </section>
 </main>
