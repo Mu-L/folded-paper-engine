@@ -29,22 +29,25 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Input and Cameras
-                <div class="section-subtitle">Action maps, controllers, and camera switching</div>
+                Cameras
+                <div class="section-subtitle">Registering, switching, and returning to the player view</div>
             </div>
         </header>
         <main>
-            <h2>Input actions</h2>
+            <h2>How cameras are registered</h2>
             <ul>
-                <li>Player actions include movement (<code>PLAYER_MOVE_*</code>), look (<code>PLAYER_TURN_*</code>), run, jump, use, and drop. UI actions cover navigation, accept/cancel, and pause.</li>
-                <li>Device proxies normalize mouse, keyboard, and gamepad inputs. Mouse axes respect a configurable ratio to balance with joystick sensitivity.</li>
-                <li>Input mappings update when controllers connect/disconnect so players can hot-plug devices mid-session.</li>
+                <li>Every <code>Camera3D</code> in your imported GLB is cataloged by name when the scene is processed, so you can target it later without writing code. Keep names readable in Blender or Godot—the name becomes the key in the scene camera map. 【F:src/Game/addons/folded_paper_engine/Engine/GLTFModelUtils.gd†L59-L78】</li>
+                <li>Player cameras are also tracked globally so the engine remembers which gameplay view to return to after cutscenes or scripted switches. 【F:src/Game/addons/folded_paper_engine/Engine/FPEGlobals.gd†L4-L17】</li>
             </ul>
-            <h2>Camera control</h2>
+            <h2>Activating a specific camera</h2>
             <ul>
-                <li>Player cameras are registered globally. Commands can activate any named camera or reactivate the player camera after cutscenes.</li>
-                <li>Third-person cameras align to movement and can be offset for over-the-shoulder views; first-person locks facing and clamps pitch to ±90°.</li>
-                <li>UI or cutscene scripts can temporarily disable player controls via activity control utilities, preventing unintended movement while cameras animate.</li>
+                <li>Use the <strong>Activate Camera</strong> command to make any named camera current—for example, pair it with a Trigger to jump to a cinematic angle. 【F:src/Game/addons/folded_paper_engine/Engine/Features/Commands/ComandContants.gd†L3-L20】【F:src/Game/addons/folded_paper_engine/Engine/Cameras/CameraUtils.gd†L3-L8】</li>
+                <li>When a command runs, the camera utility looks up the name you provide in the scene camera list and calls <code>make_current()</code> so Godot switches views immediately. 【F:src/Game/addons/folded_paper_engine/Engine/Cameras/CameraUtils.gd†L3-L8】</li>
+            </ul>
+            <h2>Returning control to the player</h2>
+            <ul>
+                <li>Trigger the <strong>Reactivate Player Camera</strong> command to hand control back to the most recent player camera. This is handy after cutscenes or sub-scenes. 【F:src/Game/addons/folded_paper_engine/Engine/Features/Commands/ComandContants.gd†L3-L20】【F:src/Game/addons/folded_paper_engine/Engine/Cameras/CameraUtils.gd†L10-L17】</li>
+                <li>The utility grabs the latest player camera from the global list and calls <code>make_current()</code>, so you do not need extra logic if you never deactivated the player view. 【F:src/Game/addons/folded_paper_engine/Engine/Cameras/CameraUtils.gd†L10-L17】</li>
             </ul>
         </main>
     </section>
