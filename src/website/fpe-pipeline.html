@@ -1,0 +1,93 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="./icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="./icons/favicon.svg"/>
+    <link rel="shortcut icon" href="./icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="./icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="./logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="./index.html#download">
+        Download
+        <img class="dl-icon" src="./dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Pipeline and Runtime Lifecycle
+                <div class="section-subtitle">GLB import, pointer capture, and feature registration</div>
+            </div>
+        </header>
+        <main>
+            <h2>Engine node responsibilities</h2>
+            <ul>
+                <li><strong>Pointer capture:</strong> when a <code>FoldedPaperEngine</code> node enters the tree, it remembers the prior
+                    mouse mode and captures the pointer if <code>capture_pointer</code> is true. On exit it restores the original mode.</li>
+                <li><strong>Load and unload:</strong> <code>_enter_tree</code> defers <code>_setup</code>, which calls <code>global_load_level</code> with the configured path. <code>_exit_tree</code> defers <code>_teardown</code> to unload the active GLB and detach any listeners.</li>
+                <li><strong>Global registries:</strong> the engine stores a global <code>FeatureUtils</code> instance, the current stage node, and the active <code>WorldEnvironment</code> so sub-scenes and events share the same context.</li>
+            </ul>
+            <h2>Load flow</h2>
+            <ol>
+                <li><strong>Input setup:</strong> device change listeners are connected on first load so controllers can be remapped at runtime.</li>
+                <li><strong>Scene creation:</strong> the GLB/GLTF is instantiated under the engine node. Feature utils parse user data for scene settings, objects, triggers, animations, and inventory.</li>
+                <li><strong>Frame events:</strong> a <code>FrameEventRunner</code> is attached and populated with animation-specific frame triggers so events can fire at precise timestamps.</li>
+            </ol>
+            <h2>Unload flow</h2>
+            <ol>
+                <li>Run registered unload procedures before clearing the scene. Use <code>add_unload_proceedure</code> for custom cleanup.</li>
+                <li>Clear background music, speakers, animation maps, rigid bodies, and global lists so the next level starts fresh.</li>
+                <li>Free child nodes under the engine stage and emit <code>global_feature_utils_change</code> so listeners can update.</li>
+            </ol>
+            <h2>Extending the lifecycle</h2>
+            <ul>
+                <li>Register load hooks with <code>add_load_proceedure</code> to prepare UI, save data, or spawn systems before a level appears.</li>
+                <li>Register unload hooks for analytics, save checkpoints, or clearing external caches.</li>
+            </ul>
+        </main>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="./papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="./github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="./youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="./bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+        <img src="./pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>
