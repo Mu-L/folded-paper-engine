@@ -29,27 +29,28 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Conversations and UI
-                <div class="section-subtitle">Dialogue data, cursors, and UI options</div>
+                UI and Cursors
+                <div class="section-subtitle">Build menus and prompts with UI Elements</div>
             </div>
         </header>
         <main>
-            <h2>Conversation system</h2>
+            <h2>Mark UI Elements in Blender</h2>
             <ul>
-                <li>Conversation data includes comments, replies, required characters, and optional sidekicks. Instances receive participant names from the conversation owner and initializer.</li>
-                <li>When started (via command or script), a conversation instance is created with a unique ID and tracks the current comment until no replies remain.</li>
-                <li>Use <code>ConversationUtils.select_reply</code> to advance based on player input and mark completion when replies end.</li>
+                <li>Enable <strong>UI Element</strong> in the Folded Paper Engine panel on the object you want as HUD or menu content. This flag simply makes the imported node eligible to be a <strong>UI Cursor</strong> or a <strong>UI Option</strong>.</li>
+                <li>Keep UI meshes inside the camera’s view and parent them appropriately (for example, under a canvas or a camera) so they stay visible; the UI Element tag does not automatically reposition them.</li>
+                <li>Apply scale and transforms before export so the cursor or option collider matches the visuals in Godot.</li>
             </ul>
-            <h2>UI cursors and options</h2>
+            <h2>Set up a UI Cursor</h2>
             <ul>
-                <li>UI options registered by the engine are stored in globals so you can render menus or toggles based on the available entries.</li>
-                <li>Cursor objects can be tracked globally; the engine captures the mouse when active and restores the prior mode on exit so editors stay usable.</li>
-                <li>Combine trigger events with UI prompts (e.g., “Press Use”) by monitoring player tracking areas and gating input via the global UI deactivate flag.</li>
+                <li>Turn on <strong>UI Cursor</strong> for a UI Element to spawn a 3D cursor node in Godot. You can adjust cursor depth, the select animation, and whether the cursor faces the camera.</li>
+                <li>Each cursor receives its own input device proxy, so mouse, keyboard, or gamepad users can all navigate UI without extra wiring.</li>
+                <li>Lock or unlock the mouse using your pause/menu flow as needed—the cursor will respect your camera and still track UI Options that remain in view.</li>
             </ul>
-            <h2>Prompts and overlays</h2>
+            <h2>Make interactive UI Options</h2>
             <ul>
-                <li>Mark UI elements in Blender to keep them screen-aligned in Godot. HUD planes or text can follow the camera for diegetic overlays.</li>
-                <li>Use groups and ScriptPath to attach custom UI scripts to imported nodes if the built-in options do not cover your layout.</li>
+                <li>Enable <strong>UI Option</strong> on a UI Element to turn it into a selectable hotspot. The engine adds it to the global UI option list so any UI Cursor or scripted raycast can highlight and trigger it.</li>
+                <li>Attach commands to the option (for example, <strong>Start Conversation</strong>, <strong>Load Sub Scene</strong>, or a custom trigger) so clicking or selecting the option runs gameplay actions.</li>
+                <li>Use the <strong>UI Option Command Delay</strong> setting if you want a short pause after a selection to play an animation before the command fires.</li>
             </ul>
         </main>
     </section>

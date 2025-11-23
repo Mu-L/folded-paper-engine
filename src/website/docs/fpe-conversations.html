@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Conversations
+                <div class="section-subtitle">Attach dialogue files to characters and start them from triggers</div>
+            </div>
+        </header>
+        <main>
+            <h2>Build conversation files in Godot</h2>
+            <ul>
+                <li>Create a new <strong>Conversation</strong> resource in Godot for each dialogue. Give it a unique ID and pick an initial <strong>Comment</strong>; each comment contains reply options and optional event data.</li>
+                <li>Add <strong>Reply</strong> entries under each comment to form branches. Replies point to the next comment, letting you build linear or branching conversations without scripting.</li>
+                <li>If a comment should fire game logic (opening a door, giving an item), set the comment’s event type and data so the engine can dispatch the linked command when that line shows.</li>
+            </ul>
+            <h2>Place the Conversation Manager</h2>
+            <ul>
+                <li>Add an <strong>FPE Conversation Manager</strong> node to your main scene. It tracks the active conversation, raises signals when the line changes, and makes sure only one conversation runs at a time.</li>
+                <li>Make sure your NPC or interactive object is set up as a <strong>Speaker</strong> in Blender so its name and sidekicks are available to the conversation system after import.</li>
+                <li>Keep conversation resources in your Godot project (for example, in <code>res://Conversations/</code>) so they are included when the project is exported.</li>
+            </ul>
+            <h2>Start and advance a conversation</h2>
+            <ul>
+                <li>Trigger a conversation with the <strong>Start Conversation</strong> command (from a Trigger, UI Option, or scripted call). Provide the list of Conversation files that apply to the Speaker.</li>
+                <li>The Conversation Manager matches the conversation to the characters involved, begins at the initial comment, and emits a <code>conversation_started</code> signal you can hook for UI.</li>
+                <li>When the player chooses a reply, call <code>Select Reply</code> on the Conversation Manager (or wire the input through your dialogue UI) to move to the next comment until the conversation ends.</li>
+            </ul>
+        </main>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>
