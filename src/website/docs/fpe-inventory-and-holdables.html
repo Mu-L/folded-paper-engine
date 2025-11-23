@@ -30,26 +30,32 @@
         <header>
             <div class="section-title">
                 Inventory and Holdables
-                <div class="section-subtitle">Item kinds, slots, hold zones, and deposits</div>
+                <div class="section-subtitle">Two separate systems: backpack slots vs. items you can carry by hand</div>
             </div>
         </header>
         <main>
-            <h2>Inventory model</h2>
-            <ul>
-                <li>Inventory types: player and character inventories use registered size definitions to cap slot counts.</li>
-                <li>Item kinds are registered by ID so triggers and hold zones can spawn the correct <code>InventoryItemSlot</code> when transferring quantities.</li>
-                <li>Player inventory persistence can be toggled; by default it is cleared when the engine unloads unless <code>KeepPlayerInventory</code> is set.</li>
-            </ul>
-            <h2>Holdable items</h2>
-            <ul>
-                <li>Mark an object as <strong>Holdable</strong> in Blender to allow pickup. Holdables ride physics and use a force-based hold zone rather than teleporting.</li>
-                <li>Player configs that enable <strong>CanHoldItems</strong> spawn a <code>HoldZone</code> in front of the camera. Adjust distance, size, and optional zone scene for UI or VFX.</li>
-                <li>Hold zones dampen motion, apply sway, and drop items if they stray beyond the maximum range or hit the floor.</li>
-            </ul>
+            <h2>Inventory items (backpack slots)</h2>
+            <ol>
+                <li>In Blender, select your item and check <strong>Trigger</strong> under Item so it can be detected in-game.</li>
+                <li>Open the Folded Paper Engine panel → <strong>Inventory Item</strong> and set the friendly <strong>Inventory Item Kind</strong> plus the <strong>Quantity</strong> to award.</li>
+                <li>Duplicate the object if you want several pickups; each copy keeps the same kind and quantity.</li>
+                <li>In Godot, add an <strong>FPE Inventory Config</strong> node. In the inspector, add an <strong>Inventory Item Kind</strong> entry and make sure its ID matches the kind you set in Blender. Set an <strong>Inventory Size</strong> so the backpack has enough slots.</li>
+            </ol>
+            <p class="callout">Inventory items live in slots and can be given to the player automatically when they enter a trigger, or traded with deposits.</p>
+
+            <h2>Holdable items (hands-on carrying)</h2>
+            <ol>
+                <li>Select your player in Blender → Folded Paper Engine panel → <strong>Player Controls</strong>. Choose <strong>First Person</strong> (or your preferred mode) and enable <strong>Can Hold Items</strong>.</li>
+                <li>Make the item you want to hold a rigid body so it has proper physics.</li>
+                <li>Select the item and, under the Folded Paper Engine tab, check <strong>Holdable</strong> so it can be picked up into the Hold Zone.</li>
+                <li>In-game, the player presses the <strong>Use</strong> action to grab or drop the item. The Hold Zone keeps it in front of the camera with gentle sway and will drop it if it drifts too far.</li>
+            </ol>
+            <p class="callout">Holdables are physical objects you carry in front of you; they are separate from inventory slots and do not require an Inventory Config.</p>
+
             <h2>Deposits and pickups</h2>
             <ul>
-                <li>Triggers can carry inventory slots. When a player enters, the slot auto-adds into the player inventory; overflow remains on the trigger.</li>
-                <li>Hold zones listen for nearby <code>TrackingArea3D</code> instances so you can drop or withdraw items when standing over a deposit volume.</li>
+                <li>Triggers can grant inventory items directly to the player. Overflow stays on the trigger until there is room.</li>
+                <li>Place a deposit volume where you want to trade items; Hold Zones watch nearby deposits so players can drop or withdraw items while standing in the area.</li>
             </ul>
         </main>
     </section>

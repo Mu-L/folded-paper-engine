@@ -29,34 +29,28 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Troubleshooting
-                <div class="section-subtitle">Common pipeline issues and fixes</div>
+                UI and Cursors
+                <div class="section-subtitle">UI options, cursors, and screen-space elements</div>
             </div>
         </header>
         <main>
-            <h2>Export checks</h2>
+            <h2>UI options and prompts</h2>
             <ul>
-                <li>When exporting from Blender, choose <strong>File → Export → glTF 2.0</strong>, enable <strong>Custom Properties</strong>, <strong>Cameras</strong>, and <strong>Punctual Lights</strong>, then enable <strong>Remember Export Settings</strong> so every export keeps those flags.</li>
+                <li>UI Options registered by the engine are available globally so you can render menus or toggles that match the player’s context.</li>
+                <li>Use triggers or interaction volumes to show a simple prompt (for example, “Press Use”) before calling an Event Command.</li>
             </ul>
 
-            <h2>GLB import issues</h2>
+            <h2>Cursors</h2>
             <ul>
-                <li><strong>Missing behaviors:</strong> ensure <strong>Custom Properties</strong> are enabled in the Blender export dialog so metadata reaches Godot.</li>
-                <li><strong>Stale data:</strong> after re-exporting, let Godot reimport the GLB (or delete the <code>.import</code> folder for the file) to refresh metadata.</li>
-                <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; Folded Paper Engine uses the mesh to build triggers and colliders.</li>
+                <li>The engine captures the mouse for gameplay and restores the previous mode when exiting so the editor stays usable.</li>
+                <li>Cursor objects can be tracked globally; pair them with UI Options to build menus that respond to mouse or controller movement.</li>
             </ul>
 
-            <h2>Runtime hiccups</h2>
+            <h2>UI Elements in Blender</h2>
             <ul>
-                <li><strong>No input:</strong> verify the plug-in is enabled and that the engine node’s <code>capture_pointer</code> matches your test setup. Controller hot-plugging relies on the input manager being active.</li>
-                <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
-                <li><strong>Triggers not firing or lasting too long:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. To remove a trigger after one use, either move it with an animation or place it in a group and call <strong>Delete By Group</strong>.</li>
-            </ul>
-
-            <h2>Level flow</h2>
-            <ul>
-                <li><strong>Scene reload glitches:</strong> register unload procedures for custom systems, and avoid storing references to nodes that will be freed during <code>global_unload_level</code>.</li>
-                <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, triggers, UI). Commands may have toggled these during cutscenes.</li>
+                <li>Mark an object as a <strong>UI Element</strong> only when you intend to use it as a <strong>UI Option</strong> or <strong>UI Cursor</strong>.</li>
+                <li>Keep the UI Element in the camera’s view (for example, parent it to the active camera or place it in front of a UI-only camera) so it stays visible on screen.</li>
+                <li>Use <strong>Script Path</strong> or groups for advanced HUD logic if the built-in UI options are not enough.</li>
             </ul>
         </main>
     </section>

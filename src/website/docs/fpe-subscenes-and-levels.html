@@ -37,45 +37,52 @@
             <h2>One-click whole level transitions</h2>
             <ol>
                 <li>Place a trigger near your doorway or portal (see Triggers guide).</li>
-                <li>Add a <strong>LoadLevel</strong> command and point it at the next GLB path (relative to your project).</li>
-                <li>When fired, FPE unloads the current level, clears global registries (speakers, cameras, animations), and loads the new GLB cleanly.</li>
+                <li>Add a <strong>Load Level</strong> command and point it at the next GLB path (relative to your project).</li>
+                <li>When fired, Folded Paper Engine unloads the current level, clears global registries (speakers, cameras, animations), and loads the new GLB cleanly.</li>
                 <li>Tip: pair with a quick fade or loading screen sub-scene so the player sees a smooth handoff.</li>
             </ol>
+
+            <h2>Quick fade recipe</h2>
+            <ul>
+                <li>Create a simple sub-scene with a full-screen quad and an AnimationPlayer that animates opacity over 0.3–0.5s.</li>
+                <li>Load that sub-scene before calling <strong>Load Level</strong>, play the fade-in/out animation, and unload it after the new level is ready.</li>
+                <li>If you prefer commands, queue <strong>Load Sub Scene</strong> for the fade, then run <strong>Load Level</strong>, and finally <strong>Unload Sub Scene</strong> once the fade completes.</li>
+            </ul>
 
             <h2>Adding a Sub Scene host in Blender</h2>
             <ol>
                 <li>Select the mesh that should act as the placeholder (e.g., a building doorway or elevator cage).</li>
-                <li>Open the FPE panel and check <strong>Sub Scene</strong>.</li>
+                <li>Open the Folded Paper Engine panel and check <strong>Sub Scene</strong>.</li>
                 <li>Provide the <strong>File Path</strong> to the GLB you want to stream in. You can also name the sub-scene so commands can target it later.</li>
-                <li>Decide if the host should <strong>Auto Load</strong> on start. If unchecked, you can load it later via command.</li>
+                <li>Decide if the host should <strong>Auto Load</strong> on start. If unchecked, load it later via a trigger or an <strong>Event Command</strong>.</li>
                 <li>Export to GLB. In Godot, the host replaces its mesh with the streamed content while keeping its transform.</li>
             </ol>
 
             <h2>Commands for streaming</h2>
             <ul>
-                <li><strong>LoadSubScene</strong>: Load a sub-scene by name or host node path. Great for stepping inside a house while keeping the street loaded.</li>
-                <li><strong>UnloadSubScene</strong>: Unload a named sub-scene and optionally wait a few seconds to finish fades.</li>
-                <li><strong>UnloadThisSubScene</strong>: From inside a sub-scene, call this to close yourself (handy on an exit trigger inside the streamed area).</li>
+                <li><strong>Load Sub Scene</strong>: Load a sub-scene by name or host node path. Great for stepping inside a house while keeping the street loaded.</li>
+                <li><strong>Unload Sub Scene</strong>: Unload a named sub-scene and optionally wait a few seconds to finish fades.</li>
+                <li><strong>Unload This Sub Scene</strong>: From inside a sub-scene, call this to close yourself (handy on an exit trigger inside the streamed area).</li>
             </ul>
 
             <h2>Pause control during transitions</h2>
             <ul>
                 <li>Sub scene hosts can pause parent activities while the child is loaded. That keeps NPCs or physics from running while the player is away.</li>
-                <li>Use <strong>DeactivatePlayerControls</strong> plus a camera cut to hide loading, then <strong>ReactivatePlayerControls</strong> when ready.</li>
+                <li>Use <strong>Deactivate Player Controls</strong> plus a camera cut to hide loading, then <strong>Reactivate Player Controls</strong> when ready. You only need to reactivate a camera if you deactivated it earlier.</li>
             </ul>
 
             <h2>Design templates</h2>
             <ul>
-                <li><strong>Interior door:</strong> Trigger on the doorframe → <code>LoadSubScene</code> for the interior → on the interior exit trigger, run <code>UnloadThisSubScene</code> and <code>ReactivatePlayerCamera</code>.</li>
-                <li><strong>Hub world with portals:</strong> Each portal trigger runs <code>LoadLevel</code> to another GLB. Keep a shared UI scene loaded to show tips during transitions.</li>
-                <li><strong>Elevator cutscene:</strong> Trigger → <code>DeactivatePlayerControls</code> → play lift animation with frame events → <code>LoadLevel</code> to the next floor.</li>
+                <li><strong>Interior door:</strong> Trigger on the doorframe → <code>Load Sub Scene</code> for the interior → on the interior exit trigger, run <code>Unload This Sub Scene</code> (and reactivate the player camera only if you turned it off).</li>
+                <li><strong>Hub world with portals:</strong> Each portal trigger runs <code>Load Level</code> to another GLB. Keep a shared UI scene loaded to show tips during transitions.</li>
+                <li><strong>Elevator cutscene:</strong> Trigger → <code>Deactivate Player Controls</code> → play lift animation with frame events → <code>Load Level</code> to the next floor.</li>
             </ul>
 
             <h2>Checks if something feels broken</h2>
             <ul>
                 <li>Verify paths: GLB paths are relative to the project. Typos silently skip loading.</li>
                 <li>Apply transforms before export so the sub-scene spawns at the expected size and position.</li>
-                <li>If old sounds or cameras keep playing after a load, make sure you are using <strong>LoadLevel</strong> (not a custom script) so the runtime clears registries.</li>
+                <li>If old sounds or cameras keep playing after a load, make sure you are using <strong>Load Level</strong> (not a custom script) so the runtime clears registries.</li>
             </ul>
         </main>
     </section>

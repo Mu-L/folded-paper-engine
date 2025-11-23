@@ -29,22 +29,30 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Input and Cameras
-                <div class="section-subtitle">Action maps, controllers, and camera switching</div>
+                Conversations
+                <div class="section-subtitle">Speaker setup, dialogue flow, and replies</div>
             </div>
         </header>
         <main>
-            <h2>Input actions</h2>
+            <h2>Set up speakers in Blender</h2>
+            <ol>
+                <li>Select the character or object that should speak and enable <strong>Speaker</strong> in the Folded Paper Engine panel.</li>
+                <li>Give each speaker a friendly name; that name shows up in the dialogue UI so the player knows who is talking.</li>
+                <li>Export to GLB with <strong>Custom Properties</strong> enabled so the speaker tags reach Godot.</li>
+            </ol>
+
+            <h2>Create conversation data</h2>
             <ul>
-                <li>Player actions include movement (<code>PLAYER_MOVE_*</code>), look (<code>PLAYER_TURN_*</code>), run, jump, use, and drop. UI actions cover navigation, accept/cancel, and pause.</li>
-                <li>Device proxies normalize mouse, keyboard, and gamepad inputs. Mouse axes respect a configurable ratio to balance with joystick sensitivity.</li>
-                <li>Input mappings update when controllers connect/disconnect so players can hot-plug devices mid-session.</li>
+                <li>Conversations are made up of <strong>comments</strong> (lines) and <strong>replies</strong> (player choices). Each reply points to the next comment so you can branch or end a thread.</li>
+                <li>Make sure the conversation references the correct speakers; participants are matched to the speaker names you set in Blender.</li>
+                <li>For NPC-initiated chats, start the conversation from a trigger or interaction command so it opens when the player is close.</li>
             </ul>
-            <h2>Camera control</h2>
+
+            <h2>Run and advance dialogues</h2>
             <ul>
-                <li>Player cameras are registered globally. Commands can activate any named camera or reactivate the player camera after cutscenes.</li>
-                <li>Third-person cameras align to movement and can be offset for over-the-shoulder views; first-person locks facing and clamps pitch to ±90°.</li>
-                <li>UI or cutscene scripts can temporarily disable player controls via activity control utilities, preventing unintended movement while cameras animate.</li>
+                <li>Use a trigger or an <strong>Event Command</strong> to start a conversation by ID. The engine builds a conversation instance and tracks the current comment.</li>
+                <li>When the player picks a reply, advance using the reply’s target comment. When no replies remain, the conversation ends automatically.</li>
+                <li>Pair conversations with a UI prompt (for example, “Press Use to talk”) so players know when a speaker is interactable.</li>
             </ul>
         </main>
     </section>
