@@ -29,22 +29,29 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Conversations and UI
-                <div class="section-subtitle">Pick the guide you need</div>
+                UI and Cursors
+                <div class="section-subtitle">Crosshairs, UI Elements, and menu-friendly mouse modes</div>
             </div>
         </header>
         <main>
-            <p>This page now splits into two focused guides so you can jump directly to the topic you need.</p>
-            <div class="doc-grid">
-                <a class="doc-card" href="./fpe-conversations.html">
-                    <div class="doc-card-title">Conversations</div>
-                    <div class="doc-card-body">Speaker setup, dialogue data, and progression helpers.</div>
-                </a>
-                <a class="doc-card" href="./fpe-ui.html">
-                    <div class="doc-card-title">UI and Cursors</div>
-                    <div class="doc-card-body">UI Elements, crosshairs, menu cursor flow, and overlay tips.</div>
-                </a>
-            </div>
+            <h2>UI Elements in Blender</h2>
+            <ul>
+                <li>Marking an object as a <strong>UI Element</strong> tells FPE that the object can be used as a <strong>UI Option</strong> (menu element) or as a <strong>UI Cursor</strong>.</li>
+                <li>Keep UI meshes inside the camera view in Blender; the exporter does not reposition them for you. Place them where you want them to appear on-screen.</li>
+                <li>Use planes or simple meshes for crosshairs, reticles, or buttons and keep their scale small so they remain crisp in Godot.</li>
+            </ul>
+            <h2>Crosshair and cursor flow</h2>
+            <ol>
+                <li>The engine captures the mouse when gameplay starts, showing your crosshair if one was exported as a UI Cursor.</li>
+                <li>When you open a menu or options screen, unlock the mouse and show your UI Options. Closing the menu re-locks the mouse and returns to the game cursor state.</li>
+                <li>Use friendly button prompts like “Press Use to interact” near UI Options when they are driven by input actions.</li>
+            </ol>
+            <h2>Menu and overlay tips</h2>
+            <ul>
+                <li>Organize menu items into groups in Blender so you can animate or toggle them together in Godot.</li>
+                <li>For diegetic overlays (like a visor or helmet), parent the UI Element to the active camera so it always follows the view.</li>
+                <li>Keep UI colors and stroke weights readable on bright scenes; adding a subtle drop shadow in Blender helps text stand out after import.</li>
+            </ul>
         </main>
     </section>
 </main>

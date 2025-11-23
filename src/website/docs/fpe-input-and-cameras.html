@@ -30,22 +30,21 @@
         <header>
             <div class="section-title">
                 Input and Cameras
-                <div class="section-subtitle">Action maps, controllers, and camera switching</div>
+                <div class="section-subtitle">Pick the guide you need</div>
             </div>
         </header>
         <main>
-            <h2>Input actions</h2>
-            <ul>
-                <li>Player actions include movement (<code>PLAYER_MOVE_*</code>), look (<code>PLAYER_TURN_*</code>), run, jump, use, and drop. UI actions cover navigation, accept/cancel, and pause.</li>
-                <li>Device proxies normalize mouse, keyboard, and gamepad inputs. Mouse axes respect a configurable ratio to balance with joystick sensitivity.</li>
-                <li>Input mappings update when controllers connect/disconnect so players can hot-plug devices mid-session.</li>
-            </ul>
-            <h2>Camera control</h2>
-            <ul>
-                <li>Player cameras are registered globally. Commands can activate any named camera or reactivate the player camera after cutscenes.</li>
-                <li>Third-person cameras align to movement and can be offset for over-the-shoulder views; first-person locks facing and clamps pitch to ±90°.</li>
-                <li>UI or cutscene scripts can temporarily disable player controls via activity control utilities, preventing unintended movement while cameras animate.</li>
-            </ul>
+            <p>Input and camera topics now live on their own dedicated pages so you can scan them faster.</p>
+            <div class="doc-grid">
+                <a class="doc-card" href="./fpe-input.html">
+                    <div class="doc-card-title">Input</div>
+                    <div class="doc-card-body">Action maps, controller support, and prompts.</div>
+                </a>
+                <a class="doc-card" href="./fpe-cameras.html">
+                    <div class="doc-card-title">Cameras</div>
+                    <div class="doc-card-body">Player camera styles, swaps, and cutscene flow.</div>
+                </a>
+            </div>
         </main>
     </section>
 </main>

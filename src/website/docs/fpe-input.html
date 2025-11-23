@@ -29,22 +29,27 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Conversations and UI
-                <div class="section-subtitle">Pick the guide you need</div>
+                Input
+                <div class="section-subtitle">Action maps, controller support, and player-friendly prompts</div>
             </div>
         </header>
         <main>
-            <p>This page now splits into two focused guides so you can jump directly to the topic you need.</p>
-            <div class="doc-grid">
-                <a class="doc-card" href="./fpe-conversations.html">
-                    <div class="doc-card-title">Conversations</div>
-                    <div class="doc-card-body">Speaker setup, dialogue data, and progression helpers.</div>
-                </a>
-                <a class="doc-card" href="./fpe-ui.html">
-                    <div class="doc-card-title">UI and Cursors</div>
-                    <div class="doc-card-body">UI Elements, crosshairs, menu cursor flow, and overlay tips.</div>
-                </a>
-            </div>
+            <h2>Default actions</h2>
+            <ul>
+                <li>FPE ships with sensible defaults for Move, Look, Jump, Use, Inventory, and Toggle Menu. Map them in Godot’s Input Map before running.</li>
+                <li>Use clear on-screen prompts (e.g., “Press Use”) whenever a Trigger or UI Option requires a specific action.</li>
+            </ul>
+            <h2>Controllers and rebindings</h2>
+            <ol>
+                <li>Godot automatically picks up gamepads that map to the standard actions. Test navigation, jumping, and using items with a controller.</li>
+                <li>If you add new actions, keep the names readable (e.g., <strong>Flashlight</strong> instead of a code-heavy label) so Creator Users can track them in the UI.</li>
+                <li>Offer a quick settings menu for sensitivity and inversion; these values can live alongside other UI Options.</li>
+            </ol>
+            <h2>Pausing and menus</h2>
+            <ul>
+                <li>Bind a Pause or Options action to unlock the cursor and show your menus. Returning to the game locks the pointer and re-enables look input.</li>
+                <li>Keep menu navigation simple: Up/Down/Confirm/Back should mirror keyboard, mouse, and controller inputs.</li>
+            </ul>
         </main>
     </section>
 </main>

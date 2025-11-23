@@ -36,6 +36,7 @@
         <main>
             <h2>GLB import issues</h2>
             <ul>
+                <li><strong>Correct export settings:</strong> in Blender’s GLTF export dialog check <strong>Custom Properties</strong>, <strong>Cameras</strong>, <strong>Punctual Lights</strong>, and <strong>Remember Export Settings</strong> before saving to your Godot project folder.</li>
                 <li><strong>Missing behaviors:</strong> ensure <strong>Custom Properties</strong> are enabled in the Blender export dialog so metadata reaches Godot.</li>
                 <li><strong>Stale data:</strong> after re-exporting, let Godot reimport the GLB (or delete the <code>.import</code> folder for the file) to refresh metadata.</li>
                 <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; FPE uses the mesh to build triggers and colliders.</li>
@@ -45,6 +46,7 @@
                 <li><strong>No input:</strong> verify the plug-in is enabled and that the engine node’s <code>capture_pointer</code> matches your test setup. Controller hot-plugging relies on the input manager being active.</li>
                 <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
                 <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. Use simple box triggers for empty meshes.</li>
+                <li><strong>Removing one-shot triggers:</strong> animate the trigger out of the way after it fires, or place it in a group and call <strong>Delete By Group</strong> so it disappears after one use.</li>
             </ul>
             <h2>Level flow</h2>
             <ul>

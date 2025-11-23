@@ -29,22 +29,29 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Conversations and UI
-                <div class="section-subtitle">Pick the guide you need</div>
+                Cameras
+                <div class="section-subtitle">Player camera settings, swaps, and best practices</div>
             </div>
         </header>
         <main>
-            <p>This page now splits into two focused guides so you can jump directly to the topic you need.</p>
-            <div class="doc-grid">
-                <a class="doc-card" href="./fpe-conversations.html">
-                    <div class="doc-card-title">Conversations</div>
-                    <div class="doc-card-body">Speaker setup, dialogue data, and progression helpers.</div>
-                </a>
-                <a class="doc-card" href="./fpe-ui.html">
-                    <div class="doc-card-title">UI and Cursors</div>
-                    <div class="doc-card-body">UI Elements, crosshairs, menu cursor flow, and overlay tips.</div>
-                </a>
-            </div>
+            <h2>Player camera basics</h2>
+            <ol>
+                <li>Select your Player object in Blender and open <strong>Player Controls</strong>.</li>
+                <li>Choose the control style (First Person, Third Person, or Top Down) and adjust look sensitivity to match your project.</li>
+                <li>If you want the player to hold items, enable <strong>Can Hold Items</strong> so the runtime attaches holdable items to the camera view.</li>
+            </ol>
+            <h2>Managing multiple cameras</h2>
+            <ul>
+                <li>Place additional cameras in the scene for cutscenes or fixed angles. Name them clearly (for example, “DoorCam” or “BossIntro”).</li>
+                <li>Use Event Commands or triggers to activate a camera when needed, then switch back to the player camera when the sequence ends.</li>
+                <li>You only need to call <strong>Reactivate Player Camera</strong> if you previously deactivated it for a cutscene.</li>
+            </ul>
+            <h2>Quick camera tips</h2>
+            <ul>
+                <li>Keep UI Elements within the chosen camera’s view so crosshairs and overlays stay visible.</li>
+                <li>Apply transforms in Blender before export to avoid offset cameras in Godot.</li>
+                <li>Test sensitivity and field of view early; small adjustments can make the controls feel polished for Creator Users.</li>
+            </ul>
         </main>
     </section>
 </main>

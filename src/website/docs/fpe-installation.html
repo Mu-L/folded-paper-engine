@@ -37,17 +37,18 @@
             <h2>Blender add-on</h2>
             <ol>
                 <li>Open <strong>Edit → Preferences → Add-ons</strong> in Blender.</li>
-                <li>Click the upper-right arrow and choose <strong>Install from Disk…</strong>, then select the Folded Paper Engine
-                    add-on ZIP.</li>
-                <li>Enable the add-on and restart Blender to register the FPE property panels.</li>
-                <li>Enable <strong>Custom Properties</strong> when exporting to GLB/GLTF so FPE metadata travels with the file.</li>
+                <li>Click the upper-right arrow and choose <strong>Install from Disk…</strong>, then select the Folded Paper Engine add-on ZIP (download it from the site root links).</li>
+                <li>Enable the add-on. Press <strong>N</strong> to confirm the <strong>Folded Paper Engine</strong> panel appears.</li>
+                <li>Enable <strong>Custom Properties</strong>, <strong>Cameras</strong>, and <strong>Punctual Lights</strong> when exporting to GLB/GLTF so FPE metadata travels with the file.</li>
+                <li>Video reference: <a href="https://youtube.com/shorts/41J92UUPx5M?si=7ZvsJZE1cFuEgJdF" target="_blank">Blender install short</a> (matches these steps).</li>
             </ol>
             <h2>Godot plug-in</h2>
             <ol>
-                <li>In Godot, open <strong>Project → Project Settings → Plugins</strong> and enable the <strong>Folded Paper Engine</strong> plug-in.</li>
-                <li>Add a <code>WorldEnvironment</code> and a <code>FoldedPaperEngine</code> node to your scene.</li>
-                <li>In the <code>FoldedPaperEngine</code> inspector, set <strong>Path</strong> to your exported <code>.glb/.gltf</code> and assign your <code>WorldEnvironment</code> to <strong>Environment</strong>.</li>
-                <li>Run the scene: pointer capture, player controls, and feature registration are handled automatically when the engine enters the tree.</li>
+                <li>Download the Godot add-on from the website and open Godot.</li>
+                <li>Go to <strong>AssetLib → Import</strong>, pick the add-on ZIP, click <strong>Install</strong>, then enable it under <strong>Project → Project Settings → Plugins</strong>.</li>
+                <li>Create a new 3D scene, add a <strong>Folded Paper Engine</strong> node plus a <strong>WorldEnvironment</strong>, and use the document icon to point <strong>Path</strong> at your main <code>.glb/.gltf</code>.</li>
+                <li>Assign your <strong>WorldEnvironment</strong> resource to the Environment slot. Add a Sun light for quick testing.</li>
+                <li>Video reference: <a href="https://youtube.com/shorts/YRTf65f2L3g?si=fFwQCJ50yx3NkM0h" target="_blank">Godot install short</a> (walks through the same flow).</li>
             </ol>
             <h2>Project hygiene</h2>
             <ul>
