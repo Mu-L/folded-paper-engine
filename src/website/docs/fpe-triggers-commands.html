@@ -30,33 +30,58 @@
         <header>
             <div class="section-title">
                 Triggers and Commands
-                <div class="section-subtitle">Area sensors, trigger filters, and built-in actions</div>
+                <div class="section-subtitle">Step-by-step areas, filters, and the no-code action list</div>
             </div>
         </header>
         <main>
-            <h2>Tracking areas</h2>
+            <h2>Create a trigger zone in Blender</h2>
+            <ol>
+                <li>Select or add a simple cube/empty for your trigger. Scale it to cover the area you want to react to (e.g., a doorway).</li>
+                <li>Open the FPE panel and check <strong>Trigger</strong>.</li>
+                <li>Choose the trigger <strong>Type</strong> (ENTER, EXIT, or both) so you know when it fires.</li>
+                <li>Optional: set a <strong>Group</strong> name if only certain objects should activate it (like <code>Player</code> or <code>Enemy</code>).</li>
+                <li>Export to GLB. FPE will spawn an invisible <code>TrackingArea3D</code> with a simple box collider for performance.</li>
+            </ol>
+
+            <h2>Bind a trigger to an action without code</h2>
+            <ol>
+                <li>In the same Trigger block, add a <strong>Command</strong> row. You can stack multiple commands in order.</li>
+                <li>Pick from the built-in list below. Fill in the friendly fields (target names, file paths, etc.).</li>
+                <li>Re-export and run the scene. Walk into the area to test the action.</li>
+            </ol>
+
+            <h2>Popular commands you can chain</h2>
             <ul>
-                <li>Any object with trigger data spawns a <code>TrackingArea3D</code> that copies the mesh bounds (or a simple box) and watches for <code>RigidBody3D</code> bodies.</li>
-                <li>Player bodies record entered areas so prompts or inventory pickups can react to <strong>ENTER</strong> and <strong>EXIT</strong> trigger types.</li>
-                <li>Prefer simple box shapes for performance when a detailed mesh collider is unnecessary.</li>
+                <li><strong>LoadLevel</strong>: Switch to another GLB/scene. Perfect for doors and portals.</li>
+                <li><strong>LoadSubScene / UnloadSubScene / UnloadThisSubScene</strong>: Stream a room or interior in/out while staying in the same level.</li>
+                <li><strong>SpeakerTrigger / SpeakerTriggerSelf</strong>: Play a specific Speaker by name, or the Speaker on the trigger node.</li>
+                <li><strong>Animations / StopAnimations</strong>: Play or stop comma-separated animation names (works with frame events too).</li>
+                <li><strong>ActivateCamera / ReactivatePlayerCamera</strong>: Cut to a cinematic camera, then give control back.</li>
+                <li><strong>Deactivate/ReactivatePlayerControls</strong>: Temporarily pause movement during menus or cutscenes.</li>
+                <li><strong>StartConversation</strong>: Begin a dialogue using the conversation data on your Speaker/NPC.</li>
+                <li><strong>Pause/ResumeSpecificActivities</strong>: Freeze physics or movement types by ID while something else runs.</li>
+                <li><strong>DispatchEvent</strong>: Emit a custom event name that other triggers or scripts can listen to.</li>
+                <li><strong>DeleteByGroup</strong>: Remove every node in a group (useful for clearing props after a puzzle).</li>
             </ul>
-            <h2>Trigger filters</h2>
+
+            <h2>Inventory-aware triggers</h2>
             <ul>
-                <li>Use trigger groups to limit which initiators can fire an event. The engine checks group compatibility before dispatching.</li>
-                <li>Inventory-bearing triggers can hold <code>InventoryItemSlot</code> data so stepping on the trigger transfers quantities into the player inventory.</li>
+                <li>Add an <strong>Inventory Item Slot</strong> to the trigger to let the player pick up items just by stepping into the zone.</li>
+                <li>Use the <strong>Group</strong> filter to make sure only the player activates item pickups, not a rolling crate.</li>
             </ul>
-            <h2>Command catalog</h2>
+
+            <h2>Design patterns to copy</h2>
             <ul>
-                <li><strong>LoadLevel</strong>: unload current GLB and load the target path.</li>
-                <li><strong>Animations / StopAnimations</strong>: play or stop comma-separated animation names on registered animation players and sprite animators.</li>
-                <li><strong>SpeakerTrigger / SpeakerTriggerSelf</strong>: play a named speaker or the speaker attached to the trigger node.</li>
-                <li><strong>ActivateCamera / ReactivatePlayerCamera</strong>: switch to a named camera or return control to the player camera.</li>
-                <li><strong>Deactivate/ReactivatePlayerControls</strong>: globally gate player input when cutscenes or menus run.</li>
-                <li><strong>LoadSubScene / UnloadSubScene / UnloadThisSubScene</strong>: stream sub-scenes in or out by name.</li>
-                <li><strong>StartConversation</strong>: start a conversation using the provided array of conversation data.</li>
-                <li><strong>Pause/ResumeSpecificActivities</strong>: toggle activity types using numeric IDs.</li>
-                <li><strong>DispatchEvent</strong>: emit a named <code>FPEEvent</code> with participant metadata gathered from owner/initiator user data.</li>
-                <li><strong>DeleteByGroup</strong>: queue free all nodes in a given group.</li>
+                <li><strong>Pressure plate puzzle:</strong> Trigger on ENTER → play a click sound (<code>SpeakerTrigger</code>), open the door (<code>Animations</code>), and disable itself (<code>DeleteByGroup</code> on a helper group).</li>
+                <li><strong>Cutscene starter:</strong> Trigger on ENTER → <code>DeactivatePlayerControls</code> → <code>ActivateCamera</code> → run an <code>Animations</code> clip with frame events → <code>ReactivatePlayerCamera</code> → <code>ReactivatePlayerControls</code>.</li>
+                <li><strong>Scene exit:</strong> Trigger on ENTER → <code>LoadLevel</code> with the next GLB path. Pair with a fade or loading screen sub-scene for polish.</li>
+            </ul>
+
+            <h2>Troubleshooting triggers</h2>
+            <ul>
+                <li>If nothing fires, confirm the trigger cube actually covers the player capsule and that transforms are applied before export.</li>
+                <li>Check the <strong>Group</strong> filter: wrong group means the engine ignores the overlap.</li>
+                <li>Use simple box triggers unless you truly need mesh-shaped bounds for performance reasons.</li>
             </ul>
         </main>
     </section>

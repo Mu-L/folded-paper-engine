@@ -1,0 +1,105 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="./docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Documentation Coverage Map
+                <div class="section-subtitle">Where to learn every feature, tailored for minimally technical creators</div>
+            </div>
+        </header>
+        <main>
+            <p>This page double-checks that every Folded Paper Engine feature called out in our blind-spot review is covered by a friendly guide. Use it as a table of contents and a sanity check before sharing docs with new creators.</p>
+
+            <h2>Gameplay and interactions</h2>
+            <ul>
+                <li><strong>Players and Characters:</strong> See <a href="./fpe-object-behaviors.html">Objects and Characters</a> for tagging players/NPCs, physics bodies, and cameras.</li>
+                <li><strong>Holdables and Inventory:</strong> <a href="./fpe-inventory-and-holdables.html">Inventory and Holdables</a> walks through item kinds, slots, pickup/drop, and UI hooks.</li>
+                <li><strong>Triggers and Commands:</strong> <a href="./fpe-triggers-commands.html">Triggers and Commands</a> now includes step-by-step trigger setup, command chaining, and puzzle patterns.</li>
+                <li><strong>Dialogues and UI:</strong> <a href="./fpe-conversations-and-ui.html">Conversations and UI</a> covers crosshair, cursor unlock, dialogue authoring, and prompts.</li>
+            </ul>
+
+            <h2>Timing, audio, and feedback</h2>
+            <ul>
+                <li><strong>Frame Events:</strong> <a href="./fpe-animation-and-events.html">Animation and Frame Events</a> shows how to mark frames in Blender and hook them to sounds, doors, or cameras.</li>
+                <li><strong>Audio and Music:</strong> <a href="./fpe-audio.html">Audio</a> explains Speakers, background music, distance falloff, looping, and troubleshooting.</li>
+            </ul>
+
+            <h2>Levels, loading, and scene settings</h2>
+            <ul>
+                <li><strong>Whole-level transitions:</strong> <a href="./fpe-subscenes-and-levels.html">Sub Scenes and Level Loading</a> has door recipes, portal hubs, and unload safety notes.</li>
+                <li><strong>Sub-scenes/streaming:</strong> Same guide shows how to nest interiors and pause parents while loaded.</li>
+                <li><strong>Environment metadata:</strong> <a href="./fpe-scene-settings.html">Scene Settings</a> covers sky color, gravity overrides, background music defaults, and FX toggles.</li>
+            </ul>
+
+            <h2>Pipeline and troubleshooting</h2>
+            <ul>
+                <li><strong>Install and export:</strong> <a href="./fpe-installation.html">Installation</a> and <a href="./fpe-pipeline.html">Pipeline and Runtime</a> explain the Blender ↔ Godot loop, importer behaviors, and how to refresh exports safely.</li>
+                <li><strong>Common pitfalls:</strong> <a href="./fpe-troubleshooting.html">Troubleshooting</a> lists quick checks for scale, transforms, missing plugins, and stale imports.</li>
+            </ul>
+
+            <h2>Advanced extensions</h2>
+            <ul>
+                <li><strong>Custom scripts and groups:</strong> <a href="./fpe-object-behaviors.html">Objects and Characters</a> highlights ScriptPath and groups so advanced users can extend without breaking the pipeline.</li>
+                <li><strong>Visual overrides:</strong> Material and reflective tweaks are documented under <a href="./fpe-physics-and-colliders.html">Physics and Colliders</a> and <a href="./fpe-object-behaviors.html">Objects and Characters</a> for easy lookup.</li>
+            </ul>
+
+            <p>If you spot a feature that is not linked here, add a friendly section to the relevant page and update this map so creators always know where to look.</p>
+        </main>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>

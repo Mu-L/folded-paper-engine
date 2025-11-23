@@ -30,25 +30,52 @@
         <header>
             <div class="section-title">
                 Sub Scenes and Level Loading
-                <div class="section-subtitle">Level transitions, streaming, and pauses</div>
+                <div class="section-subtitle">Friendly recipes for doors, hubs, and streamed interiors</div>
             </div>
         </header>
         <main>
-            <h2>Whole-level loading</h2>
+            <h2>One-click whole level transitions</h2>
+            <ol>
+                <li>Place a trigger near your doorway or portal (see Triggers guide).</li>
+                <li>Add a <strong>LoadLevel</strong> command and point it at the next GLB path (relative to your project).</li>
+                <li>When fired, FPE unloads the current level, clears global registries (speakers, cameras, animations), and loads the new GLB cleanly.</li>
+                <li>Tip: pair with a quick fade or loading screen sub-scene so the player sees a smooth handoff.</li>
+            </ol>
+
+            <h2>Adding a Sub Scene host in Blender</h2>
+            <ol>
+                <li>Select the mesh that should act as the placeholder (e.g., a building doorway or elevator cage).</li>
+                <li>Open the FPE panel and check <strong>Sub Scene</strong>.</li>
+                <li>Provide the <strong>File Path</strong> to the GLB you want to stream in. You can also name the sub-scene so commands can target it later.</li>
+                <li>Decide if the host should <strong>Auto Load</strong> on start. If unchecked, you can load it later via command.</li>
+                <li>Export to GLB. In Godot, the host replaces its mesh with the streamed content while keeping its transform.</li>
+            </ol>
+
+            <h2>Commands for streaming</h2>
             <ul>
-                <li>Use the <strong>LoadLevel</strong> command to unload the current GLB and load another. Registered unload procedures run before the scene is cleared.</li>
-                <li>Global registries (speakers, animations, cameras) are reset during unload to prevent cross-level leaks.</li>
+                <li><strong>LoadSubScene</strong>: Load a sub-scene by name or host node path. Great for stepping inside a house while keeping the street loaded.</li>
+                <li><strong>UnloadSubScene</strong>: Unload a named sub-scene and optionally wait a few seconds to finish fades.</li>
+                <li><strong>UnloadThisSubScene</strong>: From inside a sub-scene, call this to close yourself (handy on an exit trigger inside the streamed area).</li>
             </ul>
-            <h2>Sub-scenes</h2>
+
+            <h2>Pause control during transitions</h2>
             <ul>
-                <li>Mark an object as a Sub Scene host with a file path. The host clears its mesh and optionally auto-loads the referenced GLB inside itself.</li>
-                <li>Sub scenes can pause parent activities while loaded and optionally resume when unloaded. An unload delay lets exit fades finish.</li>
-                <li>Commands allow loading/unloading by name or unloading the current sub-scene from within its own context.</li>
+                <li>Sub scene hosts can pause parent activities while the child is loaded. That keeps NPCs or physics from running while the player is away.</li>
+                <li>Use <strong>DeactivatePlayerControls</strong> plus a camera cut to hide loading, then <strong>ReactivatePlayerControls</strong> when ready.</li>
             </ul>
-            <h2>Pausing and resuming</h2>
+
+            <h2>Design templates</h2>
             <ul>
-                <li>Activity control utilities can pause all movement (used by sub-scene hosts) and resume when appropriate.</li>
-                <li>Combine with trigger-based level exits to keep player motion disabled while loading screens or cutscenes run.</li>
+                <li><strong>Interior door:</strong> Trigger on the doorframe → <code>LoadSubScene</code> for the interior → on the interior exit trigger, run <code>UnloadThisSubScene</code> and <code>ReactivatePlayerCamera</code>.</li>
+                <li><strong>Hub world with portals:</strong> Each portal trigger runs <code>LoadLevel</code> to another GLB. Keep a shared UI scene loaded to show tips during transitions.</li>
+                <li><strong>Elevator cutscene:</strong> Trigger → <code>DeactivatePlayerControls</code> → play lift animation with frame events → <code>LoadLevel</code> to the next floor.</li>
+            </ul>
+
+            <h2>Checks if something feels broken</h2>
+            <ul>
+                <li>Verify paths: GLB paths are relative to the project. Typos silently skip loading.</li>
+                <li>Apply transforms before export so the sub-scene spawns at the expected size and position.</li>
+                <li>If old sounds or cameras keep playing after a load, make sure you are using <strong>LoadLevel</strong> (not a custom script) so the runtime clears registries.</li>
             </ul>
         </main>
     </section>

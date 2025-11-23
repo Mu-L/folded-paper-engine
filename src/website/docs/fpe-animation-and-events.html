@@ -30,25 +30,45 @@
         <header>
             <div class="section-title">
                 Animation and Frame Events
-                <div class="section-subtitle">Animation players, sprite animations, and timed events</div>
+                <div class="section-subtitle">Beginner-friendly timing for cutscenes, doors, and VFX</div>
             </div>
         </header>
         <main>
-            <h2>Animation import</h2>
+            <h2>How animation import works</h2>
             <ul>
-                <li>Animations are registered per name when the GLB loads; players are stored in a global map for command access.</li>
-                <li>Sprite animations are also indexed so command-driven playback can start or stop either type.</li>
+                <li>Every Action you key in Blender keeps its name when exported. FPE registers mesh animations and sprite animations in a global map when the GLB loads so commands can find them later.</li>
+                <li>If you update an animation in Blender, re-export the GLB and re-open the Godot scene to refresh the registered names.</li>
             </ul>
-            <h2>Frame events</h2>
+
+            <h2>Marking frame events in Blender (no code)</h2>
+            <ol>
+                <li>In Blender, select the object that owns the animation and open the FPE panel.</li>
+                <li>In the <strong>Frame Events</strong> section, add a new row. Each row has a <em>Frame Number</em> and <em>Event Name</em>.</li>
+                <li>Use clear event names like <code>door_opened</code> or <code>play_chime</code>. Keep using the same name if multiple frames should fire the same action.</li>
+                <li>Key your animation as normal. The numbers you enter should match the frame where you want the event to fire.</li>
+                <li>Export to GLB. No scripting is required—events travel with the animation metadata.</li>
+            </ol>
+
+            <h2>What happens in Godot</h2>
             <ul>
-                <li>A <code>FrameEventRunner</code> scans animation metadata for frame markers. Events include a frame number/time and a named event string.</li>
-                <li>While an animation plays, the runner checks for pending frame events within a small tolerance and dispatches <code>FPEEvent</code> instances to the target node path.</li>
-                <li>Pair frame events with trigger or command handlers to synchronize sounds, gameplay state changes, or camera cuts with keyframes.</li>
+                <li>When the animation plays, a <code>FrameEventRunner</code> watches the timeline. When the playback head reaches your marked frame (with a small tolerance), the runner dispatches an <code>FPEEvent</code> named after your Event Name.</li>
+                <li>Events target the node that owns the animation, so you can catch them with triggers, commands, or your own script.</li>
+                <li>All events are reset when the level unloads, preventing cross-level leaks.</li>
             </ul>
-            <h2>Playback control</h2>
+
+            <h2>Connecting events to actions (examples)</h2>
             <ul>
-                <li>Use commands to play or stop animations by comma-separated names. Both mesh and sprite animations listen to the same command list.</li>
-                <li>Animation players are reused across levels; unload clears the map so stale references do not persist.</li>
+                <li><strong>Play a sound mid-animation:</strong> Add a frame event named <code>play_chime</code>. Place a Trigger or Speaker nearby that listens for the <code>play_chime</code> event and fires a <code>SpeakerTrigger</code> command.</li>
+                <li><strong>Unlock a door on frame 12:</strong> Mark frame 12 as <code>unlock_door</code>. Add a Trigger on the door mesh that reacts to <code>unlock_door</code> by disabling the collider or running <code>Animations</code> to play the open clip.</li>
+                <li><strong>Cutscene camera swap:</strong> Use two frame events, <code>cam_cut</code> and <code>cam_return</code>, and bind them to <code>ActivateCamera</code> and <code>ReactivatePlayerCamera</code> commands to keep control smooth for non-coders.</li>
+            </ul>
+
+            <h2>Quick checklist if nothing fires</h2>
+            <ul>
+                <li>Double-check the Event Name spelling in Blender and in the listening trigger/command.</li>
+                <li>Confirm the animation actually plays (use the AnimationPlayer panel in Godot).</li>
+                <li>Make sure the GLB was re-exported after adding events and that Godot re-imported it.</li>
+                <li>If your event happens between frames, slow playback slightly or move the marker to an exact frame number.</li>
             </ul>
         </main>
     </section>
