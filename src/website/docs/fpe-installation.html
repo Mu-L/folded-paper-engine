@@ -25,15 +25,28 @@
         <img class="dl-icon" src="../dl-icon.png" alt="Download">
     </a>
 </header>
-<main>
-    <section class="section top-section">
-        <header>
-            <div class="section-title">
-                Installation and Project Setup
-                <div class="section-subtitle">Blender exporter + Godot runtime</div>
-            </div>
-        </header>
+    <main>
+        <section class="section top-section">
+            <header>
+                <div class="section-title">
+                    Installation and Project Setup
+                    <div class="section-subtitle">Blender exporter + Godot runtime</div>
+                </div>
+            </header>
         <main>
+            <div class="callouts">
+                <div class="callout">
+                    <div class="callout-title">Preflight checklist</div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>Install the Godot plug-in and enable it under <strong>Project Settings → Plugins</strong>.</li>
+                            <li>Enable the Blender exporter and confirm the <strong>Folded Paper Engine</strong> panel appears in the <strong>N</strong> sidebar.</li>
+                            <li>Open the sample project once so the importer generates <code>.import</code> assets for faster reimports.</li>
+                            <li>Run <a href="./fpe-pipeline.html#checking-imports">importer log checks</a> before wiring up gameplay to ensure asset and metadata paths resolve.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <h2>Blender add-on</h2>
             <ol>
                 <li>Open <strong>Edit → Preferences → Add-ons</strong> in Blender.</li>
