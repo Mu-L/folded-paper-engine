@@ -37,38 +37,53 @@
             <h2>One-click whole level transitions</h2>
             <ol>
                 <li>Place a trigger near your doorway or portal (see Triggers guide).</li>
-                <li>Add a <strong>LoadLevel</strong> command and point it at the next GLB path (relative to your project).</li>
+                <li>Add a <strong>Load Level</strong> command (the <code>LoadLevel</code> event) and point it at the next GLB path (relative to your project).</li>
                 <li>When fired, FPE unloads the current level, clears global registries (speakers, cameras, animations), and loads the new GLB cleanly.</li>
                 <li>Tip: pair with a quick fade or loading screen sub-scene so the player sees a smooth handoff.</li>
+            </ol>
+
+            <h2>Quick fade recipe</h2>
+            <ol>
+                <li>Create a simple full-screen quad or UI Layer that fades from transparent to black over 0.25–0.5 seconds.</li>
+                <li>Trigger the fade at the same time you run <strong>LoadLevel</strong> or <strong>LoadSubScene</strong>. Start the fade-in once the new content is ready.</li>
+                <li>You can keep the fade as a lightweight sub-scene that is always loaded, or load/unload it around transitions for a blank-free swap.</li>
             </ol>
 
             <h2>Adding a Sub Scene host in Blender</h2>
             <ol>
                 <li>Select the mesh that should act as the placeholder (e.g., a building doorway or elevator cage).</li>
-                <li>Open the FPE panel and check <strong>Sub Scene</strong>.</li>
+                <li>Open the Folded Paper Engine panel and check <strong>Sub Scene</strong>.</li>
                 <li>Provide the <strong>File Path</strong> to the GLB you want to stream in. You can also name the sub-scene so commands can target it later.</li>
-                <li>Decide if the host should <strong>Auto Load</strong> on start. If unchecked, you can load it later via command.</li>
+                <li>Decide if the host should <strong>Auto Load</strong> on start. If unchecked, call <strong>Load Sub Scene</strong> (the <code>LoadSubScene</code> event) from a trigger or other event command when you want it to appear.</li>
                 <li>Export to GLB. In Godot, the host replaces its mesh with the streamed content while keeping its transform.</li>
             </ol>
 
             <h2>Commands for streaming</h2>
             <ul>
-                <li><strong>LoadSubScene</strong>: Load a sub-scene by name or host node path. Great for stepping inside a house while keeping the street loaded.</li>
-                <li><strong>UnloadSubScene</strong>: Unload a named sub-scene and optionally wait a few seconds to finish fades.</li>
-                <li><strong>UnloadThisSubScene</strong>: From inside a sub-scene, call this to close yourself (handy on an exit trigger inside the streamed area).</li>
+                <li><strong>Load Sub Scene</strong> (<code>LoadSubScene</code>): Load a sub-scene by name or host node path. Great for stepping inside a house while keeping the street loaded.</li>
+                <li><strong>Unload Sub Scene</strong> (<code>UnloadSubScene</code>): Unload a named sub-scene and optionally wait a few seconds to finish fades.</li>
+                <li><strong>Unload This Sub Scene</strong> (<code>UnloadThisSubScene</code>): From inside a sub-scene, call this to close yourself (handy on an exit trigger inside the streamed area).</li>
             </ul>
+
+            <h2>Quick fades for smooth transitions</h2>
+            <ol>
+                <li>Create a simple fade overlay in Blender: a plane in front of the player camera with a dark material set to transparent. Keyframe its material alpha from 0 → 1 (fade out) and 1 → 0 (fade in) so the animation is baked into the GLB.</li>
+                <li>Parent that plane to the camera you will use during the transition. This keeps the overlay in view without special UI options.</li>
+                <li>Export the fade overlay as a tiny sub-scene GLB and give it a clear name (for example, <code>fade_overlay</code>).</li>
+                <li>Before you run <strong>Load Level</strong> or <strong>Load Sub Scene</strong>, trigger the overlay’s fade-out animation with the <strong>Animations</strong> command. When the screen is fully dark, run the load command, then play the fade-in animation. Frame events are a clean way to sequence “fade complete → load → fade back.”</li>
+            </ol>
 
             <h2>Pause control during transitions</h2>
             <ul>
                 <li>Sub scene hosts can pause parent activities while the child is loaded. That keeps NPCs or physics from running while the player is away.</li>
-                <li>Use <strong>DeactivatePlayerControls</strong> plus a camera cut to hide loading, then <strong>ReactivatePlayerControls</strong> when ready.</li>
+                <li>Use <strong>Deactivate Player Controls</strong> (the <code>DeactivatePlayerControls</code> event) plus a camera cut to hide loading, then <strong>Reactivate Player Controls</strong> when ready.</li>
             </ul>
 
             <h2>Design templates</h2>
             <ul>
-                <li><strong>Interior door:</strong> Trigger on the doorframe → <code>LoadSubScene</code> for the interior → on the interior exit trigger, run <code>UnloadThisSubScene</code> and <code>ReactivatePlayerCamera</code>.</li>
-                <li><strong>Hub world with portals:</strong> Each portal trigger runs <code>LoadLevel</code> to another GLB. Keep a shared UI scene loaded to show tips during transitions.</li>
-                <li><strong>Elevator cutscene:</strong> Trigger → <code>DeactivatePlayerControls</code> → play lift animation with frame events → <code>LoadLevel</code> to the next floor.</li>
+                <li><strong>Interior door:</strong> Trigger on the doorframe → run <strong>Load Sub Scene</strong> (<code>LoadSubScene</code>) for the interior → on the interior exit trigger, run <strong>Unload This Sub Scene</strong> (<code>UnloadThisSubScene</code>) and, if you swapped cameras, <strong>Reactivate Player Camera</strong> (<code>ReactivatePlayerCamera</code>).</li>
+                <li><strong>Hub world with portals:</strong> Each portal trigger runs <strong>Load Level</strong> (<code>LoadLevel</code>) to another GLB. Keep a shared UI scene loaded to show tips during transitions.</li>
+                <li><strong>Elevator cutscene:</strong> Trigger → <strong>Deactivate Player Controls</strong> (<code>DeactivatePlayerControls</code>) → play lift animation with frame events → <strong>Load Level</strong> (<code>LoadLevel</code>) to the next floor.</li>
             </ul>
 
             <h2>Checks if something feels broken</h2>
@@ -76,13 +91,15 @@
                 <li>Verify paths: GLB paths are relative to the project. Typos silently skip loading.</li>
                 <li>Apply transforms before export so the sub-scene spawns at the expected size and position.</li>
                 <li>If old sounds or cameras keep playing after a load, make sure you are using <strong>LoadLevel</strong> (not a custom script) so the runtime clears registries.</li>
+                <li>After a <strong>LoadLevel</strong>, clear any trigger states that were mid-activation so you do not immediately re-trigger when the player respawns.</li>
+                <li>When streaming interiors, keep the exterior <strong>WorldEnvironment</strong> loaded or swap to a dedicated indoor profile so lighting transitions feel intentional.</li>
             </ul>
         </main>
     </section>
 </main>
 <footer class="footer">
     <a href="https://papercraft.games" target="_blank">
-        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+        <img class="papercraft-games-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
     </a>
     <div class="social">
         <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">

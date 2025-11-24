@@ -29,22 +29,35 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Input and Cameras
-                <div class="section-subtitle">Action maps, controllers, and camera switching</div>
+                Cameras
+                <div class="section-subtitle">Player rigs, cinematic cuts, and keeping UI in view</div>
             </div>
         </header>
         <main>
-            <h2>Input actions</h2>
+            <h2>Player cameras</h2>
             <ul>
-                <li>Player actions include movement (<code>PLAYER_MOVE_*</code>), look (<code>PLAYER_TURN_*</code>), run, jump, use, and drop. UI actions cover navigation, accept/cancel, and pause.</li>
-                <li>Device proxies normalize mouse, keyboard, and gamepad inputs. Mouse axes respect a configurable ratio to balance with joystick sensitivity.</li>
-                <li>Input mappings update when controllers connect/disconnect so players can hot-plug devices mid-session.</li>
+                <li>Players set to <strong>First Person</strong> use the camera aligned to their head/eyes and lock pitch to keep motion natural.</li>
+                <li>Players set to <strong>Third Person</strong> orbit around the character with an over-the-shoulder offset. You can tweak offsets in Godot after import.</li>
+                <li>The runtime registers the active player camera globally so you can switch away and come back with commands.</li>
             </ul>
-            <h2>Camera control</h2>
+
+            <h2>Switching cameras in Godot</h2>
+            <ol>
+                <li>Add extra cameras for cutscenes or special views and give them clear names.</li>
+                <li>Use <strong>Activate Camera</strong> to cut to a named camera, then <strong>Reactivate Player Camera</strong> to return. If you never deactivated the player camera, you do not need to reactivate it.</li>
+                <li>Pair camera switches with <strong>Deactivate Player Controls</strong> if you want the player to stop moving during the shot.</li>
+            </ol>
+
+            <h2>UI visibility while switching</h2>
             <ul>
-                <li>Player cameras are registered globally. Commands can activate any named camera or reactivate the player camera after cutscenes.</li>
-                <li>Third-person cameras align to movement and can be offset for over-the-shoulder views; first-person locks facing and clamps pitch to ±90°.</li>
-                <li>UI or cutscene scripts can temporarily disable player controls via activity control utilities, preventing unintended movement while cameras animate.</li>
+                <li>Keep any <strong>UI Element</strong> children (crosshairs, prompts) parented to the active camera. When you switch cameras, move or duplicate the UI Element so it stays in view.</li>
+                <li>If you cut to a camera that looks at the player, remember to hide first-person-only UI like a crosshair to avoid floating UI in the shot.</li>
+            </ul>
+
+            <h2>Checks if cameras misbehave</h2>
+            <ul>
+                <li>Ensure the Folded Paper Engine node is in the scene; it registers cameras and handles pointer capture.</li>
+                <li>If the wrong camera stays active after a cutscene, confirm your commands call <strong>Reactivate Player Camera</strong> only when you actually switched away.</li>
             </ul>
         </main>
     </section>

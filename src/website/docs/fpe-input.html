@@ -29,38 +29,36 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Conversations
-                <div class="section-subtitle">Speaker-tagged actors, dialogue data, and reply flow</div>
+                Input
+                <div class="section-subtitle">Player actions, UI actions, and controller tips</div>
             </div>
         </header>
         <main>
-            <h2>Mark characters as Speakers in Blender</h2>
-            <ol>
-                <li>Select the character or prop that should talk.</li>
-                <li>In the <strong>Folded Paper Engine</strong> panel, open <strong>Speaker</strong> and check <strong>Speaker</strong> so the runtime knows this node can speak.</li>
-                <li>If the Speaker should also play 3D audio, set the <strong>Speaker File</strong> and optional autoplay/loop settings described in the Audio guide.</li>
-                <li>Export to GLB. The Speaker flag comes through to Godot so conversations and sounds can target the node by name.</li>
-            </ol>
-
-            <h2>Author the dialogue</h2>
+            <h2>Default player actions</h2>
             <ul>
-                <li>Create a conversation resource in Godot with your comments and replies. Add the character names you want displayed to the player.</li>
-                <li>Assign that conversation asset to the Speaker node (or a parent) so the runtime can find it when a trigger fires.</li>
-                <li>Each reply can point to the next comment, allowing branching choices. Keep labels simple (“Greet”, “Ask for help”) so creators can follow the flow.</li>
+                <li>Movement: forward/back/left/right with keyboard, stick, or D-pad.</li>
+                <li>Look: mouse or right stick with sensitivity balanced between devices.</li>
+                <li>Interact: <strong>Use</strong> to activate triggers, pick up holdables, or advance dialogue; <strong>Drop</strong> to release held items.</li>
+                <li>Extras: Run/Sprint, Jump, and Pause are wired for you. Remap inside Godot’s <strong>Input Map</strong> if desired.</li>
             </ul>
 
-            <h2>Start and advance a conversation</h2>
-            <ol>
-                <li>Add a trigger near the NPC and give it a <strong>StartConversation</strong> command that points at the Speaker. You can also call the command from another event, like a frame event in a cutscene.</li>
-                <li>When the command runs, a conversation instance is created and locked to the Speaker. Replies advance when the player chooses an option or when you call the reply helper from code.</li>
-                <li>When there are no replies left, the conversation ends automatically and control returns to the player.</li>
-            </ol>
-
-            <h2>Friendly tips</h2>
+            <h2>UI actions</h2>
             <ul>
-                <li>Keep Speaker node names readable (“GuideNPC”) so your commands can target them without guesswork.</li>
-                <li>Pair conversations with a <strong>Deactivate Player Controls</strong> command if you want the player to stand still during dialogue, then re-enable controls afterward.</li>
-                <li>Reuse the <strong>Speaker Trigger</strong> command for simple voice lines that do not need branching replies.</li>
+                <li>Navigation, Accept, Cancel, and Pause are available for menus. Use them when building UI scenes so players can navigate with keyboard, mouse, or controller.</li>
+                <li>When you show a menu, unlock the mouse so the UI Cursor can move freely; when you hide it, lock the mouse again for first-person control.</li>
+            </ul>
+
+            <h2>Controller hot-plugging</h2>
+            <ul>
+                <li>Folded Paper Engine watches for controllers connecting or disconnecting and swaps to the active device without a restart.</li>
+                <li>If a device feels too sensitive, adjust the look ratios in Godot’s project settings so mouse and stick speeds feel consistent.</li>
+            </ul>
+
+            <h2>Quick checks if input feels off</h2>
+            <ul>
+                <li>Confirm the Folded Paper Engine plug-in is enabled; the input manager registers actions when the engine node enters the scene tree.</li>
+                <li>Make sure your scene includes the <strong>Folded Paper Engine</strong> node so pointer capture and actions initialize.</li>
+                <li>If you remap actions, keep <strong>Use</strong> and <strong>Drop</strong> bound so holdables and triggers still work.</li>
             </ul>
         </main>
     </section>
