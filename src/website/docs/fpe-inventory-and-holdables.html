@@ -30,41 +30,65 @@
         <header>
             <div class="section-title">
                 Inventory and Holdables
-                <div class="section-subtitle">Item kinds and quantities vs. physics-held objects</div>
+                <div class="section-subtitle">Two different systems: stacked items in slots vs. physics-based carry</div>
             </div>
         </header>
         <main>
-            <h2>Inventory items (stored in slots)</h2>
+            <h2>How they differ</h2>
+            <p>
+                <strong>Inventory</strong> tracks <em>kinds</em> and quantities in slots (great for keys, ammo, or resources).<br>
+                <strong>Holdable Items</strong> are physical objects the player lifts with a hold zone (great for boxes or props).<br>
+                You can use both: pick up a Holdable, drop it onto a Trigger to deposit it, or keep inventory for stacking.
+            </p>
+
+            <h2>Inventory setup (Blender)</h2>
             <ol>
-                <li>Model your item in Blender, then in the <strong>Folded Paper Engine</strong> panel open <strong>Inventory Item</strong> and check <strong>Inventory Item</strong>.</li>
-                <li>Set the <strong>Inventory Item Kind</strong> (a friendly ID like <em>Key</em> or <em>Coin</em>) and the <strong>Quantity</strong> that should be added when the item is picked up.</li>
-                <li>If you want the pickup to run when the player enters a zone, check <strong>Trigger</strong> under <strong>Item</strong> so the item acts as a trigger volume.</li>
-                <li>Duplicate the item as needed. Each copy will add the same kind/quantity to the player when triggered.</li>
-                <li>In Godot, add an <strong>FPE Inventory Config</strong> node to your scene, then add the same <strong>Inventory Item Kind</strong> IDs you used in Blender and set your <strong>Inventory Size</strong>. This tells the runtime which kinds exist and how many slots the player has.</li>
-                <li>Playtest: walking into the item trigger moves the configured quantity into the inventory slots. The stored items can be shown in UI or spent later via triggers/commands.</li>
+                <li>Create your item mesh. In the <strong>Item</strong> panel, check <strong>Trigger</strong> so the player can interact.</li>
+                <li>Still in the <strong>Item</strong> panel, open <strong>Inventory Item</strong> and fill:
+                    <ul>
+                        <li><strong>Inventory Item Kind</strong>: a text ID that represents this item type (for example, <code>Key_A</code>).</li>
+                        <li><strong>Inventory Item Quantity</strong>: how many units this trigger should give (for example, <code>1</code> key or <code>5</code> coins).</li>
+                    </ul>
+                </li>
+                <li>Duplicate the object if you want multiple pickups. Export as usual.</li>
             </ol>
 
-            <h2>Holdable items (physically carried)</h2>
+            <h2>Inventory setup (Godot)</h2>
             <ol>
-                <li>Select your player in Blender, open <strong>Player Controls</strong>, choose <strong>First Person</strong>, and check <strong>Can Hold Items</strong> so the exporter knows to create a Hold Zone.</li>
-                <li>Pick the object you want to carry, make sure it is marked <strong>Rigid</strong> so physics work, then open the <strong>Items</strong> tab and check <strong>Holdable</strong>.</li>
-                <li>Export to GLB. In-game, pressing the <strong>Use</strong> action pulls the holdable object into the Hold Zone in front of the camera instead of putting it into an inventory slot.</li>
-                <li>Holdables keep their physics: they sway, can be dropped with gravity, and do not consume inventory capacity. Use them for boxes, tools, or props you want the player to visibly carry.</li>
+                <li>In your imported scene, add a child node <strong>FPEInventoryConfig</strong> (appears after enabling the plugin).</li>
+                <li>In the Inspector:
+                    <ul>
+                        <li><strong>Inventory Kinds</strong>: click <strong>+</strong> to add an item kind entry, set its ID to exactly match the <em>Inventory Item Kind</em> you set in Blender.</li>
+                        <li><strong>Player Inventory Size</strong>: set Width (columns) and Height (rows) to control slot count.</li>
+                        <li><strong>Keep Player Inventory</strong>: enable if you want the player to keep items when a level unloads.</li>
+                    </ul>
+                </li>
+                <li>Run the scene. Walking into an Inventory trigger adds the quantity to the player’s slots. Overflow stays on the trigger.</li>
             </ol>
 
-            <h2>Pickup and UI patterns</h2>
+            <h2>Holdable Items (Blender)</h2>
+            <ol>
+                <li>Select your player object. In <strong>Player Controls</strong>, enable <strong>First Person</strong> and <strong>Can Hold Items</strong>. Optional: adjust <strong>Hold Zone Distance</strong>, <strong>Hold Zone Size</strong>, or pick a <strong>Hold Zone Scene</strong> for VFX/UI feedback.</li>
+                <li>Select the object you want to carry:
+                    <ul>
+                        <li>Give it rigid-body physics (so it can be pushed and lifted).</li>
+                        <li>In the <strong>Item</strong> panel, check <strong>Holdable</strong>.</li>
+                    </ul>
+                </li>
+                <li>Export and import into Godot.</li>
+            </ol>
+
+            <h2>Using Holdables in-game</h2>
             <ul>
-                <li>Add a <strong>UI Options</strong> node and enable <strong>Show Pickup Prompts</strong> if you want on-screen text when the player can take an item.</li>
-                <li>For slot items, consider a brief animation or sound on pickup so it is clear the item was stored, not held.</li>
-                <li>If you allow dropping, keep a <strong>Holdable</strong> version of the model nearby so players can set objects down even when inventory is full.</li>
+                <li>With <strong>First Person</strong> and <strong>Can Hold Items</strong> enabled, the player’s <em>Use</em> input grabs nearby Holdable objects into a physics-based hold zone in front of the camera.</li>
+                <li>The hold zone gently pulls items toward the target point, applies sway, and drops them if they get too far or hit the ground.</li>
+                <li>Drop a held item over a Trigger volume to deposit it (for example, into a puzzle socket) or just let it fall to place it in the world.</li>
             </ul>
 
-            <h2>Choosing between them</h2>
-            <ul>
-                <li><strong>Inventory Items</strong> live in slots with a Kind and Quantity. Use them for resources, keys, and collectibles that you do not need to see in the player’s hands.</li>
-                <li><strong>Holdable Items</strong> stay in the world as physics bodies and can be picked up/dropped with the player’s hands. They are great for puzzles and props but they do not consume or require inventory slots.</li>
-                <li>You can mix both: keep a key <strong>Inventory Item</strong> for a door while letting the player carry a separate <strong>Holdable</strong> crate to press a switch.</li>
-            </ul>
+            <h2>Combine both systems (optional)</h2>
+            <p>
+                Use inventory for stackable resources and Holdables for physical props. A level can include both: collect coins and keys into the inventory while also lifting crates or quest items with the hold zone. You decide which objects should be stackable (Inventory Item) versus physics carry (Holdable) for your design.
+            </p>
         </main>
     </section>
 </main>

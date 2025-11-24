@@ -45,6 +45,7 @@
                 <li><strong>No input:</strong> verify the plug-in is enabled and that the engine node’s <code>capture_pointer</code> matches your test setup. Controller hot-plugging relies on the input manager being active.</li>
                 <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
                 <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. Use simple box triggers for empty meshes.</li>
+                <li><strong>Need a one-time trigger:</strong> you can remove a trigger after it fires by (1) animating it out of the playable area so it no longer overlaps the player, or (2) putting it in a group and using a <strong>Delete By Group</strong> command to cleanly delete all triggers in that group.</li>
             </ul>
             <h2>Level flow</h2>
             <ul>
