@@ -1,0 +1,89 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Troubleshooting
+                <div class="section-subtitle">Common pipeline issues and fixes</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>GLB import issues</h2>
+            <ul>
+                <li><strong>Correct export settings:</strong> in Blender’s GLTF export dialog check <strong>Custom Properties</strong>, <strong>Cameras</strong>, <strong>Punctual Lights</strong>, and <strong>Remember Export Settings</strong> before saving to your Godot project folder.</li>
+                <li><strong>Missing behaviors:</strong> ensure <strong>Custom Properties</strong> are enabled in the Blender export dialog so metadata reaches Godot.</li>
+                <li><strong>Stale data:</strong> after re-exporting, let Godot reimport the GLB to refresh metadata.</li>
+                <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; FPE uses the mesh to build triggers areas.</li>
+            </ul>
+            <h2>Runtime hiccups</h2>
+            <ul>
+                <li><strong>No input:</strong> verify the plug-in is enabled and that the <strong>Folded Paper Engine</strong> node’s <code>Capture Pointer</code> matches is configured as expected.</li>
+                <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
+                <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>.</li>
+                <li><strong>Removing one-shot triggers:</strong> animate the trigger out of the way after it fires, or place it in a group and call <strong>Delete By Group</strong> so it disappears after one use.</li>
+                <li><strong>Stuck UI overlays:</strong> if a fade or prompt hangs around after a level load, ensure the sub-scene hosting it is unloaded or removed from any persistent groups.</li>
+            </ul>
+            <h2>Level flow</h2>
+            <ul>
+                <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, etc.). Commands may have toggled these during cutscenes.</li>
+                <li><strong>Missing transition fades:</strong> load the fade sub-scene just before running <strong>Load Level</strong>, then unload it in the new scene once the player regains control.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>

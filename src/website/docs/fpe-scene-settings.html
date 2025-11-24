@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Scene Settings
+                <div class="section-subtitle">Environment, gravity, music, and scene events</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Environment overrides</h2>
+            <ul>
+                <li><strong>Sky Color:</strong> Set in Blender on the scene context. During load, the SkyColor effect applies the tint to the shared <code>WorldEnvironment</code> so new levels inherit the same background.</li>
+                <li><strong>Gravity:</strong> The Gravity effect rewrites <code>physics/3d/default_gravity</code> at runtime based on the scene property. Use this when a level needs lighter jumps or heavier falls.</li>
+            </ul>
+            <h2>Background music</h2>
+            <ul>
+                <li>Provide one or more music dictionaries (with a <code>path</code>) on the scene context to build the playlist.</li>
+                <li>Set <strong>BackgroundMusicVolume</strong> to control dB on load. Music instances are stored globally and cleared on unload.</li>
+            </ul>
+            <h2>Scene events</h2>
+            <ul>
+                <li>Scene-level event data is kept on the scene root so triggers and animations can access event participant metadata when dispatching events.</li>
+                <li>Use event names consistently across triggers, frame events, and commands so handlers in the Godot scene tree can listen with <code>FPEEventManager</code>.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>

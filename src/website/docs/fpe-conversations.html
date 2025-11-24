@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Conversations
+                <div class="section-subtitle">Dialogue data and progression</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Author dialogue data</h2>
+            <ul>
+                <li>Conversations are stored as comments with replies in a Conversation resource in Godot. Each reply can point to the next comment, so you can build linear or branching dialogue.</li>
+                <li>Required characters and optional sidekicks are tracked per conversation so the correct speakers appear in Godot.</li>
+                <li>When a conversation starts, the engine creates an instance with its own ID and keeps track of the current comment until no replies remain.</li>
+            </ul>
+            <h2>Start and advance a conversation (Advanced)</h2>
+            <ol>
+                <li>Trigger the conversation from gameplay (for example, triggering a Scene Event Command that starts the dialogue).</li>
+                <li>In Godot, call <code>FPEConversationManager.select_reply</code> when the player chooses a response. The Conversation Manager moves to the next comment and ends when replies run out.</li>
+                <li>Use your UI to show the current speaker name and comment text; the conversation instance already provides the data for each step.</li>
+            </ol>
+            <h2>Practical tips</h2>
+            <ul>
+                <li>Keep each conversation focused. Short comments with 2–3 replies are easier for players to follow and for you to script.</li>
+                <li>Test with multiple characters present; required characters must be present (if specified in the Conversation resource).</li>
+                <li>Pair conversations with animation or audio by firing a Scene Event or Frame Event when a key line is reached.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>
