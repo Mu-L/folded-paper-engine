@@ -34,6 +34,18 @@
             </div>
         </header>
         <main>
+            <div class="callouts">
+                <div class="callout">
+                    <div class="callout-title">Log checks</div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>Confirm the importer found <code>custom_properties.json</code> for your GLB and registered inventory, triggers, and cameras.</li>
+                            <li>If you see missing resource warnings, re-export from Blender and delete the GLB’s <code>.import</code> folder before reopening the project.</li>
+                            <li>After enabling the plug-in or switching branches, restart Godot so input actions and runtime singletons rebind cleanly.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <h2>GLB import issues</h2>
             <ul>
                 <li><strong>Correct export settings:</strong> in Blender’s GLTF export dialog check <strong>Custom Properties</strong>, <strong>Cameras</strong>, <strong>Punctual Lights</strong>, and <strong>Remember Export Settings</strong> before saving to your Godot project folder.</li>
