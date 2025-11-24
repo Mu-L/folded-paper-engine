@@ -29,33 +29,36 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Troubleshooting
-                <div class="section-subtitle">Common pipeline issues and fixes</div>
+                UI and Cursors
+                <div class="section-subtitle">UI Options, UI Cursor, and keeping UI visible with your camera</div>
             </div>
         </header>
         <main>
-            <h2>GLB import issues</h2>
+            <h2>UI Options (menu entries)</h2>
             <ul>
-                <li><strong>Missing behaviors:</strong> ensure <strong>Custom Properties</strong> are enabled in the Blender export dialog so metadata reaches Godot.</li>
-                <li><strong>Stale data:</strong> after re-exporting, let Godot reimport the GLB (or delete the <code>.import</code> folder for the file) to refresh metadata.</li>
-                <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; Folded Paper Engine uses the mesh to build triggers and colliders.</li>
+                <li>UI Options give you named menu entries you can show on screen (e.g., Pause, Resume, Settings). The engine stores them globally so your UI scene can list what is available.</li>
+                <li>Create your own Godot UI scene and read the registered UI Options to populate buttons or toggles. This keeps menus designer-friendly while still reflecting the runtime state.</li>
             </ul>
-            <h2>Runtime hiccups</h2>
+
+            <h2>UI Cursor (crosshair and pointer)</h2>
             <ul>
-                <li><strong>No input:</strong> verify the plug-in is enabled and that the engine node’s <code>capture_pointer</code> matches your test setup. Controller hot-plugging relies on the input manager being active.</li>
-                <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
-                <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. Use simple box triggers for empty meshes.</li>
-                <li><strong>Need a one-time trigger:</strong> you can remove a trigger after it fires by (1) animating it out of the playable area so it no longer overlaps the player, or (2) putting it in a group and using a <strong>Delete By Group</strong> command to cleanly delete all triggers in that group.</li>
+                <li>Mark an object in Blender as <strong>UI Element</strong> if you want to turn it into a UI Cursor or UI Option. The flag simply tells the runtime the node can be used for UI—how it appears depends on which role you choose.</li>
+                <li>Place the UI cursor geometry where the player camera can see it and keep it in front of the camera. The engine does not automatically reposition UI Elements; you keep them visible by parenting to the camera or by animating them into view.</li>
+                <li>At runtime, the engine can show a simple crosshair and optionally unlock the mouse for menu navigation. Use a pause/menu trigger to toggle the cursor lock state.</li>
             </ul>
-            <h2>Level flow</h2>
+
+            <h2>Practical setup</h2>
+            <ol>
+                <li>Create a small crosshair mesh or sprite in Blender, mark it as <strong>UI Element</strong>, and make it a child of your camera so it stays in view.</li>
+                <li>For menus, build a Godot UI scene that reads UI Options and shows buttons. When you pause the game, unlock the mouse and show this scene; when you resume, lock the mouse again and hide the UI.</li>
+                <li>If you need a custom cursor graphic, swap the UI Cursor object in your Godot scene with your own UI Element so the appearance matches your project.</li>
+            </ol>
+
+            <h2>Helpful reminders</h2>
             <ul>
-                <li><strong>Scene reload glitches:</strong> register unload procedures for custom systems, and avoid storing references to nodes that will be freed during <code>global_unload_level</code>.</li>
-                <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, triggers, UI). Commands may have toggled these during cutscenes.</li>
-            </ul>
-            <h2>Cleaning up triggers</h2>
-            <ul>
-                <li><strong>One-time triggers:</strong> animate the trigger out of the way after it fires so the player cannot re-enter it.</li>
-                <li><strong>Delete by group:</strong> put the trigger in a named <strong>Group</strong> and run the <strong>Delete By Group</strong> command once the interaction is finished.</li>
+                <li>UI Elements are not the same as Godot’s Control nodes. They are 3D objects you keep in front of a camera to act as cursors or options.</li>
+                <li>If you change cameras during a cutscene, be sure the UI Element is parented to the active camera or otherwise moved so it stays visible.</li>
+                <li>Use <strong>Deactivate Player Controls</strong> when showing menus so players do not move while navigating UI.</li>
             </ul>
         </main>
     </section>
