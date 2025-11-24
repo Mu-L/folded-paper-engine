@@ -30,37 +30,33 @@
         <header>
             <div class="section-title">
                 Conversations
-                <div class="section-subtitle">Speaker-tagged actors, dialogue data, and reply flow</div>
+                <div class="section-subtitle">Speaker setup, dialogue data, and progression</div>
             </div>
         </header>
         <main>
-            <h2>Mark characters as Speakers in Blender</h2>
+            <h2>Create a conversation-ready character</h2>
             <ol>
-                <li>Select the character or prop that should talk.</li>
-                <li>In the <strong>Folded Paper Engine</strong> panel, open <strong>Speaker</strong> and check <strong>Speaker</strong> so the runtime knows this node can speak.</li>
-                <li>If the Speaker should also play 3D audio, set the <strong>Speaker File</strong> and optional autoplay/loop settings described in the Audio guide.</li>
-                <li>Export to GLB. The Speaker flag comes through to Godot so conversations and sounds can target the node by name.</li>
+                <li>Select the character mesh or rig in Blender and open the <strong>Folded Paper Engine</strong> panel.</li>
+                <li>Enable the <strong>Speaker</strong> toggle so the export marks this object as a conversation participant.</li>
+                <li>Give the character a clear name in Blender; that name becomes the speaker label shown to the player.</li>
             </ol>
-
-            <h2>Author the dialogue</h2>
+            <h2>Author dialogue data</h2>
             <ul>
-                <li>Create a conversation resource in Godot with your comments and replies. Add the character names you want displayed to the player.</li>
-                <li>Assign that conversation asset to the Speaker node (or a parent) so the runtime can find it when a trigger fires.</li>
-                <li>Each reply can point to the next comment, allowing branching choices. Keep labels simple (“Greet”, “Ask for help”) so creators can follow the flow.</li>
+                <li>Conversations are stored as comments with replies. Each reply can point to the next comment, so you can build linear or branching dialogue.</li>
+                <li>Required characters and optional sidekicks are tracked per conversation so the correct speakers appear in Godot.</li>
+                <li>When a conversation starts, the engine creates an instance with its own ID and keeps track of the current comment until no replies remain.</li>
             </ul>
-
             <h2>Start and advance a conversation</h2>
             <ol>
-                <li>Add a trigger near the NPC and give it a <strong>StartConversation</strong> command that points at the Speaker. You can also call the command from another event, like a frame event in a cutscene.</li>
-                <li>When the command runs, a conversation instance is created and locked to the Speaker. Replies advance when the player chooses an option or when you call the reply helper from code.</li>
-                <li>When there are no replies left, the conversation ends automatically and control returns to the player.</li>
+                <li>Trigger the conversation from gameplay (for example, via a Trigger area or an Event Command that starts the dialogue).</li>
+                <li>In Godot, call <code>ConversationUtils.select_reply</code> when the player chooses a response. The helper moves to the next comment and ends when replies run out.</li>
+                <li>Use your UI to show the current speaker name and comment text; the conversation instance already provides the data for each step.</li>
             </ol>
-
-            <h2>Friendly tips</h2>
+            <h2>Practical tips</h2>
             <ul>
-                <li>Keep Speaker node names readable (“GuideNPC”) so your commands can target them without guesswork.</li>
-                <li>Pair conversations with a <strong>Deactivate Player Controls</strong> command if you want the player to stand still during dialogue, then re-enable controls afterward.</li>
-                <li>Reuse the <strong>Speaker Trigger</strong> command for simple voice lines that do not need branching replies.</li>
+                <li>Keep each conversation focused. Short comments with 2–3 replies are easier for players to follow and for you to script.</li>
+                <li>Test with multiple characters present; required characters must be in the scene so the dialogue has valid speakers.</li>
+                <li>Pair conversations with animation or audio by firing an Event Command or Frame Event when a key line is reached.</li>
             </ul>
         </main>
     </section>

@@ -30,35 +30,25 @@
         <header>
             <div class="section-title">
                 Input
-                <div class="section-subtitle">Player actions, UI actions, and controller tips</div>
+                <div class="section-subtitle">Action maps, controller support, and player-friendly prompts</div>
             </div>
         </header>
         <main>
-            <h2>Default player actions</h2>
+            <h2>Default actions</h2>
             <ul>
-                <li>Movement: forward/back/left/right with keyboard, stick, or D-pad.</li>
-                <li>Look: mouse or right stick with sensitivity balanced between devices.</li>
-                <li>Interact: <strong>Use</strong> to activate triggers, pick up holdables, or advance dialogue; <strong>Drop</strong> to release held items.</li>
-                <li>Extras: Run/Sprint, Jump, and Pause are wired for you. Remap inside Godot’s <strong>Input Map</strong> if desired.</li>
+                <li>FPE ships with sensible defaults for Move, Look, Jump, Use, Inventory, and Toggle Menu. Map them in Godot’s Input Map before running.</li>
+                <li>Use clear on-screen prompts (e.g., “Press Use”) whenever a Trigger or UI Option requires a specific action.</li>
             </ul>
-
-            <h2>UI actions</h2>
+            <h2>Controllers and rebindings</h2>
+            <ol>
+                <li>Godot automatically picks up gamepads that map to the standard actions. Test navigation, jumping, and using items with a controller.</li>
+                <li>If you add new actions, keep the names readable (e.g., <strong>Flashlight</strong> instead of a code-heavy label) so Creator Users can track them in the UI.</li>
+                <li>Offer a quick settings menu for sensitivity and inversion; these values can live alongside other UI Options.</li>
+            </ol>
+            <h2>Pausing and menus</h2>
             <ul>
-                <li>Navigation, Accept, Cancel, and Pause are available for menus. Use them when building UI scenes so players can navigate with keyboard, mouse, or controller.</li>
-                <li>When you show a menu, unlock the mouse so the UI Cursor can move freely; when you hide it, lock the mouse again for first-person control.</li>
-            </ul>
-
-            <h2>Controller hot-plugging</h2>
-            <ul>
-                <li>Folded Paper Engine watches for controllers connecting or disconnecting and swaps to the active device without a restart.</li>
-                <li>If a device feels too sensitive, adjust the look ratios in Godot’s project settings so mouse and stick speeds feel consistent.</li>
-            </ul>
-
-            <h2>Quick checks if input feels off</h2>
-            <ul>
-                <li>Confirm the Folded Paper Engine plug-in is enabled; the input manager registers actions when the engine node enters the scene tree.</li>
-                <li>Make sure your scene includes the <strong>Folded Paper Engine</strong> node so pointer capture and actions initialize.</li>
-                <li>If you remap actions, keep <strong>Use</strong> and <strong>Drop</strong> bound so holdables and triggers still work.</li>
+                <li>Bind a Pause or Options action to unlock the cursor and show your menus. Returning to the game locks the pointer and re-enables look input.</li>
+                <li>Keep menu navigation simple: Up/Down/Confirm/Back should mirror keyboard, mouse, and controller inputs.</li>
             </ul>
         </main>
     </section>

@@ -30,34 +30,27 @@
         <header>
             <div class="section-title">
                 Cameras
-                <div class="section-subtitle">Player rigs, cinematic cuts, and keeping UI in view</div>
+                <div class="section-subtitle">Player camera settings, swaps, and best practices</div>
             </div>
         </header>
         <main>
-            <h2>Player cameras</h2>
-            <ul>
-                <li>Players set to <strong>First Person</strong> use the camera aligned to their head/eyes and lock pitch to keep motion natural.</li>
-                <li>Players set to <strong>Third Person</strong> orbit around the character with an over-the-shoulder offset. You can tweak offsets in Godot after import.</li>
-                <li>The runtime registers the active player camera globally so you can switch away and come back with commands.</li>
-            </ul>
-
-            <h2>Switching cameras in Godot</h2>
+            <h2>Player camera basics</h2>
             <ol>
-                <li>Add extra cameras for cutscenes or special views and give them clear names.</li>
-                <li>Use <strong>Activate Camera</strong> to cut to a named camera, then <strong>Reactivate Player Camera</strong> to return. If you never deactivated the player camera, you do not need to reactivate it.</li>
-                <li>Pair camera switches with <strong>Deactivate Player Controls</strong> if you want the player to stop moving during the shot.</li>
+                <li>Select your Player object in Blender and open <strong>Player Controls</strong>.</li>
+                <li>Choose the control style (First Person, Third Person, or Top Down) and adjust look sensitivity to match your project.</li>
+                <li>If you want the player to hold items, enable <strong>Can Hold Items</strong> so the runtime attaches holdable items to the camera view.</li>
             </ol>
-
-            <h2>UI visibility while switching</h2>
+            <h2>Managing multiple cameras</h2>
             <ul>
-                <li>Keep any <strong>UI Element</strong> children (crosshairs, prompts) parented to the active camera. When you switch cameras, move or duplicate the UI Element so it stays in view.</li>
-                <li>If you cut to a camera that looks at the player, remember to hide first-person-only UI like a crosshair to avoid floating UI in the shot.</li>
+                <li>Place additional cameras in the scene for cutscenes or fixed angles. Name them clearly (for example, “DoorCam” or “BossIntro”).</li>
+                <li>Use Event Commands or triggers to activate a camera when needed, then switch back to the player camera when the sequence ends.</li>
+                <li>You only need to call <strong>Reactivate Player Camera</strong> if you previously deactivated it for a cutscene.</li>
             </ul>
-
-            <h2>Checks if cameras misbehave</h2>
+            <h2>Quick camera tips</h2>
             <ul>
-                <li>Ensure the Folded Paper Engine node is in the scene; it registers cameras and handles pointer capture.</li>
-                <li>If the wrong camera stays active after a cutscene, confirm your commands call <strong>Reactivate Player Camera</strong> only when you actually switched away.</li>
+                <li>Keep UI Elements within the chosen camera’s view so crosshairs and overlays stay visible.</li>
+                <li>Apply transforms in Blender before export to avoid offset cameras in Godot.</li>
+                <li>Test sensitivity and field of view early; small adjustments can make the controls feel polished for Creator Users.</li>
             </ul>
         </main>
     </section>
