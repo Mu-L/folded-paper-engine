@@ -30,27 +30,27 @@
         <header>
             <div class="section-title">
                 Cameras
-                <div class="section-subtitle">Player camera settings, swaps, and best practices</div>
+                <div class="section-subtitle">Player camera settings, switching, and best practices</div>
             </div>
         </header>
         <div class="section-body">
-            <h2>Player camera basics</h2>
+            <h2>Player Camera Basics</h2>
             <ol>
                 <li>Select your Player object in Blender and open <strong>Player Controls</strong>.</li>
-                <li>Choose the control style (First Person, Third Person, or Top Down) and adjust look sensitivity to match your project.</li>
-                <li>If you want the player to hold items, enable <strong>Can Hold Items</strong> so the runtime attaches holdable items to the camera view.</li>
+                <li>Choose the control style: <strong>First Person</strong>, <strong>Third Person</strong> or neither to use "Papercraft" style camera and controls.</li>
+                <li>If you want the player to hold items (<strong>First Person</strong> only), enable <strong>Can Hold Items</strong> so holdable items can be held in front of the camera view.</li>
             </ol>
-            <h2>Managing multiple cameras</h2>
+            <h2>Managing Multiple Cameras</h2>
             <ul>
-                <li>Place additional cameras in the scene for cutscenes or fixed angles. Name them clearly (for example, “DoorCam” or “BossIntro”).</li>
-                <li>Use Event Commands or triggers to activate a camera when needed, then switch back to the player camera when the sequence ends.</li>
+                <li>Place additional cameras in the scene for cutscenes or fixed angles. Name them clearly (for example, <code>DoorCam</code> or <code>BossIntro</code>).</li>
+                <li>Trigger Scene Event Commands to activate a camera when needed, then switch back to the player camera when the sequence ends.</li>
                 <li>You only need to call <strong>Reactivate Player Camera</strong> if you previously deactivated it for a cutscene.</li>
             </ul>
-            <h2>Quick camera tips</h2>
+            <h2>Quick Camera Tips</h2>
             <ul>
-                <li>Keep UI Elements within the chosen camera’s view so crosshairs and overlays stay visible.</li>
+                <li>Keep UI Elements within the chosen camera’s view so cursors and options stay visible.</li>
                 <li>Apply transforms in Blender before export to avoid offset cameras in Godot.</li>
-                <li>Test sensitivity and field of view early; small adjustments can make the controls feel polished for Creator Users.</li>
+                <li>Test Player Camera Height and Distance early; small adjustments can make the controls feel polished for Players.</li>
             </ul>
         </div>
     </section>
