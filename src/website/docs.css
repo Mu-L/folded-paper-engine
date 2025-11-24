@@ -1,12 +1,6 @@
 .section {
-    background-color: #fff;
-    color: black;
-
-    &.last {
-        padding-bottom: 8em;
-    }
-
-    > header > .section-title {
+    &.content-section {
+        background-color: #fff;
         color: black;
         text-shadow: none;
     }
