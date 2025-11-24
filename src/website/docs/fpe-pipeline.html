@@ -37,7 +37,7 @@
             <h2>Engine node responsibilities</h2>
             <ul>
                 <li><strong>Pointer capture:</strong> when a <code>FoldedPaperEngine</code> node enters the tree, it remembers the prior
-                    mouse mode and captures the pointer if <code>capture_pointer</code> is true. On exit it restores the original mode.</li>
+                    mouse mode and captures the pointer if <code>Capture Pointer</code> is true. On exit it restores the original mode.</li>
                 <li><strong>Load and unload:</strong> <code>_enter_tree</code> defers <code>_setup</code>, which calls <code>global_load_level</code> with the configured path. <code>_exit_tree</code> defers <code>_teardown</code> to unload the active GLB and detach any listeners.</li>
                 <li><strong>Global registries:</strong> the engine stores a global <code>FeatureUtils</code> instance, the current stage node, and the active <code>WorldEnvironment</code> so sub-scenes and events share the same context.</li>
             </ul>
