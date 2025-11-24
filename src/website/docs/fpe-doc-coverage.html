@@ -39,11 +39,10 @@
             <h2>Gameplay and interactions</h2>
             <ul>
                 <li><strong>Players and Characters:</strong> See <a href="./fpe-object-behaviors.html">Objects and Characters</a> for tagging players/NPCs, physics bodies, and cameras.</li>
-                <li><strong>Holdables and Inventory:</strong> <a href="./fpe-inventory-and-holdables.html">Inventory and Holdables</a> walks through item kinds, slots, pickup/drop, and UI hooks.</li>
+                <li><strong>Holdables and Inventory:</strong> <a href="./fpe-inventory-and-holdables.html">Inventory and Holdables</a> walks through item kinds, slot sizes, hold zones, and choosing between the two systems.</li>
                 <li><strong>Triggers and Commands:</strong> <a href="./fpe-triggers-commands.html">Triggers and Commands</a> now includes step-by-step trigger setup, command chaining, and puzzle patterns.</li>
-                <li><strong>Input:</strong> <a href="./fpe-input.html">Input</a> lists the action map, default mappings, and controller-friendly UI navigation.</li>
-                <li><strong>Cameras:</strong> <a href="./fpe-cameras.html">Cameras</a> documents camera registration, activation commands, and returning to the player view.</li>
-                <li><strong>Dialogues and UI:</strong> <a href="./fpe-conversations-and-ui.html">Conversations and UI</a> covers crosshair, cursor unlock, dialogue authoring, and prompts.</li>
+                <li><strong>Dialogues:</strong> <a href="./fpe-conversations.html">Conversations</a> covers Speaker setup, conversation assets, and reply flow.</li>
+                <li><strong>UI and cursors:</strong> <a href="./fpe-ui.html">UI and Cursors</a> explains UI Options, UI Elements, cursor locking, and keeping UI in view.</li>
             </ul>
 
             <h2>Timing, audio, and feedback</h2>
@@ -52,22 +51,34 @@
                 <li><strong>Audio and Music:</strong> <a href="./fpe-audio.html">Audio</a> explains Speakers, background music, distance falloff, looping, and troubleshooting.</li>
             </ul>
 
-            <h2>Levels, loading, and scene settings</h2>
+            <h2>Input, cameras, and presentation</h2>
             <ul>
-                <li><strong>Whole-level transitions:</strong> <a href="./fpe-subscenes-and-levels.html">Sub Scenes and Level Loading</a> has door recipes, portal hubs, and unload safety notes.</li>
-                <li><strong>Sub-scenes/streaming:</strong> Same guide shows how to nest interiors and pause parents while loaded.</li>
+                <li><strong>Player input:</strong> <a href="./fpe-input.html">Input and Controls</a> covers action maps, hot-plugging, and first/third-person toggles.</li>
+                <li><strong>Camera control:</strong> <a href="./fpe-cameras.html">Cameras</a> covers player camera defaults and camera switching for cutscenes.</li>
                 <li><strong>Environment metadata:</strong> <a href="./fpe-scene-settings.html">Scene Settings</a> covers sky color, gravity overrides, background music defaults, and FX toggles.</li>
+            </ul>
+
+            <h2>Levels, loading, and scene management</h2>
+            <ul>
+                <li><strong>Whole-level transitions:</strong> <a href="./fpe-subscenes-and-levels.html">Sub Scenes and Level Loading</a> has door recipes, portal hubs, fades, and unload safety notes.</li>
+                <li><strong>Sub-scenes/streaming:</strong> Same guide shows how to nest interiors and pause parents while loaded.</li>
+            </ul>
+
+            <h2>Controls and cameras</h2>
+            <ul>
+                <li><strong>Input:</strong> <a href="./fpe-input.html">Input</a> summarizes player/UI actions, controller hot-plugging, and capture settings.</li>
+                <li><strong>Cameras:</strong> <a href="./fpe-cameras.html">Cameras</a> covers first/third-person rigs, camera commands, and UI visibility when switching.</li>
             </ul>
 
             <h2>Pipeline and troubleshooting</h2>
             <ul>
-                <li><strong>Install and export:</strong> <a href="./fpe-installation.html">Installation</a> and <a href="./fpe-pipeline.html">Pipeline and Runtime</a> explain the Blender ↔ Godot loop, importer behaviors, and how to refresh exports safely.</li>
+                <li><strong>Install and export:</strong> <a href="./fpe-installation.html">Installation</a> and <a href="./fpe-pipeline.html">Pipeline and Runtime</a> explain the Blender ↔ Godot loop, exporter settings, and how to refresh exports safely.</li>
                 <li><strong>Common pitfalls:</strong> <a href="./fpe-troubleshooting.html">Troubleshooting</a> lists quick checks for scale, transforms, missing plugins, and stale imports.</li>
             </ul>
 
             <h2>Advanced extensions</h2>
             <ul>
-                <li><strong>Custom scripts and groups:</strong> <a href="./fpe-object-behaviors.html">Objects and Characters</a> highlights ScriptPath and groups so advanced users can extend without breaking the pipeline.</li>
+                <li><strong>Custom scripts and groups:</strong> <a href="./fpe-object-behaviors.html">Objects and Characters</a> highlights Script Path and groups so advanced users can extend without breaking the pipeline.</li>
                 <li><strong>Visual overrides:</strong> Material and reflective tweaks are documented under <a href="./fpe-physics-and-colliders.html">Physics and Colliders</a> and <a href="./fpe-object-behaviors.html">Objects and Characters</a> for easy lookup.</li>
             </ul>
 

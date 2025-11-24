@@ -29,35 +29,36 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Cameras
-                <div class="section-subtitle">Player rigs, cinematic cuts, and keeping UI in view</div>
+                UI and Cursors
+                <div class="section-subtitle">UI Options, UI Cursor, and keeping UI visible with your camera</div>
             </div>
         </header>
         <main>
-            <h2>Player cameras</h2>
+            <h2>UI Options (menu entries)</h2>
             <ul>
-                <li>Players set to <strong>First Person</strong> use the camera aligned to their head/eyes and lock pitch to keep motion natural.</li>
-                <li>Players set to <strong>Third Person</strong> orbit around the character with an over-the-shoulder offset. You can tweak offsets in Godot after import.</li>
-                <li>The runtime registers the active player camera globally so you can switch away and come back with commands.</li>
+                <li>UI Options give you named menu entries you can show on screen (e.g., Pause, Resume, Settings). The engine stores them globally so your UI scene can list what is available.</li>
+                <li>Create your own Godot UI scene and read the registered UI Options to populate buttons or toggles. This keeps menus designer-friendly while still reflecting the runtime state.</li>
             </ul>
 
-            <h2>Switching cameras in Godot</h2>
+            <h2>UI Cursor (crosshair and pointer)</h2>
+            <ul>
+                <li>Mark an object in Blender as <strong>UI Element</strong> if you want to turn it into a UI Cursor or UI Option. The flag simply tells the runtime the node can be used for UI—how it appears depends on which role you choose.</li>
+                <li>Place the UI cursor geometry where the player camera can see it and keep it in front of the camera. The engine does not automatically reposition UI Elements; you keep them visible by parenting to the camera or by animating them into view.</li>
+                <li>At runtime, the engine can show a simple crosshair and optionally unlock the mouse for menu navigation. Use a pause/menu trigger to toggle the cursor lock state.</li>
+            </ul>
+
+            <h2>Practical setup</h2>
             <ol>
-                <li>Add extra cameras for cutscenes or special views and give them clear names.</li>
-                <li>Use <strong>Activate Camera</strong> to cut to a named camera, then <strong>Reactivate Player Camera</strong> to return. If you never deactivated the player camera, you do not need to reactivate it.</li>
-                <li>Pair camera switches with <strong>Deactivate Player Controls</strong> if you want the player to stop moving during the shot.</li>
+                <li>Create a small crosshair mesh or sprite in Blender, mark it as <strong>UI Element</strong>, and make it a child of your camera so it stays in view.</li>
+                <li>For menus, build a Godot UI scene that reads UI Options and shows buttons. When you pause the game, unlock the mouse and show this scene; when you resume, lock the mouse again and hide the UI.</li>
+                <li>If you need a custom cursor graphic, swap the UI Cursor object in your Godot scene with your own UI Element so the appearance matches your project.</li>
             </ol>
 
-            <h2>UI visibility while switching</h2>
+            <h2>Helpful reminders</h2>
             <ul>
-                <li>Keep any <strong>UI Element</strong> children (crosshairs, prompts) parented to the active camera. When you switch cameras, move or duplicate the UI Element so it stays in view.</li>
-                <li>If you cut to a camera that looks at the player, remember to hide first-person-only UI like a crosshair to avoid floating UI in the shot.</li>
-            </ul>
-
-            <h2>Checks if cameras misbehave</h2>
-            <ul>
-                <li>Ensure the Folded Paper Engine node is in the scene; it registers cameras and handles pointer capture.</li>
-                <li>If the wrong camera stays active after a cutscene, confirm your commands call <strong>Reactivate Player Camera</strong> only when you actually switched away.</li>
+                <li>UI Elements are not the same as Godot’s Control nodes. They are 3D objects you keep in front of a camera to act as cursors or options.</li>
+                <li>If you change cameras during a cutscene, be sure the UI Element is parented to the active camera or otherwise moved so it stays visible.</li>
+                <li>Use <strong>Deactivate Player Controls</strong> when showing menus so players do not move while navigating UI.</li>
             </ul>
         </main>
     </section>
