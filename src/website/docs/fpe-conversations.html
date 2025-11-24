@@ -30,29 +30,37 @@
         <header>
             <div class="section-title">
                 Conversations
-                <div class="section-subtitle">Speaker setup, dialogue flow, and replies</div>
+                <div class="section-subtitle">Speaker-tagged actors, dialogue data, and reply flow</div>
             </div>
         </header>
         <main>
-            <h2>Set up speakers in Blender</h2>
+            <h2>Mark characters as Speakers in Blender</h2>
             <ol>
-                <li>Select the character or object that should speak and enable <strong>Speaker</strong> in the Folded Paper Engine panel.</li>
-                <li>Give each speaker a friendly name; that name shows up in the dialogue UI so the player knows who is talking.</li>
-                <li>Export to GLB with <strong>Custom Properties</strong> enabled so the speaker tags reach Godot.</li>
+                <li>Select the character or prop that should talk.</li>
+                <li>In the <strong>Folded Paper Engine</strong> panel, open <strong>Speaker</strong> and check <strong>Speaker</strong> so the runtime knows this node can speak.</li>
+                <li>If the Speaker should also play 3D audio, set the <strong>Speaker File</strong> and optional autoplay/loop settings described in the Audio guide.</li>
+                <li>Export to GLB. The Speaker flag comes through to Godot so conversations and sounds can target the node by name.</li>
             </ol>
 
-            <h2>Create conversation data</h2>
+            <h2>Author the dialogue</h2>
             <ul>
-                <li>Conversations are made up of <strong>comments</strong> (lines) and <strong>replies</strong> (player choices). Each reply points to the next comment so you can branch or end a thread.</li>
-                <li>Make sure the conversation references the correct speakers; participants are matched to the speaker names you set in Blender.</li>
-                <li>For NPC-initiated chats, start the conversation from a trigger or interaction command so it opens when the player is close.</li>
+                <li>Create a conversation resource in Godot with your comments and replies. Add the character names you want displayed to the player.</li>
+                <li>Assign that conversation asset to the Speaker node (or a parent) so the runtime can find it when a trigger fires.</li>
+                <li>Each reply can point to the next comment, allowing branching choices. Keep labels simple (“Greet”, “Ask for help”) so creators can follow the flow.</li>
             </ul>
 
-            <h2>Run and advance dialogues</h2>
+            <h2>Start and advance a conversation</h2>
+            <ol>
+                <li>Add a trigger near the NPC and give it a <strong>StartConversation</strong> command that points at the Speaker. You can also call the command from another event, like a frame event in a cutscene.</li>
+                <li>When the command runs, a conversation instance is created and locked to the Speaker. Replies advance when the player chooses an option or when you call the reply helper from code.</li>
+                <li>When there are no replies left, the conversation ends automatically and control returns to the player.</li>
+            </ol>
+
+            <h2>Friendly tips</h2>
             <ul>
-                <li>Use a trigger or an <strong>Event Command</strong> to start a conversation by ID. The engine builds a conversation instance and tracks the current comment.</li>
-                <li>When the player picks a reply, advance using the reply’s target comment. When no replies remain, the conversation ends automatically.</li>
-                <li>Pair conversations with a UI prompt (for example, “Press Use to talk”) so players know when a speaker is interactable.</li>
+                <li>Keep Speaker node names readable (“GuideNPC”) so your commands can target them without guesswork.</li>
+                <li>Pair conversations with a <strong>Deactivate Player Controls</strong> command if you want the player to stand still during dialogue, then re-enable controls afterward.</li>
+                <li>Reuse the <strong>Speaker Trigger</strong> command for simple voice lines that do not need branching replies.</li>
             </ul>
         </main>
     </section>

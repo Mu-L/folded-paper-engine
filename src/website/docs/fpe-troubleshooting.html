@@ -50,13 +50,19 @@
             <ul>
                 <li><strong>No input:</strong> verify the plug-in is enabled and that the engine node’s <code>capture_pointer</code> matches your test setup. Controller hot-plugging relies on the input manager being active.</li>
                 <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
-                <li><strong>Triggers not firing or lasting too long:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. To remove a trigger after one use, either move it with an animation or place it in a group and call <strong>Delete By Group</strong>.</li>
+                <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. Use simple box triggers for empty meshes.</li>
+                <li><strong>Need a one-time trigger:</strong> you can remove a trigger after it fires by (1) animating it out of the playable area so it no longer overlaps the player, or (2) putting it in a group and using a <strong>Delete By Group</strong> command to cleanly delete all triggers in that group.</li>
             </ul>
 
             <h2>Level flow</h2>
             <ul>
                 <li><strong>Scene reload glitches:</strong> register unload procedures for custom systems, and avoid storing references to nodes that will be freed during <code>global_unload_level</code>.</li>
                 <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, triggers, UI). Commands may have toggled these during cutscenes.</li>
+            </ul>
+            <h2>Cleaning up triggers</h2>
+            <ul>
+                <li><strong>One-time triggers:</strong> animate the trigger out of the way after it fires so the player cannot re-enter it.</li>
+                <li><strong>Delete by group:</strong> put the trigger in a named <strong>Group</strong> and run the <strong>Delete By Group</strong> command once the interaction is finished.</li>
             </ul>
         </main>
     </section>

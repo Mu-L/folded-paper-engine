@@ -30,20 +30,35 @@
         <header>
             <div class="section-title">
                 Input
-                <div class="section-subtitle">Action maps and controller hot-plugging</div>
+                <div class="section-subtitle">Player actions, UI actions, and controller tips</div>
             </div>
         </header>
         <main>
-            <h2>Player and UI actions</h2>
+            <h2>Default player actions</h2>
             <ul>
-                <li>Default player actions cover move, look, run, jump, use, drop, and pause. UI actions include navigation plus accept/cancel for menus.</li>
-                <li>Mouse axes use a configurable ratio so you can balance mouse look against joystick sensitivity.</li>
+                <li>Movement: forward/back/left/right with keyboard, stick, or D-pad.</li>
+                <li>Look: mouse or right stick with sensitivity balanced between devices.</li>
+                <li>Interact: <strong>Use</strong> to activate triggers, pick up holdables, or advance dialogue; <strong>Drop</strong> to release held items.</li>
+                <li>Extras: Run/Sprint, Jump, and Pause are wired for you. Remap inside Godot’s <strong>Input Map</strong> if desired.</li>
             </ul>
 
-            <h2>Devices</h2>
+            <h2>UI actions</h2>
             <ul>
-                <li>Device proxies normalize keyboard, mouse, and gamepad input so the same actions fire regardless of hardware.</li>
-                <li>Controllers can be hot-plugged; the action map updates as devices connect or disconnect during play.</li>
+                <li>Navigation, Accept, Cancel, and Pause are available for menus. Use them when building UI scenes so players can navigate with keyboard, mouse, or controller.</li>
+                <li>When you show a menu, unlock the mouse so the UI Cursor can move freely; when you hide it, lock the mouse again for first-person control.</li>
+            </ul>
+
+            <h2>Controller hot-plugging</h2>
+            <ul>
+                <li>Folded Paper Engine watches for controllers connecting or disconnecting and swaps to the active device without a restart.</li>
+                <li>If a device feels too sensitive, adjust the look ratios in Godot’s project settings so mouse and stick speeds feel consistent.</li>
+            </ul>
+
+            <h2>Quick checks if input feels off</h2>
+            <ul>
+                <li>Confirm the Folded Paper Engine plug-in is enabled; the input manager registers actions when the engine node enters the scene tree.</li>
+                <li>Make sure your scene includes the <strong>Folded Paper Engine</strong> node so pointer capture and actions initialize.</li>
+                <li>If you remap actions, keep <strong>Use</strong> and <strong>Drop</strong> bound so holdables and triggers still work.</li>
             </ul>
         </main>
     </section>
