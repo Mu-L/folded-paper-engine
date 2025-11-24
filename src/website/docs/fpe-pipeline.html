@@ -47,17 +47,6 @@
                 <li><strong>Scene creation:</strong> the GLB/GLTF is instantiated under the engine node. Feature utils parse user data for scene settings, objects, triggers, animations, and inventory.</li>
                 <li><strong>Frame events:</strong> a <code>FrameEventRunner</code> is attached and populated with animation-specific frame triggers so events can fire at precise timestamps.</li>
             </ol>
-            <h2>Unload flow</h2>
-            <ol>
-                <li>Run registered unload procedures before clearing the scene. Use <code>add_unload_proceedure</code> for custom cleanup.</li>
-                <li>Clear background music, speakers, animation maps, rigid bodies, and global lists so the next level starts fresh.</li>
-                <li>Free child nodes under the engine stage and emit <code>global_feature_utils_change</code> so listeners can update.</li>
-            </ol>
-            <h2>Extending the lifecycle</h2>
-            <ul>
-                <li>Register load hooks with <code>add_load_proceedure</code> to prepare UI, save data, or spawn systems before a level appears.</li>
-                <li>Register unload hooks for analytics, save checkpoints, or clearing external caches.</li>
-            </ul>
         </div>
     </section>
 </main>

@@ -29,32 +29,22 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Objects and Characters
-                <div class="section-subtitle">Player rigs, NPCs, cameras, and speaker nodes</div>
+                Characters, Players and Cameras
+                <div class="section-subtitle">Player rigs, NPCs and camera behavior</div>
             </div>
         </header>
         <div class="section-body">
             <h2>Players vs. Characters</h2>
             <ul>
-                <li><strong>Player Controls</strong> (<code>PlayerControls</code>): wraps <strong>Character Controls</strong> with camera setup, device proxies, and hold zones. First-person enables a tight offset camera; third-person aligns and follows.</li>
-                <li><strong>Character Controls</strong> (<code>CharacterControls</code>): supports movement, jumping, optional sidekicks, and conversation metadata. Use for NPCs that need physics and animations but not player input.</li>
-                <li><strong>Flip disable:</strong> Player configurations that choose first- or third-person will disable mesh flipping so strafing does not rotate the rig unexpectedly.</li>
+                <li><strong>Player Controls:</strong> wraps <strong>Character Controls</strong> with camera setup, device proxies, and hold zones. First-person enables a tight offset camera; third-person aligns and follows.</li>
+                <li><strong>First/Third Person:</strong> Player configurations that choose first or third person will disable mesh flipping so strafing does not rotate the rig unexpectedly.</li>
+                <li><strong>Character Controls:</strong> supports movement, jumping, optional sidekicks, and conversation metadata. Use for NPCs that need physics and animations but not player input.</li>
             </ul>
-            <h2>Player camera</h2>
+            <h2>Player Camera</h2>
             <ul>
                 <li>Players spawn a <code>FollowingCamera</code> that becomes current and registers in the global camera list.</li>
                 <li>Standard camera distance/height can be configured from Blender; first-person mode snaps offset close to the head and locks facing.</li>
                 <li>Cameras can be switched by commands (see camera activation in the commands page).</li>
-            </ul>
-            <h2>Speakers</h2>
-            <ul>
-                <li>Mark any object with speaker settings to attach an <code>AudioStreamPlayer3D</code>. The path is loaded at runtime; looping and autoplay are optional.</li>
-                <li>Speaker entries are tracked in a global map keyed by node name, letting commands and triggers play them on demand.</li>
-            </ul>
-            <h2>Group and script hooks</h2>
-            <ul>
-                <li>Use Blender groups or custom <strong>Script Path</strong> metadata (<code>ScriptPath</code>) to bind Godot scripts to imported nodes without manual scene edits.</li>
-                <li>Groups are respected at import time, enabling command filters and deletion-by-group commands.</li>
             </ul>
         </div>
     </section>
