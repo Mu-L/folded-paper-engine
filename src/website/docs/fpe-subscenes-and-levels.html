@@ -65,6 +65,19 @@
                 <li><strong>UnloadThisSubScene</strong>: From inside a sub-scene, call this to close yourself (handy on an exit trigger inside the streamed area).</li>
             </ul>
 
+            <div class="callouts">
+                <div class="callout">
+                    <div class="callout-title">Cleanup tips</div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>Disable or delete triggers tied to an unloaded area so they do not fire twice if the player re-enters quickly.</li>
+                            <li>Move reusable fades or HUD overlays into a shared sub-scene instead of duplicating them in every level.</li>
+                            <li>For large hubs, unload distant interiors as soon as the exit trigger fires to keep memory predictable.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <h2>Pause control during transitions</h2>
             <ul>
                 <li>Sub scene hosts can pause parent activities while the child is loaded. That keeps NPCs or physics from running while the player is away.</li>

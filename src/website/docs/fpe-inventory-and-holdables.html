@@ -54,6 +54,18 @@
                 <li>Use clear names for <strong>Inventory Item Kind</strong> so you can match them in the Godot configuration without guessing.</li>
                 <li>Combine both systems: let the player carry a Holdable temporarily, then convert it into an inventory item when they place it in a trigger or deposit.</li>
             </ul>
+            <div class="callouts">
+                <div class="callout">
+                    <div class="callout-title">Deposits and prompts</div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>Pair a <strong>Holdable</strong> with a trigger group to show an on-screen prompt when the player is close enough to grab it.</li>
+                            <li>Deposits can watch for a specific <strong>Inventory Item Kind</strong>; when detected, delete the Holdable and add the matching inventory stack.</li>
+                            <li>For physics props, keep collision shapes simple so the Hold Zone keeps the item stable while walking or jumping.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </main>
     </section>
 </main>
