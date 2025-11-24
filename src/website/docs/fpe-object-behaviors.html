@@ -36,8 +36,8 @@
         <div class="section-body">
             <h2>Players vs. Characters</h2>
             <ul>
-                <li><strong>PlayerControls:</strong> wraps <code>CharacterControls</code> with camera setup, device proxies, and hold zones. First-person enables a tight offset camera; third-person aligns and follows.</li>
-                <li><strong>CharacterControls:</strong> supports movement, jumping, optional sidekicks, and conversation metadata. Use for NPCs that need physics and animations but not player input.</li>
+                <li><strong>Player Controls</strong> (<code>PlayerControls</code>): wraps <strong>Character Controls</strong> with camera setup, device proxies, and hold zones. First-person enables a tight offset camera; third-person aligns and follows.</li>
+                <li><strong>Character Controls</strong> (<code>CharacterControls</code>): supports movement, jumping, optional sidekicks, and conversation metadata. Use for NPCs that need physics and animations but not player input.</li>
                 <li><strong>Flip disable:</strong> Player configurations that choose first- or third-person will disable mesh flipping so strafing does not rotate the rig unexpectedly.</li>
             </ul>
             <h2>Player camera</h2>
@@ -53,7 +53,7 @@
             </ul>
             <h2>Group and script hooks</h2>
             <ul>
-                <li>Use Blender groups or custom ScriptPath metadata to bind Godot scripts to imported nodes without manual scene edits.</li>
+                <li>Use Blender groups or custom <strong>Script Path</strong> metadata (<code>ScriptPath</code>) to bind Godot scripts to imported nodes without manual scene edits.</li>
                 <li>Groups are respected at import time, enabling command filters and deletion-by-group commands.</li>
             </ul>
         </div>
