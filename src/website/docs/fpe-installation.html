@@ -61,6 +61,14 @@
                 <li>When updating a GLB, re-export from Blender with transforms applied and let Godot reimport before running.</li>
                 <li>Verify the plug-in is active any time you clone the repo or switch machines; Folded Paper Engine nodes rely on the runtime scripts being enabled.</li>
             </ul>
+
+            <h2>Version and export sanity checks</h2>
+            <ul>
+                <li>Match the <strong>add-on</strong> and <strong>plug-in</strong> versions: download the latest pair together so the exporter and runtime agree on property names.</li>
+                <li>Confirm your Blender export includes <strong>Custom Properties</strong>, <strong>Cameras</strong>, and <strong>Punctual Lights</strong>. Missing any of these often hides triggers, cameras, or speaker settings in Godot.</li>
+                <li>If you change export directories, update the <strong>Path</strong> on your Folded Paper Engine node so the runtime knows where to find your GLB.</li>
+                <li>After enabling the plug-in for the first time, restart Godot once so input and player scripts register correctly.</li>
+            </ul>
         </main>
     </section>
 </main>

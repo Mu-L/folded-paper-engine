@@ -83,6 +83,8 @@
                 <li>Verify paths: GLB paths are relative to the project. Typos silently skip loading.</li>
                 <li>Apply transforms before export so the sub-scene spawns at the expected size and position.</li>
                 <li>If old sounds or cameras keep playing after a load, make sure you are using <strong>LoadLevel</strong> (not a custom script) so the runtime clears registries.</li>
+                <li>After a <strong>LoadLevel</strong>, clear any trigger states that were mid-activation so you do not immediately re-trigger when the player respawns.</li>
+                <li>When streaming interiors, keep the exterior <strong>WorldEnvironment</strong> loaded or swap to a dedicated indoor profile so lighting transitions feel intentional.</li>
             </ul>
         </main>
     </section>

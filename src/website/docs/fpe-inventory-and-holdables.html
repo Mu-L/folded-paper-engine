@@ -52,6 +52,13 @@
                 <li>Holdables keep their physics: they sway, can be dropped with gravity, and do not consume inventory capacity. Use them for boxes, tools, or props you want the player to visibly carry.</li>
             </ol>
 
+            <h2>Pickup and UI patterns</h2>
+            <ul>
+                <li>Add a <strong>UI Options</strong> node and enable <strong>Show Pickup Prompts</strong> if you want on-screen text when the player can take an item.</li>
+                <li>For slot items, consider a brief animation or sound on pickup so it is clear the item was stored, not held.</li>
+                <li>If you allow dropping, keep a <strong>Holdable</strong> version of the model nearby so players can set objects down even when inventory is full.</li>
+            </ul>
+
             <h2>Choosing between them</h2>
             <ul>
                 <li><strong>Inventory Items</strong> live in slots with a Kind and Quantity. Use them for resources, keys, and collectibles that you do not need to see in the player’s hands.</li>
