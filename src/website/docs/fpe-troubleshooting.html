@@ -65,7 +65,7 @@
             <ul>
                 <li><strong>Scene reload glitches:</strong> register unload procedures for custom systems, and avoid storing references to nodes that will be freed during <code>global_unload_level</code>.</li>
                 <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, triggers, UI). Commands may have toggled these during cutscenes.</li>
-                <li><strong>Missing transition fades:</strong> load the fade sub-scene just before running <code>LoadLevel</code>, then unload it in the new scene once the player regains control.</li>
+                <li><strong>Missing transition fades:</strong> load the fade sub-scene just before running <strong>Load Level</strong> (<code>LoadLevel</code>), then unload it in the new scene once the player regains control.</li>
             </ul>
         </div>
     </section>

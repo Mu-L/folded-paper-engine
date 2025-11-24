@@ -60,7 +60,7 @@
             <ul>
                 <li><strong>Play a sound mid-animation:</strong> Add a frame event named <code>play_chime</code>. Place a Trigger or Speaker nearby that listens for the <code>play_chime</code> event and fires a <code>SpeakerTrigger</code> command.</li>
                 <li><strong>Unlock a door on frame 12:</strong> Mark frame 12 as <code>unlock_door</code>. Add a Trigger on the door mesh that reacts to <code>unlock_door</code> by disabling the collider or running <code>Animations</code> to play the open clip.</li>
-                <li><strong>Cutscene camera swap:</strong> Use two frame events, <code>cam_cut</code> and <code>cam_return</code>, and bind them to <code>ActivateCamera</code> and <code>ReactivatePlayerCamera</code> commands to keep control smooth for non-coders.</li>
+                <li><strong>Cutscene camera swap:</strong> Use two frame events, <code>cam_cut</code> and <code>cam_return</code>, and bind them to the <strong>Activate Camera</strong> (<code>ActivateCamera</code>) and <strong>Reactivate Player Camera</strong> (<code>ReactivatePlayerCamera</code>) commands to keep control smooth for non-coders.</li>
             </ul>
 
             <h2>Quick checklist if nothing fires</h2>
