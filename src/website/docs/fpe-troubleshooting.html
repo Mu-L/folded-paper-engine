@@ -33,7 +33,7 @@
                 <div class="section-subtitle">Common pipeline issues and fixes</div>
             </div>
         </header>
-        <main>
+        <div class="section-body">
             <div class="callouts">
                 <div class="callout">
                     <div class="callout-title">Log checks</div>
@@ -67,7 +67,7 @@
                 <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, triggers, UI). Commands may have toggled these during cutscenes.</li>
                 <li><strong>Missing transition fades:</strong> load the fade sub-scene just before running <code>LoadLevel</code>, then unload it in the new scene once the player regains control.</li>
             </ul>
-        </main>
+        </div>
     </section>
 </main>
 <footer class="footer">
