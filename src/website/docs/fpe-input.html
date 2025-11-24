@@ -29,38 +29,36 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                Input and Controls
-                <div class="section-subtitle">Action maps, devices, and accessibility for players</div>
+                Input
+                <div class="section-subtitle">Player actions, UI actions, and controller tips</div>
             </div>
         </header>
         <main>
-            <h2>Turn on player controls in Blender</h2>
-            <ol>
-                <li>Select your player rig and open the <strong>Player Controls</strong> panel.</li>
-                <li>Choose <strong>First Person</strong> or <strong>Third Person</strong> (or both if you plan to switch at runtime).</li>
-                <li>If you want pickups, enable <strong>Can Hold Items</strong> and adjust <strong>Hold Zone Distance</strong> and <strong>Hold Zone Size</strong> so reach feels natural.</li>
-            </ol>
-
-            <h2>Default actions to know</h2>
+            <h2>Default player actions</h2>
             <ul>
-                <li><strong>Movement:</strong> Player Move (WASD/left stick) and Player Turn (mouse/right stick) are mapped out of the box.</li>
-                <li><strong>Use / Interact:</strong> bound to the Use action for triggers, pickups, and UI selections.</li>
-                <li><strong>Jump / Run:</strong> available when Character Controls are active on the player.</li>
-                <li><strong>Drop:</strong> lets the player release a holdable item if <strong>Can Hold Items</strong> is checked.</li>
+                <li>Movement: forward/back/left/right with keyboard, stick, or D-pad.</li>
+                <li>Look: mouse or right stick with sensitivity balanced between devices.</li>
+                <li>Interact: <strong>Use</strong> to activate triggers, pick up holdables, or advance dialogue; <strong>Drop</strong> to release held items.</li>
+                <li>Extras: Run/Sprint, Jump, and Pause are wired for you. Remap inside Godot’s <strong>Input Map</strong> if desired.</li>
             </ul>
 
-            <h2>Controller and mouse handling</h2>
+            <h2>UI actions</h2>
             <ul>
-                <li>Device proxies normalize keyboard, mouse, and gamepad so you can hot-plug controllers while testing.</li>
-                <li>Mouse look uses a configurable ratio to balance sensitivity with joystick turning.</li>
-                <li>If you unlock the cursor for menus, recapture it when closing the UI so movement resumes.</li>
+                <li>Navigation, Accept, Cancel, and Pause are available for menus. Use them when building UI scenes so players can navigate with keyboard, mouse, or controller.</li>
+                <li>When you show a menu, unlock the mouse so the UI Cursor can move freely; when you hide it, lock the mouse again for first-person control.</li>
             </ul>
 
-            <h2>Adjust input mappings in Godot</h2>
+            <h2>Controller hot-plugging</h2>
             <ul>
-                <li>Open <strong>Project → Project Settings → Input Map</strong> to remap actions like <strong>Use</strong>, <strong>Jump</strong>, or <strong>Drop</strong> for your players.</li>
-                <li>Add gamepad-friendly bindings for living room setups, then test by hot-plugging a controller while the scene is running.</li>
-                <li>Keep prompts consistent with your mappings (for example, update on-screen text if you swap Use from <strong>E</strong> to another key).</li>
+                <li>Folded Paper Engine watches for controllers connecting or disconnecting and swaps to the active device without a restart.</li>
+                <li>If a device feels too sensitive, adjust the look ratios in Godot’s project settings so mouse and stick speeds feel consistent.</li>
+            </ul>
+
+            <h2>Quick checks if input feels off</h2>
+            <ul>
+                <li>Confirm the Folded Paper Engine plug-in is enabled; the input manager registers actions when the engine node enters the scene tree.</li>
+                <li>Make sure your scene includes the <strong>Folded Paper Engine</strong> node so pointer capture and actions initialize.</li>
+                <li>If you remap actions, keep <strong>Use</strong> and <strong>Drop</strong> bound so holdables and triggers still work.</li>
             </ul>
         </main>
     </section>

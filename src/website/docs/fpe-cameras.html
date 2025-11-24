@@ -30,29 +30,34 @@
         <header>
             <div class="section-title">
                 Cameras
-                <div class="section-subtitle">Player camera defaults, cutscenes, and switching</div>
+                <div class="section-subtitle">Player rigs, cinematic cuts, and keeping UI in view</div>
             </div>
         </header>
         <main>
-            <h2>Player camera setup</h2>
+            <h2>Player cameras</h2>
             <ul>
-                <li>When <strong>Player Controls</strong> are enabled, FPE spawns a following camera, registers it globally, and makes it current.</li>
-                <li>Use <strong>Standard Camera Height</strong> and <strong>Standard Camera Distance</strong> in the <strong>Player Controls</strong> panel to tune third-person framing. First-person locks to the head and clamps pitch to ±90°.</li>
-                <li>If you enable <strong>Can Hold Items</strong>, the camera also keeps a Hold Zone in front of the view so pickups appear where the player is looking.</li>
+                <li>Players set to <strong>First Person</strong> use the camera aligned to their head/eyes and lock pitch to keep motion natural.</li>
+                <li>Players set to <strong>Third Person</strong> orbit around the character with an over-the-shoulder offset. You can tweak offsets in Godot after import.</li>
+                <li>The runtime registers the active player camera globally so you can switch away and come back with commands.</li>
             </ul>
 
-            <h2>Switching cameras with commands</h2>
+            <h2>Switching cameras in Godot</h2>
             <ol>
-                <li>Create any additional cameras you need in Godot (cutscene cams, security cams, overhead cams) and give them clear node names.</li>
-                <li>In Blender, add a trigger or animation event that runs the <strong>Activate Camera</strong> command and point it at the camera node you want to use.</li>
-                <li>When the moment ends, switch back however you prefer: run <strong>Reactivate Player Camera</strong> if you previously deactivated it, or simply activate another camera to take over.</li>
+                <li>Add extra cameras for cutscenes or special views and give them clear names.</li>
+                <li>Use <strong>Activate Camera</strong> to cut to a named camera, then <strong>Reactivate Player Camera</strong> to return. If you never deactivated the player camera, you do not need to reactivate it.</li>
+                <li>Pair camera switches with <strong>Deactivate Player Controls</strong> if you want the player to stop moving during the shot.</li>
             </ol>
 
-            <h2>Cutscenes and UI</h2>
+            <h2>UI visibility while switching</h2>
             <ul>
-                <li>Pair camera switches with <strong>Deactivate Player Controls</strong> to keep gameplay paused during cutscenes, and <strong>Reactivate Player Controls</strong> when you’re done.</li>
-                <li>For menu screens that need a static camera, activate that camera before showing UI, then restore gameplay controls and the player camera after the menu closes.</li>
-                <li>If a camera stays active unexpectedly, look for a missing command or animation event that should have switched back.</li>
+                <li>Keep any <strong>UI Element</strong> children (crosshairs, prompts) parented to the active camera. When you switch cameras, move or duplicate the UI Element so it stays in view.</li>
+                <li>If you cut to a camera that looks at the player, remember to hide first-person-only UI like a crosshair to avoid floating UI in the shot.</li>
+            </ul>
+
+            <h2>Checks if cameras misbehave</h2>
+            <ul>
+                <li>Ensure the Folded Paper Engine node is in the scene; it registers cameras and handles pointer capture.</li>
+                <li>If the wrong camera stays active after a cutscene, confirm your commands call <strong>Reactivate Player Camera</strong> only when you actually switched away.</li>
             </ul>
         </main>
     </section>

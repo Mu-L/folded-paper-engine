@@ -34,18 +34,16 @@
             </div>
         </header>
         <main>
-            <h2>Export checklist (Blender → Godot)</h2>
+            <h2>Export checks</h2>
             <ul>
-                <li>Use <strong>File → Export → glTF 2.0</strong> and check <strong>Custom Properties</strong>, <strong>Cameras</strong>, and <strong>Punctual Lights</strong> under <strong>Include</strong>. Turn on <strong>Remember Export Settings</strong>.</li>
-                <li>Export directly into your Godot project folder so the importer can watch the file. If something looks stale, delete the GLB’s <code>.import</code> folder and let Godot reimport.</li>
-                <li>Apply transforms before export to avoid scale/origin surprises. This keeps colliders, triggers, and cameras aligned.</li>
+                <li>When exporting from Blender, choose <strong>File → Export → glTF 2.0</strong>, enable <strong>Custom Properties</strong>, <strong>Cameras</strong>, and <strong>Punctual Lights</strong>, then enable <strong>Remember Export Settings</strong> so every export keeps those flags.</li>
             </ul>
 
             <h2>GLB import issues</h2>
             <ul>
                 <li><strong>Missing behaviors:</strong> ensure <strong>Custom Properties</strong> are enabled in the Blender export dialog so metadata reaches Godot.</li>
                 <li><strong>Stale data:</strong> after re-exporting, let Godot reimport the GLB (or delete the <code>.import</code> folder for the file) to refresh metadata.</li>
-                <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; FPE uses the mesh to build triggers and colliders.</li>
+                <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; Folded Paper Engine uses the mesh to build triggers and colliders.</li>
             </ul>
 
             <h2>Runtime hiccups</h2>
@@ -53,6 +51,7 @@
                 <li><strong>No input:</strong> verify the plug-in is enabled and that the engine node’s <code>capture_pointer</code> matches your test setup. Controller hot-plugging relies on the input manager being active.</li>
                 <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
                 <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>. Use simple box triggers for empty meshes.</li>
+                <li><strong>Need a one-time trigger:</strong> you can remove a trigger after it fires by (1) animating it out of the playable area so it no longer overlaps the player, or (2) putting it in a group and using a <strong>Delete By Group</strong> command to cleanly delete all triggers in that group.</li>
             </ul>
 
             <h2>Level flow</h2>
@@ -60,15 +59,11 @@
                 <li><strong>Scene reload glitches:</strong> register unload procedures for custom systems, and avoid storing references to nodes that will be freed during <code>global_unload_level</code>.</li>
                 <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, triggers, UI). Commands may have toggled these during cutscenes.</li>
             </ul>
-
-            <h2>Trigger cleanup</h2>
+            <h2>Cleaning up triggers</h2>
             <ul>
-                <li><strong>Use once, then remove:</strong> animate the trigger out of the play area (move or scale it away) after it fires so the player cannot re-trigger it.</li>
-                <li><strong>Group and delete:</strong> add the trigger to a group in Blender, then call the <strong>Delete By Group</strong> command after it activates to remove it entirely.</li>
+                <li><strong>One-time triggers:</strong> animate the trigger out of the way after it fires so the player cannot re-enter it.</li>
+                <li><strong>Delete by group:</strong> put the trigger in a named <strong>Group</strong> and run the <strong>Delete By Group</strong> command once the interaction is finished.</li>
             </ul>
-
-            <h2>Helpful video refresher</h2>
-            <p><a href="https://youtube.com/shorts/hDyJ5Th2-84?si=c74mOJ80wJ1VdEQl" target="_blank">Export correctly for FPE (short)</a>: shows the exact export checkboxes to enable.</p>
         </main>
     </section>
 </main>

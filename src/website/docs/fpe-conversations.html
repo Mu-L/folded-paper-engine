@@ -30,42 +30,37 @@
         <header>
             <div class="section-title">
                 Conversations
-                <div class="section-subtitle">Friendly dialogue setup for creators</div>
+                <div class="section-subtitle">Speaker-tagged actors, dialogue data, and reply flow</div>
             </div>
         </header>
         <main>
-            <h2>Prepare your characters</h2>
-            <ul>
-                <li>Give each speaking character a clear object name in Blender so the conversation shows the right speaker labels in Godot.</li>
-                <li>Use the <strong>Character Controls</strong> panel on NPCs and the <strong>Player Controls</strong> panel on the player so names and sidekicks are registered by the engine.</li>
-                <li>Add a <strong>Speaker</strong> checkbox to a character if you also want positional voice or sound to play from that actor during a conversation.</li>
-            </ul>
-
-            <h2>Create conversation resources in Godot</h2>
+            <h2>Mark characters as Speakers in Blender</h2>
             <ol>
-                <li>In Godot, create a new <strong>Conversation</strong> resource (<em>Conversation.tres</em>) and fill in comments and replies. Use the required/optional characters fields to tie lines to specific speakers.</li>
-                <li>Save conversation files somewhere in your project (for example under <code>res://Conversations/</code>).</li>
-                <li>Optionally add event data to a comment if you want it to trigger an action (like opening a door) when that line appears.</li>
+                <li>Select the character or prop that should talk.</li>
+                <li>In the <strong>Folded Paper Engine</strong> panel, open <strong>Speaker</strong> and check <strong>Speaker</strong> so the runtime knows this node can speak.</li>
+                <li>If the Speaker should also play 3D audio, set the <strong>Speaker File</strong> and optional autoplay/loop settings described in the Audio guide.</li>
+                <li>Export to GLB. The Speaker flag comes through to Godot so conversations and sounds can target the node by name.</li>
             </ol>
 
-            <h2>Start a conversation from the game world</h2>
-            <ol>
-                <li>In Blender, pick the trigger, character, or object that should start talking.</li>
-                <li>Open the FPE command list and enable <strong>Start Conversation</strong>. Add one or more <code>.tres/.res</code> conversation files. The engine chooses the best match based on the character names involved.</li>
-                <li>Export and run the scene. When the trigger fires (player entry, interact key, or another event command), the conversation manager loads the resource, shows the first comment, and waits for your reply selection.</li>
-            </ol>
-
-            <h2>Advancing replies</h2>
+            <h2>Author the dialogue</h2>
             <ul>
-                <li>Use your UI prompt or input handler to call <strong>Select Reply</strong> on the conversation manager. The built-in manager keeps track of the current comment and stops automatically when there are no replies.</li>
-                <li>Attach your UI (choices, next button) to the conversation manager signals if you want to animate portraits, subtitles, or sound on each line.</li>
+                <li>Create a conversation resource in Godot with your comments and replies. Add the character names you want displayed to the player.</li>
+                <li>Assign that conversation asset to the Speaker node (or a parent) so the runtime can find it when a trigger fires.</li>
+                <li>Each reply can point to the next comment, allowing branching choices. Keep labels simple (“Greet”, “Ask for help”) so creators can follow the flow.</li>
             </ul>
 
-            <h2>Troubleshooting conversations</h2>
+            <h2>Start and advance a conversation</h2>
+            <ol>
+                <li>Add a trigger near the NPC and give it a <strong>StartConversation</strong> command that points at the Speaker. You can also call the command from another event, like a frame event in a cutscene.</li>
+                <li>When the command runs, a conversation instance is created and locked to the Speaker. Replies advance when the player chooses an option or when you call the reply helper from code.</li>
+                <li>When there are no replies left, the conversation ends automatically and control returns to the player.</li>
+            </ol>
+
+            <h2>Friendly tips</h2>
             <ul>
-                <li>If a conversation does not start, confirm the trigger actually fires and that the <strong>Start Conversation</strong> command points to existing files.</li>
-                <li>If the wrong speaker names show up, rename the Blender objects for the owner/initializer or adjust the required character names inside the conversation resource.</li>
-                <li>If events tied to comments are not running, check that the comment’s event data is filled in and that the target nodes exist in the scene.</li>
+                <li>Keep Speaker node names readable (“GuideNPC”) so your commands can target them without guesswork.</li>
+                <li>Pair conversations with a <strong>Deactivate Player Controls</strong> command if you want the player to stand still during dialogue, then re-enable controls afterward.</li>
+                <li>Reuse the <strong>Speaker Trigger</strong> command for simple voice lines that do not need branching replies.</li>
             </ul>
         </main>
     </section>

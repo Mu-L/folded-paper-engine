@@ -29,37 +29,36 @@
     <section class="section top-section">
         <header>
             <div class="section-title">
-                UI, Cursors, and On-Screen Options
-                <div class="section-subtitle">Creator-friendly crosshairs, menu options, and prompts</div>
+                UI and Cursors
+                <div class="section-subtitle">UI Options, UI Cursor, and keeping UI visible with your camera</div>
             </div>
         </header>
         <main>
-            <h2>Mark a UI Element in Blender</h2>
+            <h2>UI Options (menu entries)</h2>
+            <ul>
+                <li>UI Options give you named menu entries you can show on screen (e.g., Pause, Resume, Settings). The engine stores them globally so your UI scene can list what is available.</li>
+                <li>Create your own Godot UI scene and read the registered UI Options to populate buttons or toggles. This keeps menus designer-friendly while still reflecting the runtime state.</li>
+            </ul>
+
+            <h2>UI Cursor (crosshair and pointer)</h2>
+            <ul>
+                <li>Mark an object in Blender as <strong>UI Element</strong> if you want to turn it into a UI Cursor or UI Option. The flag simply tells the runtime the node can be used for UI—how it appears depends on which role you choose.</li>
+                <li>Place the UI cursor geometry where the player camera can see it and keep it in front of the camera. The engine does not automatically reposition UI Elements; you keep them visible by parenting to the camera or by animating them into view.</li>
+                <li>At runtime, the engine can show a simple crosshair and optionally unlock the mouse for menu navigation. Use a pause/menu trigger to toggle the cursor lock state.</li>
+            </ul>
+
+            <h2>Practical setup</h2>
             <ol>
-                <li>Select the mesh you want to use as a cursor or clickable option.</li>
-                <li>Open the <strong>UI Element</strong> panel and choose either <strong>UI Cursor</strong> or <strong>UI Option</strong>. These are the only behaviors UI Elements provide.</li>
-                <li>Keep the object in view with your camera framing—UI Elements do not auto-anchor to the screen, so plan your camera rigs and animations so the UI stays visible.</li>
+                <li>Create a small crosshair mesh or sprite in Blender, mark it as <strong>UI Element</strong>, and make it a child of your camera so it stays in view.</li>
+                <li>For menus, build a Godot UI scene that reads UI Options and shows buttons. When you pause the game, unlock the mouse and show this scene; when you resume, lock the mouse again and hide the UI.</li>
+                <li>If you need a custom cursor graphic, swap the UI Cursor object in your Godot scene with your own UI Element so the appearance matches your project.</li>
             </ol>
 
-            <h2>Create a cursor</h2>
+            <h2>Helpful reminders</h2>
             <ul>
-                <li>Enable <strong>UI Cursor</strong> to let the engine track and display the object as an interactive cursor.</li>
-                <li>Set <strong>UI Cursor Depth</strong> if you want the cursor to float in front of the camera, and enable <strong>UI Cursor Look At Camera</strong> if it should always face the player.</li>
-                <li>Optionally provide a <strong>UI Cursor Select Animation</strong> name and play that animation when the player selects a UI Option.</li>
-            </ul>
-
-            <h2>Create UI options</h2>
-            <ul>
-                <li>Enable <strong>UI Option</strong> on the meshes you want to select with the cursor. These options are stored globally so menus can read them at runtime.</li>
-                <li>Use <strong>UI Option Command Delay</strong> to postpone a command after selection—helpful for playing a click animation before the action runs.</li>
-                <li>Pair options with triggers or commands (like <strong>Load Level</strong> or <strong>Start Conversation</strong>) so selections do something in the world.</li>
-            </ul>
-
-            <h2>Input, prompts, and accessibility</h2>
-            <ul>
-                <li>Show an on-screen prompt (“Press Use”) when the player is inside a trigger that will open a menu or run a UI Option. This keeps non-technical players oriented.</li>
-                <li>If you temporarily unlock the mouse for menus, remember to restore pointer capture when closing the UI so gameplay controls resume.</li>
-                <li>Group your UI Option nodes for easy enabling/disabling in Godot when switching between menus.</li>
+                <li>UI Elements are not the same as Godot’s Control nodes. They are 3D objects you keep in front of a camera to act as cursors or options.</li>
+                <li>If you change cameras during a cutscene, be sure the UI Element is parented to the active camera or otherwise moved so it stays visible.</li>
+                <li>Use <strong>Deactivate Player Controls</strong> when showing menus so players do not move while navigating UI.</li>
             </ul>
         </main>
     </section>
