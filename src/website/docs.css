@@ -1,71 +1,69 @@
-.section {
-    &.content-section {
-        background-color: #fff;
-        color: black;
-        text-shadow: none;
-    }
-
-    > main {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 1em;
-        font-family: sans-serif;
-        word-break: break-word;
-        margin-bottom: 4em;
-        font-size: 1.25em;
-
-        > h3 {
-            font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
-        }
-
-        a {
-            color: #e28903;
-            text-decoration: none;
-        }
-
-        .property-group {
-            color: #555555;
-        }
-
-        .doc-columns {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5em;
-            width: 100%;
-        }
-
-        .doc-column {
-            background: #f7f7f7;
-            border-radius: 12px;
-            padding: 1.25em 1.5em;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5em;
-        }
-
-        .doc-column h3 {
-            margin: 0;
-            font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
-        }
-
-        .doc-column ul {
-            margin: 0;
-            padding-left: 1em;
-            display: flex;
-            flex-direction: column;
-            gap: 0.35em;
-        }
-
-        .doc-column li {
-            line-height: 1.4;
-        }
-    }
+.section.content-section {
+    background-color: #fff;
+    color: black;
+    text-shadow: none;
 }
 
-.guide-section > main {
+.section > .section-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1em;
+    font-family: sans-serif;
+    word-break: break-word;
+    margin-bottom: 4em;
+    font-size: 1.25em;
+}
+
+.section > .section-body > h3 {
+    font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
+}
+
+.section > .section-body a {
+    color: #e28903;
+    text-decoration: none;
+}
+
+.section > .section-body .property-group {
+    color: #555555;
+}
+
+.section > .section-body .doc-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5em;
+    width: 100%;
+}
+
+.section > .section-body .doc-column {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 1.25em 1.5em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.section > .section-body .doc-column h3 {
+    margin: 0;
+    font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
+}
+
+.section > .section-body .doc-column ul {
+    margin: 0;
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+}
+
+.section > .section-body .doc-column li {
+    line-height: 1.4;
+}
+
+.guide-section > .section-body {
     max-width: 1200px;
     margin: 0 auto 3em;
     padding: 0 1.5rem;
