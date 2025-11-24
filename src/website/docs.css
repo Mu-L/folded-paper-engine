@@ -102,6 +102,12 @@
     text-decoration: none;
     color: #111827;
     transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+
+    &:hover {
+        & > .doc-card-title {
+            background-size: 300%;
+        }
+    }
 }
 
 .doc-card:hover,
