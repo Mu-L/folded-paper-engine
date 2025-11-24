@@ -1,0 +1,95 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Folded Paper Engine">
+    <title>Folded Paper Engine</title>
+    <link rel="icon" type="image/png" href="../icons/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/svg+xml" href="../icons/favicon.svg"/>
+    <link rel="shortcut icon" href="../icons/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png"/>
+    <meta name="apple-mobile-web-app-title" content="Folded Paper Engine"/>
+    <link rel="manifest" href="../icons/site.webmanifest.json"/>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<header class="header">
+    <a href="https://fpe.papercraft.games">
+        <img class="logo" src="../logo.png" alt="Logo">
+    </a>
+    <div class="spacer"></div>
+    <a class="button" href="../index.html#download">
+        Download
+        <img class="dl-icon" src="../dl-icon.png" alt="Download">
+    </a>
+</header>
+<main>
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                UI and Cursors
+                <div class="section-subtitle">UI Options, UI Cursor, and keeping UI visible with your camera</div>
+            </div>
+        </header>
+        <main>
+            <h2>UI Options (menu entries)</h2>
+            <ul>
+                <li>UI Options give you named menu entries you can show on screen (e.g., Pause, Resume, Settings). The engine stores them globally so your UI scene can list what is available.</li>
+                <li>Create your own Godot UI scene and read the registered UI Options to populate buttons or toggles. This keeps menus designer-friendly while still reflecting the runtime state.</li>
+            </ul>
+
+            <h2>UI Cursor (crosshair and pointer)</h2>
+            <ul>
+                <li>Mark an object in Blender as <strong>UI Element</strong> if you want to turn it into a UI Cursor or UI Option. The flag simply tells the runtime the node can be used for UI—how it appears depends on which role you choose.</li>
+                <li>Place the UI cursor geometry where the player camera can see it and keep it in front of the camera. The engine does not automatically reposition UI Elements; you keep them visible by parenting to the camera or by animating them into view.</li>
+                <li>At runtime, the engine can show a simple crosshair and optionally unlock the mouse for menu navigation. Use a pause/menu trigger to toggle the cursor lock state.</li>
+            </ul>
+
+            <h2>Practical setup</h2>
+            <ol>
+                <li>Create a small crosshair mesh or sprite in Blender, mark it as <strong>UI Element</strong>, and make it a child of your camera so it stays in view.</li>
+                <li>For menus, build a Godot UI scene that reads UI Options and shows buttons. When you pause the game, unlock the mouse and show this scene; when you resume, lock the mouse again and hide the UI.</li>
+                <li>If you need a custom cursor graphic, swap the UI Cursor object in your Godot scene with your own UI Element so the appearance matches your project.</li>
+            </ol>
+
+            <h2>Helpful reminders</h2>
+            <ul>
+                <li>UI Elements are not the same as Godot’s Control nodes. They are 3D objects you keep in front of a camera to act as cursors or options.</li>
+                <li>If you change cameras during a cutscene, be sure the UI Element is parented to the active camera or otherwise moved so it stays visible.</li>
+                <li>Use <strong>Deactivate Player Controls</strong> when showing menus so players do not move while navigating UI.</li>
+            </ul>
+        </main>
+    </section>
+</main>
+<footer class="footer">
+    <a href="https://papercraft.games" target="_blank">
+        <img class="papercraft-logo" src="../papercraft-games-logo.png" alt="Papercraft Games">
+    </a>
+    <div class="social">
+        <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank">
+            <img src="../github-logo.png" alt="GitHub">
+        </a>
+        <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank">
+            <img src="../youtube-logo.png" alt="GitHub">
+        </a>
+        <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank">
+            <img src="../bluesky-logo.png" alt="GitHub">
+        </a>
+    </div>
+</footer>
+<footer class="pickle-footer">
+    <div>
+        © 2025 Folded Paper Engine. All rights reserved.
+    </div>
+    <div class="pickle-box">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+        <img src="../pickle-icon.png" alt="A green pickle">
+    </div>
+</footer>
+</body>
+</html>
