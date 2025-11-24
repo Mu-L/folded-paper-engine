@@ -38,13 +38,13 @@
             <ol>
                 <li>Select the mesh or empty that should make noise (for example, a flickering light, a buzzing fan, or an NPC).</li>
                 <li>In Blender’s <strong>Folded Paper Engine</strong> panel, check the <strong>Speaker</strong> box. This is the most important step: it tells FPE to build a 3D audio player for this object in Godot.</li>
-                <li>Fill in <strong>SpeakerFile</strong> with the file you will place in your Godot project (e.g. <code>sounds/vent_hum.ogg</code>). Use a relative path inside your Godot project’s <code>res://</code>.</li>
-                <li>Optional comfort settings:
+                <li>In the <strong>Speaker Settings</strong> panel, under the <strong>Folded Paper Engine</strong> tab, click "Browse" and fill in <strong>Speaker File</strong> with the file you will place in your Godot project (e.g. <code>sounds/vent_hum.ogg</code>).</li>
+                <li>Additional settings:
                     <ul>
-                        <li><strong>SpeakerAutoplay</strong>: starts playing as soon as the level loads.</li>
-                        <li><strong>SpeakerLoop</strong>: repeats forever (great for ambience or humming machines).</li>
-                        <li><strong>SpeakerVolume</strong>: loudness in dB (0 dB is the file’s normal volume).</li>
-                        <li><strong>SpeakerMaxDistance</strong>: how far the sound can be heard.</li>
+                        <li><strong>Speaker Autoplay</strong>: starts playing as soon as the level loads.</li>
+                        <li><strong>Speaker Loop</strong>: repeats forever (great for ambience or humming machines).</li>
+                        <li><strong>Speaker Volume</strong>: loudness in dB (0 dB is the file’s normal volume).</li>
+                        <li><strong>Speaker Max Distance</strong>: how far the sound can be heard.</li>
                     </ul>
                 </li>
                 <li>Export your GLB and import it into Godot. The FPE addon automatically attaches an <code>AudioStreamPlayer3D</code> with your file, autoplay/loop/volume settings, and removes it when the node is freed so you don’t have to script cleanup.</li>
@@ -53,22 +53,22 @@
             <h2>Background music for a whole level</h2>
             <ol>
                 <li>Select the <strong>Scene</strong> settings object in Blender (the same place you set sky color or gravity).</li>
-                <li>Set <strong>BackgroundMusic</strong> to your track path (for example, <code>music/forest_theme.ogg</code> in your Godot project).</li>
-                <li>Adjust <strong>BackgroundMusicVolume</strong> to taste. When the level loads, FPE queues and starts this music and stops it automatically when you change scenes.</li>
+                <li>Set <strong>Background Music</strong> to your track path (for example, <code>music/forest_theme.ogg</code> in your Godot project).</li>
+                <li>Adjust <strong>Background Music Volume</strong> to taste. When the level loads, FPE queues and starts this music and stops it automatically when you change scenes.</li>
             </ol>
 
             <h2>Make sounds react to the player</h2>
             <ol>
-                <li>Create a trigger volume (or add an animation frame event) and use <strong>SpeakerTrigger</strong> or <strong>SpeakerTriggerSelf</strong> to start or stop a sound on demand.</li>
-                <li>Easy pattern for non-coders: pair a trigger with a <strong>Speaker</strong> object. Start the loop when the player enters, stop it when they leave, or fire a one-shot effect when they press the interact key.</li>
+                <li>Create a trigger volume (or add an animation frame event) and use <strong>Speaker Trigger</strong> or <strong>Speaker Trigger Self</strong> (in a Scene Event command) to start or stop a sound on demand.</li>
+                <li>Easy pattern: pair a trigger with a <strong>Speaker</strong> object. Start the loop when the player enters, stop it when they leave, or fire a one-shot effect when they press the interaction key.</li>
             </ol>
 
             <h2>Checklist and troubleshooting</h2>
             <ul>
                 <li>Blender: the <strong>Speaker</strong> box must be checked on the object, or Godot will not create the audio player.</li>
-                <li>Godot: place your audio file in the matching path (e.g. <code>res://sounds/vent_hum.ogg</code>) so the <strong>SpeakerFile</strong> reference finds it.</li>
-                <li>Volume too loud or quiet? Nudge <strong>SpeakerVolume</strong> up or down a few dB, then re-export the GLB.</li>
-                <li>Need the sound only indoors or in a small area? Lower <strong>SpeakerMaxDistance</strong> so it fades out quickly.</li>
+                <li>Godot: place your audio file in the matching path (e.g. <code>res://sounds/vent_hum.ogg</code>) so the <strong>Speaker File</strong> reference finds it.</li>
+                <li>Volume too loud or quiet? Nudge <strong>Speaker Volume</strong> up or down a few dB, then re-export the GLB.</li>
+                <li>Need the sound only indoors or in a small area? Lower <strong>Speaker Max Distance</strong> so it fades out quickly.</li>
             </ul>
         </div>
     </section>
