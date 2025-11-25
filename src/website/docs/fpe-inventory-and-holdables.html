@@ -8,6 +8,15 @@
   gtag('js', new Date());
 
   gtag('config', 'G-QM9RJ9QDWL');
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".pickle-box img").forEach((p, i) => {
+        p.addEventListener("mouseenter", () => {
+            gtag('event', 'pickle_hover', {
+                pickle_index: i + 1
+            });
+        });
+    });
+});
 </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
