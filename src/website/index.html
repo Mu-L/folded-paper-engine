@@ -16,6 +16,26 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+
+    const blenderDownloadButton = document.querySelector(".blender-download");
+    if (blenderDownloadButton) {
+        blenderDownloadButton.addEventListener("click", () => {
+            gtag('event', 'download_blender', {
+                event_category: 'download',
+                event_label: 'blender_plugin'
+            });
+        });
+    }
+
+    const godotDownloadButton = document.querySelector(".godot-download");
+    if (godotDownloadButton) {
+        godotDownloadButton.addEventListener("click", () => {
+            gtag('event', 'download_godot', {
+                event_category: 'download',
+                event_label: 'godot_plugin'
+            });
+        });
+    }
 });
 </script>
     <meta charset="utf-8">
@@ -201,12 +221,12 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </header>
         <main>
-            <a class="button blue"
+            <a class="button blue blender-download"
                href="https://github.com/papercraftgames/folded-paper-engine/releases/download/v${VERSION}/folded_paper_engine_${VERSION}.zip">
                 Download for Blender 4.4+
                 <img class="button-icon" src="./blender-logo-icon.png" alt="Blender Logo">
             </a>
-            <a class="button blue"
+            <a class="button blue godot-download"
                href="https://github.com/papercraftgames/folded-paper-engine/releases/download/v${VERSION}/folded_paper_engine_godot_${VERSION}.zip">
                 Download for Godot 4.4+
                 <img class="button-icon" src="./godot-logo-icon.png" alt="Godot Logo">
