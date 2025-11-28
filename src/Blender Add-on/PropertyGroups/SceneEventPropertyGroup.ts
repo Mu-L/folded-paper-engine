@@ -1,5 +1,5 @@
-import {BlenderPanelProps} from "../Templating";
 import {COMMANDS_PROPERTY_GROUP_NAME, CommandsPropertyGroup} from "./CommandsPropertyGroup";
+import {BlenderPanelProps} from "../Templating/Types";
 
 export const SCENE_EVENT_NAME = "SCENE_EVENT_PT_FoldedPaperEngine";
 export const SCENE_EVENT_PROPERTY_GROUP_NAME = `${SCENE_EVENT_NAME}PropertyGroup`;

@@ -1,4 +1,5 @@
-import {BlenderPanelPropertyProps, BlenderPanelProps, EnumInputConfig, EnumItem} from "../Templating";
+
+import {BlenderPanelPropertyProps, BlenderPanelProps, EnumInputConfig, EnumItem} from "../Templating/Types";
 
 export const TRIGGER_EVENT_NAME = "TRIGGER_EVENT_PT_FoldedPaperEngine";
 export const TRIGGER_EVENT_PROPERTY_GROUP_NAME = `${TRIGGER_EVENT_NAME}PropertyGroup`;

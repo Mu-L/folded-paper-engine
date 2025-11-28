@@ -1,4 +1,5 @@
-import {BlenderPanelPropertyProps, BlenderPanelProps, EnumInputConfig, EnumItem} from "../Templating";
+
+import {BlenderPanelPropertyProps, BlenderPanelProps, EnumInputConfig, EnumItem} from "../Templating/Types";
 
 export const ACTIVITY_TYPES_NAME = "ACTIVITY_TYPES_PT_FoldedPaperEngine";
 export const ACTIVITY_TYPES_PROPERTY_GROUP_NAME = `${ACTIVITY_TYPES_NAME}PropertyGroup`;

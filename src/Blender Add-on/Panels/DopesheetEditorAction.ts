@@ -1,5 +1,5 @@
-import {BlenderPanelProps} from "../Templating";
-import {PropertyObjectNames} from "../FeatureTypes";
+import {PropertyObjectNames} from "../Templating/FeatureTypes";
+import {BlenderPanelProps} from "../Templating/Types";
 
 export const DopesheetEditorAction: BlenderPanelProps = {
   label: "Folded Paper Engine (Animation)",

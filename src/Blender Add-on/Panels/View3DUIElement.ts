@@ -1,6 +1,6 @@
-import {BlenderPanelProps} from "../Templating";
-import {PropertyObjectNames} from "../FeatureTypes";
-import {ADDON_CATEGORY} from "../FeatureConstants";
+import {PropertyObjectNames} from "../Templating/FeatureTypes";
+import {ADDON_CATEGORY} from "../Templating/FeatureConstants";
+import {BlenderPanelProps} from "../Templating/Types";
 
 export const View3DUIElement: BlenderPanelProps = {
   label: "UI Element",
