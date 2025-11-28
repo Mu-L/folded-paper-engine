@@ -2,7 +2,10 @@ name: Site Deploy (gh-pages)
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - 'src/website/**'
   release:
     types: [ published ]   # redeploy site when a new release is published
   workflow_dispatch:
