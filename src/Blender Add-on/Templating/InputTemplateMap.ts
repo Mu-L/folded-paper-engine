@@ -65,6 +65,7 @@ ${
 prop_value = get_value_by_path(prop_parent${nestingLevel ?? 0}, '${name}')
 for idx${nestingLevel ?? 0}, sub_item${nestingLevel ?? 0} in enumerate(prop_value):
     box${nestingLevel ?? 0} = ${layoutObjectParent}.box()
+    ${layoutObjectParent}.separator(type='SPACE', factor=1.0)
     box_row${nestingLevel ?? 0} = box${nestingLevel ?? 0}.row()
     ${
           subItemLabelField
