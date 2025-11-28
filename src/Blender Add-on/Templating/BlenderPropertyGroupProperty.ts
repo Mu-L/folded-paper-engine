@@ -1,4 +1,3 @@
-
 import {PropTypeExtraArgsMap} from "./EnumExtraArgsHandler";
 import {BlenderPanelPropertyProps} from "./Types";
 import {addIndentDepth, PropTypeMap} from "./Utils";
@@ -33,6 +32,7 @@ export const BlenderPropertyGroupProperty = (
     subType ? `type=${subType}` : "",
   ]
     .filter((a) => a.length > 0)
+    .map((v) => addIndentDepth(v, 1))
     .join(",\n");
 
   return addIndentDepth(
