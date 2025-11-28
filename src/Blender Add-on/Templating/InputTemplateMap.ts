@@ -33,6 +33,7 @@ export const InputTemplateMap: Partial<Record<
     nestingLevel,
     contextBase = "",
     layoutObject = "row",
+    layoutObjectParent = "layout",
   ) => `
 ${layoutObject}.label(text='${label}:')
 ${layoutObject}.prop(prop_parent${nestingLevel ?? 0}, '${name}')
@@ -63,7 +64,7 @@ ${
         ? `
 prop_value = get_value_by_path(prop_parent${nestingLevel ?? 0}, '${name}')
 for idx${nestingLevel ?? 0}, sub_item${nestingLevel ?? 0} in enumerate(prop_value):
-    box${nestingLevel ?? 0} = layout.box()
+    box${nestingLevel ?? 0} = ${layoutObjectParent}.box()
     box_row${nestingLevel ?? 0} = box${nestingLevel ?? 0}.row()
     ${
           subItemLabelField

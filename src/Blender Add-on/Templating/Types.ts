@@ -51,6 +51,7 @@ export type InputTemplateFunction = (
   nestingLevel: number,
   contextBase?: string,
   layoutObject?: string,
+  layoutObjectParent?: string,
 ) => string;
 export type BlenderPanelProps = {
   name: string;

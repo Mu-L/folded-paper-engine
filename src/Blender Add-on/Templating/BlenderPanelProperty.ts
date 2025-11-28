@@ -42,8 +42,8 @@ prop_parent${nestingLevel ?? 0} = ${
       }
 ${
         InputTemplateMap[type]
-          ? InputTemplateMap[type](prop, currentPath, nestingLevel ?? 0, contextBase, `row${nestingLevel ?? 0}`)
-          : defaultInputTemplate(prop, currentPath, nestingLevel ?? 0, contextBase, `row${nestingLevel ?? 0}`)
+          ? InputTemplateMap[type](prop, currentPath, nestingLevel ?? 0, contextBase, `row${nestingLevel ?? 0}`, layoutObject)
+          : defaultInputTemplate(prop, currentPath, nestingLevel ?? 0, contextBase, `row${nestingLevel ?? 0}`, layoutObject)
       }
 
 `,
