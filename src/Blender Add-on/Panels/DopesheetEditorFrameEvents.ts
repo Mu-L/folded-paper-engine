@@ -1,6 +1,6 @@
-import {BlenderPanelProps} from "../Templating";
-import {PropertyObjectNames} from "../FeatureTypes";
+import {PropertyObjectNames} from "../Templating/FeatureTypes";
 import {FRAME_EVENT_PROPERTY_GROUP_NAME, FrameEventPropertyGroup} from "../PropertyGroups/FrameEventPropertyGroup";
+import {BlenderPanelProps} from "../Templating/Types";
 
 export const DopesheetEditorFrameEvents: BlenderPanelProps = {
   label: "Folded Paper Engine (Frame Events)",

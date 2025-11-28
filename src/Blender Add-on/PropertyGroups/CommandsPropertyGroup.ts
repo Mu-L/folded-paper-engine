@@ -1,9 +1,10 @@
-import {BlenderPanelPropertyProps, BlenderPanelProps, FileBrowserConfig} from "../Templating";
+
 import {
   ACTIVITY_TYPES_PROPERTY_GROUP_NAME,
   ActivityTypes,
   ActivityTypesPropertyGroup
 } from "./ActivityTypesPropertyGroup";
+import {BlenderPanelPropertyProps, BlenderPanelProps, FileBrowserConfig} from "../Templating/Types";
 
 export const COMMANDS_NAME = "COMMANDS_PT_FoldedPaperEngine";
 export const COMMANDS_PROPERTY_GROUP_NAME = `${COMMANDS_NAME}PropertyGroup`;

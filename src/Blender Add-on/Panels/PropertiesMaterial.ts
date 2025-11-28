@@ -1,5 +1,6 @@
-import {BlenderPanelPropertyProps, BlenderPanelProps, FileBrowserConfig, NumericInputConfig} from "../Templating";
-import {PropertyObjectNames} from "../FeatureTypes";
+
+import {PropertyObjectNames} from "../Templating/FeatureTypes";
+import {BlenderPanelPropertyProps, BlenderPanelProps, FileBrowserConfig, NumericInputConfig} from "../Templating/Types";
 
 export const PropertiesMaterial: BlenderPanelProps = {
   label: "Folded Paper Engine (Material)",

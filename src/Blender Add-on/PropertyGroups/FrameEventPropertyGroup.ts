@@ -1,4 +1,4 @@
-import {BlenderPanelProps} from "../Templating";
+import {BlenderPanelProps} from "../Templating/Types";
 
 export const FRAME_EVENT_NAME = "FRAME_EVENT_PT_FoldedPaperEngine";
 export const FRAME_EVENT_PROPERTY_GROUP_NAME = `${FRAME_EVENT_NAME}PropertyGroup`;

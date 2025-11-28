@@ -1,9 +1,10 @@
 import Path from "path";
 import FS from "fs";
-import {BlenderPanelPropertyProps, BlenderPanelProps, PropTypeMap,} from "../src/Blender Add-on/Templating";
-import {FoldedPaperEngineAddon} from "../src/Blender Add-on/FoldedPaperEngineAddon";
+import {FoldedPaperEngineAddon} from "../src/Blender Add-on/Templating/FoldedPaperEngineAddon";
 import {marked} from 'marked';
 import {getVersion} from "./utils/get-version";
+import {BlenderPanelPropertyProps, BlenderPanelProps} from "../src/Blender Add-on/Templating/Types";
+import {PropTypeMap} from "../src/Blender Add-on/Templating/Utils";
 
 const VERSION = getVersion();
 const EngineFeatureLegendMap: Omit<Record<keyof typeof PropTypeMap, string>, "hidden" | "operator"> & {

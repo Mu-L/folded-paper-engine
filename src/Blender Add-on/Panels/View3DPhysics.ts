@@ -1,6 +1,7 @@
-import {BlenderPanelPropertyProps, BlenderPanelProps, NumericInputConfig} from "../Templating";
-import {PropertyObjectNames} from "../FeatureTypes";
-import {ADDON_CATEGORY} from "../FeatureConstants";
+
+import {PropertyObjectNames} from "../Templating/FeatureTypes";
+import {ADDON_CATEGORY} from "../Templating/FeatureConstants";
+import {BlenderPanelPropertyProps, BlenderPanelProps, NumericInputConfig} from "../Templating/Types";
 
 export const View3DPhysics: BlenderPanelProps = {
   label: "Physics",

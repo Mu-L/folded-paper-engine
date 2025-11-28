@@ -1,10 +1,10 @@
-import {BlenderPanelProps} from "../Templating";
-import {PropertyObjectNames} from "../FeatureTypes";
-import {ADDON_CATEGORY} from "../FeatureConstants";
+import {PropertyObjectNames} from "../Templating/FeatureTypes";
+import {ADDON_CATEGORY} from "../Templating/FeatureConstants";
 import {
   TRIGGER_EVENT_PROPERTY_GROUP_NAME,
   TriggerEventPropertyGroup
 } from "../PropertyGroups/TriggerEventPropertyGroup";
+import {BlenderPanelProps} from "../Templating/Types";
 
 export const View3DTriggerEvents: BlenderPanelProps = {
   label: "Trigger Events",
