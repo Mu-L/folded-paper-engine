@@ -1,8 +1,8 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { getBlenderPanelDocsHTML } from "../engineFeatureDocs";
+import {getBlenderPanelDocsHTML} from "../engineFeatureDocs";
 
-const { docsHtml, legendHtml } = await getBlenderPanelDocsHTML();
+const {docsHtml, legendHtml} = await getBlenderPanelDocsHTML();
 ---
 
 <SiteLayout
@@ -18,7 +18,7 @@ const { docsHtml, legendHtml } = await getBlenderPanelDocsHTML();
         <div
                 class="web-splash-inner base-background"
         >
-            <img class="web-splash-img" src="../../public/assets/images/blender-panel-splash.png" alt="Blender Panel Splash">
+            <img class="web-splash-img" src="/assets/images/blender-panel-splash.png" alt="Blender Panel Splash">
         </div>
     </section>
     <section
@@ -79,7 +79,7 @@ const { docsHtml, legendHtml } = await getBlenderPanelDocsHTML();
                 <li>Name the file and choose a location inside your Godot project folder.</li>
                 <li>Click <code>Export</code>.</li>
                 <li>Your file is now ready to be used by Folded Paper Engine in Godot. See the Godot setup <a
-                        href="./godot-feature-docs.html">here</a>.
+                        href="/godot-feature-docs">here</a>.
                 </li>
             </ol>
         </main>
