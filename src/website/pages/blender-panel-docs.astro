@@ -8,6 +8,10 @@ const { docsHtml, legendHtml } = await getBlenderPanelDocsHTML();
 <SiteLayout
         title="Blender Panels"
 >
+    <Fragment slot="head">
+        <link rel="stylesheet" href="/assets/css/docs.css"/>
+    </Fragment>
+
     <section
             class="web-splash"
     >

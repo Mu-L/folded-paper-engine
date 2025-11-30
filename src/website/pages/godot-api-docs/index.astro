@@ -1,0 +1,58 @@
+---
+import GodotApiLayout from "../../layouts/GodotApiLayout.astro";
+import { loadGodotApiPages, type GodotApiPage } from "../../godotApiDocs";
+
+const pages = await loadGodotApiPages();
+
+// Light-weight search index we can embed into the page as JSON
+const searchIndex = pages.map((p) => ({
+  slug: p.slug,
+  title: p.title,
+  summary: p.summary,
+}));
+---
+
+<GodotApiLayout title="Folded Paper Engine – Godot API Docs">
+    <section class="api-index">
+        <h1>Folded Paper Engine – Godot API Docs</h1>
+
+        <div class="api-search">
+            <label for="api-search-input">Search</label>
+            <input id="api-search-input" type="search" placeholder="Search classes…" />
+        </div>
+
+        <ul id="api-search-results" class="api-index-list">
+          {pages.map((p) => (
+                  <li>
+                      <a href={`/godot-api-docs/${p.slug}/`}>{p.title}</a>
+                      <span class="api-index-summary">{p.summary}</span>
+                  </li>
+          ))}
+        </ul>
+    </section>
+
+    <script type="application/javascript">
+      const index = {JSON.stringify(searchIndex)};
+
+      const input = document.getElementById("api-search-input");
+      const list = document.getElementById("api-search-results");
+
+      if (input && list) {
+        input.addEventListener("input", () => {
+          const query = input.value.toLowerCase().trim();
+          const items = Array.from(list.querySelectorAll("li"));
+
+          if (query === "") {
+            items.forEach((li) => {
+              li.style.display = "";
+            });
+          } else {
+            items.forEach((li) => {
+              const text = li.textContent?.toLowerCase() ?? "";
+              li.style.display = text.includes(query) ? "" : "none";
+            });
+          }
+        });
+      }
+    </script>
+</GodotApiLayout>

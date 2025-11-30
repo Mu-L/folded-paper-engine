@@ -1,0 +1,16 @@
+---
+import "../docs/godot-api-docs/api-docs.css";
+import SiteLayout from "./SiteLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<SiteLayout title={title}>
+    <Fragment slot="head">
+        <slot name="head" />
+    </Fragment>
+
+    <main class="godot-api-doc">
+        <slot />
+    </main>
+</SiteLayout>

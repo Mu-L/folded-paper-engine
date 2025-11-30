@@ -13,7 +13,7 @@ const TEMPLATE_PATH = path.join(OUTPUT_DIR, "template.html");
 
 // --- types -------------------------------------------------------------------
 
-type ClassDoc = {
+export type ClassDoc = {
   class: {
     "@_name": string;
     "@_inherits"?: string;
