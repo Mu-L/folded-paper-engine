@@ -10,6 +10,30 @@ const searchIndex = pages.map((p) => ({
   title: p.title,
   summary: p.summary,
 }));
+// Build the browser script as a string, with searchIndex baked in
+const searchScript = `const index = ${JSON.stringify(searchIndex)};
+
+const input = document.getElementById("api-search-input");
+const list  = document.getElementById("api-search-results");
+
+if (input && list) {
+  input.addEventListener("input", () => {
+    const query = input.value.toLowerCase().trim();
+    const items = Array.from(list.querySelectorAll("li"));
+
+    if (query === "") {
+      items.forEach((li) => {
+        li.style.display = "";
+      });
+    } else {
+      items.forEach((li) => {
+        const text = (li.textContent || "").toLowerCase();
+        li.style.display = text.includes(query) ? "" : "none";
+      });
+    }
+  });
+}
+`;
 ---
 
 <GodotApiLayout title="Folded Paper Engine – Godot API Docs">
@@ -29,29 +53,5 @@ const searchIndex = pages.map((p) => ({
         </ul>
     </section>
 
-    <script type="application/javascript">
-      // TODO: FIX THIS.
-      const index = {JSON.stringify(searchIndex)};
-
-      const input = document.getElementById("api-search-input");
-      const list = document.getElementById("api-search-results");
-
-      if (input && list) {
-        input.addEventListener("input", () => {
-          const query = input.value.toLowerCase().trim();
-          const items = Array.from(list.querySelectorAll("li"));
-
-          if (query === "") {
-            items.forEach((li) => {
-              li.style.display = "";
-            });
-          } else {
-            items.forEach((li) => {
-              const text = li.textContent?.toLowerCase() ?? "";
-              li.style.display = text.includes(query) ? "" : "none";
-            });
-          }
-        });
-      }
-    </script>
+    <script is:inline set:html={searchScript}></script>
 </GodotApiLayout>
