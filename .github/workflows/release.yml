@@ -26,6 +26,7 @@ jobs:
       - name: Install deps
         run: yarn
 
+      # Build only the add-on artifacts (no website)
       - name: Make dist
         run: mkdir -p dist
 
@@ -35,31 +36,33 @@ jobs:
       - name: Build Godot add-on ZIP
         run: yarn deploy-godot-addon
 
-      # 🔹 Create a real copy with a stable filename
-      - name: Create _latest Godot ZIP
-        run: |
-          GODOT_ZIP=$(ls dist/*godot*.zip)
-          cp "$GODOT_ZIP" dist/folded_paper_engine_godot_latest.zip
-
-      # Attach all zips (including *_latest) to the versioned release
-      - name: Upload ZIPs to release
+      # Attach all zips (including *_latest) to the versioned release (v1.0.3, etc.)
+      - name: Upload ZIPs to versioned release
         run: |
           gh release upload "${{ github.event.release.tag_name }}" dist/*.zip --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Ensure 'latest' release exists
+      # 🔹 Ensure there is a dedicated 'latest' release
       - name: Ensure 'latest' release exists
         run: |
-          gh release view latest >/dev/null 2>&1 || \
+          if ! gh release view latest >/dev/null 2>&1; then
             gh release create latest \
               --title "Latest Folded Paper Engine" \
-              --notes "Rolling 'latest' release used for stable asset links."
+              --notes "Rolling 'latest' release used for stable Godot addon URL." \
+              --target "${GITHUB_SHA}"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 🔹 Upload the stable-named file to the 'latest' release
-      - name: Update 'latest' Godot ZIP
+      # 🔹 Create an actual file with a stable name
+      - name: Create _latest Godot ZIP
+        run: |
+          GODOT_ZIP=$(ls dist/*godot*.zip | head -n 1)
+          cp "$GODOT_ZIP" dist/folded_paper_engine_godot_latest.zip
+
+      # 🔹 Upload the stable-named file to that 'latest' release
+      - name: Upload stable latest ZIP to 'latest' release
         run: |
           gh release upload latest dist/folded_paper_engine_godot_latest.zip --clobber
         env:
