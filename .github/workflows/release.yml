@@ -34,9 +34,26 @@ jobs:
       - name: Build Godot add-on ZIP
         run: yarn deploy-godot-addon
 
-      # Attach zips to the release
+      # Attach zips to the tagged release (v1.0.2 etc.)
       - name: Upload ZIPs to release
         run: |
           gh release upload "${{ github.event.release.tag_name }}" dist/*.zip --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Maintain a "latest" release with a stable Godot ZIP name
+      - name: Ensure 'latest' release exists
+        run: |
+          gh release view latest >/dev/null 2>&1 || \
+            gh release create latest \
+              --title "Latest Folded Paper Engine" \
+              --notes "Rolling 'latest' release used for stable asset links."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update 'latest' Godot ZIP
+        run: |
+          GODOT_ZIP=$(ls dist/*godot*.zip)
+          gh release upload latest "$GODOT_ZIP#folded_paper_engine_godot_latest.zip" --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
