@@ -1,43 +1,47 @@
 <html>
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QM9RJ9QDWL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QM9RJ9QDWL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-QM9RJ9QDWL');
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".pickle-box img").forEach((p, i) => {
-        p.addEventListener("mouseenter", () => {
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+
+      gtag('config', 'G-QM9RJ9QDWL');
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".pickle-box img").forEach((p, i) => {
+          p.addEventListener("mouseenter", () => {
             gtag('event', 'pickle_hover', {
-                pickle_index: i + 1
+              pickle_index: i + 1
             });
+          });
         });
-    });
 
-    const blenderDownloadButton = document.querySelector(".blender-download");
-    if (blenderDownloadButton) {
-        blenderDownloadButton.addEventListener("click", () => {
+        const blenderDownloadButton = document.querySelector(".blender-download");
+        if (blenderDownloadButton) {
+          blenderDownloadButton.addEventListener("click", () => {
             gtag('event', 'download_blender', {
-                event_category: 'download',
-                event_label: 'blender_plugin'
+              event_category: 'download',
+              event_label: 'blender_plugin'
             });
-        });
-    }
+          });
+        }
 
-    const godotDownloadButton = document.querySelector(".godot-download");
-    if (godotDownloadButton) {
-        godotDownloadButton.addEventListener("click", () => {
+        const godotDownloadButton = document.querySelector(".godot-download");
+        if (godotDownloadButton) {
+          godotDownloadButton.addEventListener("click", () => {
             gtag('event', 'download_godot', {
-                event_category: 'download',
-                event_label: 'godot_plugin'
+              event_category: 'download',
+              event_label: 'godot_plugin'
             });
-        });
-    }
-});
-</script>
+          });
+        }
+      });
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -262,6 +266,9 @@ document.addEventListener("DOMContentLoaded", () => {
         </a>
         <a href="https://www.facebook.com/profile.php?id=61584265860990" target="_blank">
             <img src="./facebook-logo.png" alt="Facebook">
+        </a>
+        <a href="https://discord.gg/gdGk2tBevz" target="_blank">
+            <img src="./discord-logo.png" alt="Discord">
         </a>
     </div>
 </footer>
