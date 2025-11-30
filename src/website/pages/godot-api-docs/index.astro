@@ -1,6 +1,6 @@
 ---
 import GodotApiLayout from "../../layouts/GodotApiLayout.astro";
-import { loadGodotApiPages, type GodotApiPage } from "../../godotApiDocs";
+import {loadGodotApiPages} from "../../godotApiDocs";
 
 const pages = await loadGodotApiPages();
 
@@ -18,7 +18,7 @@ const searchIndex = pages.map((p) => ({
 
         <div class="api-search">
             <label for="api-search-input">Search</label>
-            <input id="api-search-input" type="search" placeholder="Search classes…" />
+            <input id="api-search-input" type="search" placeholder="Search classes…"/>
         </div>
 
         <ul id="api-search-results" class="api-index-list">
