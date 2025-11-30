@@ -6,43 +6,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         title="Home"
 >
     <Fragment slot="head">
-        <style>
-            .web-splash {
-                & > .web-splash-inner {
-                    &.web-splash-loading {
-                        --stripe: 15px;
-                        --tile-ratio: calc(2 / cos(45deg));
-                        --speed: 250ms;
-                        --c1: #9fb837;
-                        --c2: #b9d94a;
-
-                        background: repeating-linear-gradient(
-                                45deg,
-                                var(--c1) 0 var(--stripe),
-                                var(--c2) var(--stripe) calc(var(--stripe) * 2)
-                        );
-                        background-size: calc(var(--stripe) * var(--tile-ratio)) calc(var(--stripe) * var(--tile-ratio));
-                        animation: web-splash-candy var(--speed) linear infinite;
-                    }
-
-                    & > .demo-fs-div {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 2em;
-                        font-size: 0.5em;
-                        background-color: #e28903;
-                    }
-                }
-            }
-
-            @keyframes web-splash-candy {
-                to {
-                    background-position: calc(var(--stripe) * var(--tile-ratio)) 0;
-                }
-            }
-        </style>
         <script type="module" src="assets/js/index.js" is:inline></script>
     </Fragment>
 
