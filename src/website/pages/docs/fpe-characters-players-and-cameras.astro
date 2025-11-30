@@ -1,6 +1,27 @@
 ---
 import GuideLayout from "../../layouts/GuideLayout.astro";
 ---
-<GuideLayout title="">
-
+<GuideLayout title="Characters, Players, and Cameras">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Characters, Players and Cameras
+                <div class="section-subtitle">Player rigs, NPCs and camera behavior</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Players vs. Characters</h2>
+            <ul>
+                <li><strong>Player Controls:</strong> wraps <strong>Character Controls</strong> with camera setup, device proxies, and hold zones. First-person enables a tight offset camera; third-person aligns and follows.</li>
+                <li><strong>First/Third Person:</strong> Player configurations that choose first or third person will disable mesh flipping so strafing does not rotate the rig unexpectedly.</li>
+                <li><strong>Character Controls:</strong> supports movement, jumping, optional sidekicks, and conversation metadata. Use for NPCs that need physics and animations but not player input.</li>
+            </ul>
+            <h2>Player Camera</h2>
+            <ul>
+                <li>Players spawn a <code>FollowingCamera</code> that becomes current and registers in the global camera list.</li>
+                <li>Standard camera distance/height can be configured from Blender; first-person mode snaps offset close to the head and locks facing.</li>
+                <li>Cameras can be switched by commands (see camera activation in the commands page).</li>
+            </ul>
+        </div>
+    </section>
 </GuideLayout>

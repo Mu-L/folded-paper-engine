@@ -1,6 +1,32 @@
 ---
 import GuideLayout from "../../layouts/GuideLayout.astro";
 ---
-<GuideLayout title="">
-
+<GuideLayout title="UI and Cursors">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                UI and Cursors
+                <div class="section-subtitle">UI Elements, menu flow and overlays</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>UI Elements in Blender</h2>
+            <ul>
+                <li>Marking an object as a <strong>UI Element</strong> tells FPE that the object can be used as a <strong>UI Option</strong> (menu element) or as a <strong>UI Cursor</strong>.</li>
+                <li>Keep UI meshes inside the camera view in Blender; the exporter does not reposition them for you. Place them where you want them to appear on-screen.</li>
+                <li>Use planes or simple meshes for cursors or buttons and keep their scale small so they remain manageable.</li>
+            </ul>
+            <h2>UI Cursors</h2>
+            <ul>
+                <li>The engine captures the mouse when gameplay starts, showing your cursor if one was exported as a UI Cursor.</li>
+                <li>When you use a UI Cursor the mouse automatically unlocks and allows free instead of keeping it in the center of the screen. Closing the menu re-locks the mouse and returns to the game cursor state.</li>
+            </ul>
+            <h2>UI Options</h2>
+            <ul>
+                <li>UI Options are objects that can be cycled through with UI interaction Inputs and a UI Cursor.</li>
+                <li>UI Options are Triggers and are primarily used with the <code>Interaction</code> Trigger Type.</li>
+                <li> UI Options can also be used with other Trigger Types like <code>Enter</code> and <code>Exit</code> to create effects like button sounds and animations.</li>
+            </ul>
+        </div>
+    </section>
 </GuideLayout>

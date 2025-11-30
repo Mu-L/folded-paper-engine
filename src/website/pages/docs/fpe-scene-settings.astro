@@ -1,6 +1,30 @@
 ---
 import GuideLayout from "../../layouts/GuideLayout.astro";
 ---
-<GuideLayout title="">
-
+<GuideLayout title="Scene Settings">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Scene Settings
+                <div class="section-subtitle">Environment, gravity, music, and scene events</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Environment overrides</h2>
+            <ul>
+                <li><strong>Sky Color:</strong> Set in Blender on the scene context. During load, the SkyColor effect applies the tint to the shared <code>WorldEnvironment</code> so new levels inherit the same background.</li>
+                <li><strong>Gravity:</strong> The Gravity effect rewrites <code>physics/3d/default_gravity</code> at runtime based on the scene property. Use this when a level needs lighter jumps or heavier falls.</li>
+            </ul>
+            <h2>Background music</h2>
+            <ul>
+                <li>Provide one or more music dictionaries (with a <code>path</code>) on the scene context to build the playlist.</li>
+                <li>Set <strong>BackgroundMusicVolume</strong> to control dB on load. Music instances are stored globally and cleared on unload.</li>
+            </ul>
+            <h2>Scene events</h2>
+            <ul>
+                <li>Scene-level event data is kept on the scene root so triggers and animations can access event participant metadata when dispatching events.</li>
+                <li>Use event names consistently across triggers, frame events, and commands so handlers in the Godot scene tree can listen with <code>FPEEventManager</code>.</li>
+            </ul>
+        </div>
+    </section>
 </GuideLayout>

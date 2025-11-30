@@ -1,6 +1,54 @@
 ---
 import GuideLayout from "../../layouts/GuideLayout.astro";
 ---
-<GuideLayout title="">
+<GuideLayout title="Triggers and Commands">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Triggers and Commands
+                <div class="section-subtitle">Step-by-step areas, filters, and the no-code action list</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Create a trigger zone in Blender</h2>
+            <ol>
+                <li>Select or add a simple cube/empty for your trigger. Scale it to cover the area you want to react to (e.g., a doorway).</li>
+                <li>Open the FPE panel and check <strong>Trigger</strong>.</li>
+                <li>In the FPE <strong>Trigger Events</strong> panel, add a new Trigger Event and Choose the trigger <strong>Type</strong> (<code>Enter</code>, <code>Exit</code>, etc.) so you know when it fires.</li>
+                <li>Enter the name of a Scene Event for <strong>Event Name</strong>.</li>
+                <li>Optional: set a <strong>Group</strong> name if only certain objects should activate it (like <code>Player</code> or <code>Enemy</code>).</li>
+                <li>If you don't already have one, create a Scene Event in the <string>Scene Events</string> panel and configure the appropriate Command(s).</li>
+                <li>Export to GLB. FPE will spawn an invisible <code>TrackingArea3D</code> (Technical) with a simple box collider for performance.</li>
+            </ol>
 
+            <h2 id="command-catalog">Popular commands you can chain</h2>
+            <ul>
+                <li><strong>Load Level</strong> (<code>Load Level</code>): Switch to another GLB/scene. Perfect for doors and portals.</li>
+                <li><strong>Load / Unload Sub Scene</strong> (<code>Load Sub Scene</code> / <code>Unload Sub Scene</code> / <code>Unload This Sub Scene</code>): Stream a room or interior in/out while staying in the same level.</li>
+                <li><strong>Speaker Trigger</strong> (<code>Speaker Trigger</code> / <code>Speaker Trigger Self</code>): Play a specific Speaker by name, or the Speaker on the trigger node.</li>
+                <li><strong>Animations / Stop Animations</strong> (<code>Animations</code> / <code>Stop Animations</code>): Play or stop comma-separated animation names (works with frame events too).</li>
+                <li><strong>Activate Camera / Reactivate Player Camera</strong> (<code>Activate Camera</code> / <code>Reactivate Player Camera</code>): Cut to a cinematic camera, then give control back.</li>
+                <li><strong>Deactivate / Reactivate Player Controls</strong> (<code>Deactivate Player Controls</code> / <code>Reactivate Player Controls</code>): Temporarily pause movement during menus or cutscenes.</li>
+                <li><strong>Start Conversation</strong> (<code>Start Conversation</code>): Begin a dialogue with an NPC or other entity using the specified Conversation resource.</li>
+                <li><strong>Pause / Resume Specific Activities</strong> (<code>Pause Specific Activities</code> / <code>Resume Specific Activities</code>): Freeze physics or movement types by ID while something else runs.</li>
+                <li><strong>Dispatch Event</strong> (<code>Dispatch Event</code>): Emit another Scene Event name to trigger other sets of Commands.</li>
+                <li><strong>Delete By Group</strong> (<code>Delete By Group</code>): Remove every node in a Godot group (useful for clearing props after a puzzle).</li>
+            </ul>
+
+            <h2>Design patterns to copy</h2>
+            <ul>
+                <li><strong>Pressure plate puzzle:</strong> Trigger on <code>Enter</code> → play a click sound (<code>Speaker Trigger</code>) → open the door (<code>Animations</code>) → disable itself (<code>Delete By Group</code> on a helper group).</li>
+                <li><strong>Cutscene starter:</strong> Trigger on <code>Enter</code> → <code>Deactivate Player Controls</code> → <code>Activate Camera</code> → run an <code>Animations</code> clip with frame events → <code>Reactivate Player Camera</code> → <code>Reactivate Player Controls</code>.</li>
+                <li><strong>Scene exit:</strong> Trigger on <code>Enter</code> → <code>Load Level</code> with the next GLB path. Pair with a fade or loading screen sub-scene for polish.</li>
+            </ul>
+
+            <h2>Troubleshooting triggers</h2>
+            <ul>
+                <li>If nothing fires, confirm the trigger cube/mesh is positioned where expected and that transforms are applied before export.</li>
+                <li>Check the <strong>Group</strong> and make sure it matches the <strong>Trigger Group</strong> in the <strong>Trigger Events</strong> panel. Not having a matching group (if Trigger Groups are defined) means the engine ignores the overlap.</li>
+                <li>Use simple box triggers unless you truly need mesh-shaped bounds for performance reasons.</li>
+                <li><strong>TIP:</strong> If you are seeing your trigger object in your game and you don't want to, make it invisible by checking <strong>Invisible</strong> in the <strong>Folded Paper Engine</strong> panel under the <strong>Item</strong> tab.</li>
+            </ul>
+        </div>
+    </section>
 </GuideLayout>

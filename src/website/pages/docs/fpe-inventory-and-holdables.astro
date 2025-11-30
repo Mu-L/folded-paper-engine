@@ -1,6 +1,50 @@
 ---
 import GuideLayout from "../../layouts/GuideLayout.astro";
 ---
-<GuideLayout title="">
-
+<GuideLayout title="Inventory and Holdables">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Inventory and Holdables
+                <div class="section-subtitle">Item kinds, slots, hold zones, and deposits</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Inventory (stored items)</h2>
+            <ol>
+                <li>Create the item in Blender and check <strong>Trigger</strong> in the <strong>Folded Paper Engine</strong> panel.</li>
+                <li>Then, under <strong>Folded Paper Engine → Inventory Item</strong> set the <strong>Inventory Item Kind</strong> ID and a starting <strong>Quantity</strong>.</li>
+                <li>Duplicate the mesh in Blender if you want multiple pickups in the level.</li>
+                <li>In Godot, add an <strong>FPE Inventory Config</strong> node to your scene. Register each <strong>Inventory Item Kind</strong> with the same ID you used in Blender and set the inventory size (slot count) for the player.</li>
+                <li>When the player touches the item, the item kind, with allotted quantity, move into the Player's inventory slot(s).</li>
+            </ol>
+            <h2>Holdable Items (carried in hands)</h2>
+            <ol>
+                <li>Select your <strong>Player</strong> in Blender and open <strong>Player Controls</strong>. Choose the <strong>First Person</strong> control style and check <strong>Can Hold Items</strong>.</li>
+                <li>Create the item you want to carry. Under <strong>Items → Folded Paper Engine</strong>, check <strong>Holdable</strong> so it can be picked up and attached to the Hold Zone.</li>
+                <li>Make sure to add the `-rigid` postfix to the Items name so that it becomes a Rigid Object.</li>
+                <li>Holdable Items stay physical. The Hold Zone in front of the camera keeps the item steady instead of teleporting it.</li>
+                <li>A held item will stay between a player and another physical object, avoiding issues with items being allowed to clip through walls and other structures.</li>
+                <li>In-game, the player presses the <code>Use</code> action to pick up a Holdable Item and drops it if they press the <code>Use</code> key again.</li>
+                <li>Holdable Items can trigger <strong>Withdraw</strong> and <strong>Deposit</strong> triggers accordingly.</li>
+            </ol>
+            <h2>Good to know</h2>
+            <ul>
+                <li>Inventory items live in slots and can stack by quantity; Holdable Items are single physical objects kept in front of the camera.</li>
+                <li>Use clear names for <strong>Inventory Item Kind</strong> (Example: `PRECIOUS_MAGIC_JEWEL`) so you can match them in the Godot configuration without guessing.</li>
+                <li>Combine both systems: let the player carry a Holdable Items temporarily, then use Sub Scenes or code to convert it into an inventory item when they place it in a trigger or deposit.</li>
+            </ul>
+            <div class="callouts">
+                <div class="callout">
+                    <div class="callout-title">Deposits and prompts (Advanced)</div>
+                    <div class="callout-body">
+                        <ul>
+                            <li>Pair a <strong>Holdable Item</strong> with a trigger group to show an on-screen prompt when the player is close enough to grab it. Use the <string>Hold Zone Scene</string> under <strong>Player Controls</strong> to add a Sub Scene to the Hold Zone that can contain Triggers and Animations that allow you to notify your Players about different Holdable Item states through Triggers like <code>Holdable Items Available</code>.</li>
+                            <li>Deposit events could potentially watch for a specific <strong>Inventory Item Kind</strong>; when detected, delete the Holdable and add the matching inventory stack.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </GuideLayout>
