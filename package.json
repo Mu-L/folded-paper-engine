@@ -9,8 +9,7 @@
     "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME",
     "deploy-docs": "yarn deploy-godot-addon-docs",
     "deploy-blender-addon": "ts-node ./scripts/blender-addon.ts",
-    "deploy-godot-addon": "ts-node ./scripts/godot-addon.ts",
-    "deploy-godot-addon-docs": "ts-node ./scripts/gen-addon-docs.ts"
+    "deploy-godot-addon": "ts-node ./scripts/godot-addon.ts"
   },
   "dependencies": {
     "adm-zip": "^0.5.16",
