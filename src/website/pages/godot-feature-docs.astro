@@ -1,0 +1,69 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+<SiteLayout title="Godot Features">
+    <Fragment slot="head">
+        <link rel="stylesheet" href="/assets/css/docs.css"/>
+    </Fragment>
+
+    <section
+            class="web-splash"
+    >
+        <div
+                class="web-splash-inner base-background"
+        >
+            <img class="web-splash-img" src="../../public/assets/images/godot-feature-splash.png"
+                 alt="Godot Feature Splash">
+        </div>
+    </section>
+    <section
+            class="section top-section"
+    >
+        <header>
+            <div
+                    class="section-title"
+            >
+                Quick Start Guide
+            </div>
+        </header>
+        <main>
+            <h3>Install the Godot Addon to get started:</h3>
+            <ol>
+                <li>If you haven't gotten started with Blender yet, <a href="./blender-panel-docs.html">take a look at
+                    that first</a>.
+                </li>
+                <li>Once in your project, click on <code>AssetLib</code> at the top of the Godot editor.</li>
+                <li>Click the <code>Import...</code> button.</li>
+                <li>Select the <code>Folded Paper Engine</code> Godot addon zip file.</li>
+                <li>Click <code>Open</code>.</li>
+                <li>Click on the <code>Plugins...</code> button.</li>
+                <li>Check the box next to <code>Folded Paper Engine</code> to enable it.</li>
+                <li>Click <code>Close</code>.</li>
+                <li>Restart Godot.</li>
+            </ol>
+
+            <h3>Setup your Scene:</h3>
+            <ol>
+                <li>Create a new 3D Scene.</li>
+                <li>Right click on the base node in your new Scene and select <code>Add Child Node...</code>.</li>
+                <li>Search for and add a <code>WorldEnvironment</code>.</li>
+                <li>Add another child node, search for and add a <code>FoldedPaperEngine</code> node.</li>
+                <li>Select the <code>FoldedPaperEngine</code> node in the Scene tree.</li>
+                <li>In the <code>Inspector</code> panel on the right side of the editor, click the document icon next to
+                    the <code>Path</code> property.
+                </li>
+                <li>Find and select your <code>GLB/GLTF</code> file.</li>
+                <li>Click <code>Open</code>.</li>
+                <li>Next to the <code>Environment</code> property, click <code>Assign...</code>.</li>
+                <li>Select your <code>WorldEnvironment</code> and click <code>OK</code>.</li>
+                <li>You may want to add some lighting, like a <code>DirectionalLight3D</code> so that you can see what's
+                    in your Scene.
+                </li>
+                <li><strong>CONGRATS!</strong> You can now run your game! (Controllers and
+                    <kbd>WASD</kbd>
+                    keys will control your Player.)
+                </li>
+            </ol>
+        </main>
+    </section>
+</SiteLayout>
