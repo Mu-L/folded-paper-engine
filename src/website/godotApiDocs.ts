@@ -1,5 +1,3 @@
-// src/website/docs/godotApiDocs.ts
-//
 // Godot add-on API docs helper for Astro.
 // This is basically gen-addon-docs.ts, but instead of writing files
 // it returns structured data you can use in .astro pages.
