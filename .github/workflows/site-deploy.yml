@@ -93,11 +93,6 @@ jobs:
           filesystem/import/blender/blender_path = "/home/runner/.local/bin/blender"
           EOF
 
-      - name: Export Godot Web Demo
-        run: |
-          mkdir -p dist/demo-game
-          ~/.local/bin/godot --headless --path src/Game --export-release "Web" ../../dist/demo-game/index.html
-
       - name: Generate Addon Docs (XML)
         run: |
           mkdir -p dist/docs/ref-xml
@@ -109,6 +104,11 @@ jobs:
       # Build website + docs (no need to package ZIPs here)
       - name: Build website
         run: yarn build:web
+
+      - name: Export Godot Web Demo
+        run: |
+          mkdir -p dist/demo-game
+          ~/.local/bin/godot --headless --path src/Game --export-release "Web" ../../dist/website/demo-game/index.html
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
