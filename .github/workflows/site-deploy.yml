@@ -19,8 +19,11 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
 
+      - name: Install deps
+        run: yarn
+
       # Setup website directory
-      - name: Build website
+      - name: Setup website directory
         run: yarn setup-website-dir
 
       # Godot bits (same as your current flow) — keeps demo + docs fresh
