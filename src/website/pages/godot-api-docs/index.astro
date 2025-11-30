@@ -11,8 +11,8 @@ const searchIndex = pages.map((p) => ({
   summary: p.summary,
 }));
 // Build the browser script as a string, with searchIndex baked in
-const searchScript = `const index = ${JSON.stringify(searchIndex)};
-
+const searchScript = `
+const index = ${JSON.stringify(searchIndex)};
 const input = document.getElementById("api-search-input");
 const list  = document.getElementById("api-search-results");
 
