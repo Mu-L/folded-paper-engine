@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Folded Paper Engine",
   "scripts": {
+    "dev:web": "astro dev",
+    "build:web": "astro build",
+    "preview:web": "astro preview",
     "deploy-website": "rm -rf ./dist && mkdir -p dist && cp -a src/website/* dist && cp ./CNAME ./dist/CNAME",
     "deploy-docs": "yarn deploy-blender-addon-docs && yarn deploy-godot-addon-docs",
     "deploy-blender-addon": "ts-node ./scripts/blender-addon.ts",
@@ -18,6 +21,7 @@
     "@types/adm-zip": "^0.5.7",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.5.2",
+    "astro": "^5.16.3",
     "fast-xml-parser": "^5.2.5",
     "fs-extra": "^11.3.2",
     "ts-node": "^10.9.2",
