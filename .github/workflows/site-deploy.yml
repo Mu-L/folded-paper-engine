@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'src/website/**'
+      - 'src/Game/**'
   release:
     types: [ published ]   # redeploy site when a new release is published
   workflow_dispatch:
