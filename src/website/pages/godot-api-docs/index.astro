@@ -5,11 +5,13 @@ import {loadGodotApiPages} from "../../godotApiDocs";
 const pages = await loadGodotApiPages();
 
 // Light-weight search index we can embed into the page as JSON
-const searchIndex = pages.map((p) => ({
-  slug: p.slug,
-  title: p.title,
-  summary: p.summary,
-}));
+const searchIndex = pages
+  .filter(p => !p.isBasicFile)
+  .map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    summary: p.summary,
+  }));
 // Build the browser script as a string, with searchIndex baked in
 const searchScript = `
 const index = ${JSON.stringify(searchIndex)};
@@ -19,16 +21,16 @@ const list  = document.getElementById("api-search-results");
 if (input && list) {
   input.addEventListener("input", () => {
     const query = input.value.toLowerCase().trim();
-    const items = Array.from(list.querySelectorAll("li"));
+    const items = Array.from(list.querySelectorAll("a"));
 
     if (query === "") {
-      items.forEach((li) => {
-        li.style.display = "";
+      items.forEach((a) => {
+        a.style.display = "";
       });
     } else {
-      items.forEach((li) => {
-        const text = (li.textContent || "").toLowerCase();
-        li.style.display = text.includes(query) ? "" : "none";
+      items.forEach((a) => {
+        const text = (a.textContent || "").toLowerCase();
+        a.style.display = text.includes(query) ? "" : "none";
       });
     }
   });
@@ -36,20 +38,19 @@ if (input && list) {
 `;
 ---
 
-<GodotApiLayout title="Godot Add-on API Docs">
+<GodotApiLayout>
     <section class="api-index">
         <div class="api-search">
-            <label for="api-search-input">Search</label>
-            <input id="api-search-input" type="search" placeholder="Search classes…"/>
+            <input id="api-search-input" class="api-input" type="search" placeholder="Search API Docs…"/>
         </div>
-
-        <ul id="api-search-results" class="api-index-list">
-          {pages.map((p) => (
-                  <li>
-                      <a href={`/godot-api-docs/${p.slug}/`}>{p.title}</a>
-                  </li>
+        <br/>
+        <div id="api-search-results" class="api-index-list">
+          {searchIndex.map((p) => (
+                  <a href={`/godot-api-docs/${p.slug}/`}>
+                      <code>{p.title}</code>
+                  </a>
           ))}
-        </ul>
+        </div>
     </section>
 
     <script is:inline set:html={searchScript}></script>

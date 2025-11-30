@@ -2,9 +2,9 @@
 // This is basically gen-addon-docs.ts, but instead of writing files
 // it returns structured data you can use in .astro pages.
 
-import { promises as fs } from "node:fs";
+import {promises as fs} from "node:fs";
 import path from "node:path";
-import { XMLParser } from "fast-xml-parser";
+import {XMLParser} from "fast-xml-parser";
 
 // -----------------------------------------------------------------------------
 // Config
@@ -38,7 +38,9 @@ export type GodotApiPage = {
   displayName: string;
   // optional "inherits" chain
   inherits?: string;
-  // page title, e.g. "FoldedPaperEngine — API"
+  // true if this is a basic Godot file and not a class
+  isBasicFile: boolean;
+  // page title, e.g. "FoldedPaperEngine"
   title: string;
   // main body HTML (what used to go into {{BODY}})
   bodyHtml: string;
@@ -53,19 +55,19 @@ export type GodotApiPage = {
 // -----------------------------------------------------------------------------
 
 async function listXml(dir: string): Promise<string[]> {
-  const ents = await fs.readdir(dir, { withFileTypes: true });
+  const ents = await fs.readdir(dir, {withFileTypes: true});
   return ents
     .filter((e) => e.isFile() && e.name.endsWith(".xml"))
     .map((e) => path.join(dir, e.name));
 }
 
 function esc(s = ""): string {
-  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+  return s.replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]!));
 }
 
 function escCode(s = ""): string {
   // escape only HTML meta chars; preserve \n so <pre> shows real lines
-  return s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]!));
+  return s.replace(/[&<>]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]!));
 }
 
 function decodeEntities(s = ""): string {
@@ -198,6 +200,7 @@ export async function loadGodotApiPages(): Promise<GodotApiPage[]> {
     const C = doc.class;
 
     const rawName = C["@_name"];
+    const isBasicFile = rawName.includes("/");
     const display = toDisplayName(rawName);
     const inherits = C["@_inherits"];
 
@@ -296,8 +299,6 @@ export async function loadGodotApiPages(): Promise<GodotApiPage[]> {
   </section>
 </div>`.trim();
 
-    const title = `${display} — API`;
-
     const summarySource =
       C.brief_description ||
       C.description ||
@@ -309,7 +310,8 @@ export async function loadGodotApiPages(): Promise<GodotApiPage[]> {
       rawName,
       displayName: display,
       inherits,
-      title,
+      isBasicFile,
+      title: display,
       bodyHtml,
       headHtml: "",
       summary,

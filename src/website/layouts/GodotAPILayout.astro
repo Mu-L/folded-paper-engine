@@ -1,14 +1,14 @@
 ---
 import SiteLayout from "./SiteLayout.astro";
 
-const { title } = Astro.props;
+const {title} = Astro.props;
 ---
 
 <SiteLayout title={title}>
     <Fragment slot="head">
         <link rel="stylesheet" href="/assets/css/docs.css"/>
         <link rel="stylesheet" href="/assets/css/api-docs.css"/>
-        <slot name="head" />
+        <slot name="head"/>
     </Fragment>
 
     <section class="web-splash">
@@ -30,13 +30,15 @@ const { title } = Astro.props;
     </section>
 
     <section class="section content-section">
-        <header>
-            <div class="section-title">
-              {title}
-            </div>
-        </header>
+      {title && (
+              <header>
+                  <div class="section-title">
+                    {title}
+                  </div>
+              </header>
+      )}
         <main>
-            <slot />
+            <slot/>
         </main>
     </section>
 </SiteLayout>
