@@ -1,0 +1,111 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { getBlenderPanelDocsHTML } from "../engineFeatureDocs";
+
+const { docsHtml, legendHtml } = await getBlenderPanelDocsHTML();
+---
+
+<SiteLayout
+        title="Blender Panels"
+>
+    <section
+            class="web-splash"
+    >
+        <div
+                class="web-splash-inner base-background"
+        >
+            <img class="web-splash-img" src="../../public/assets/images/blender-panel-splash.png" alt="Blender Panel Splash">
+        </div>
+    </section>
+    <section
+            class="section top-section"
+    >
+        <header>
+            <div
+                    class="section-title"
+            >
+                Quick Start Guide
+            </div>
+        </header>
+        <main>
+            <h3>Install the Blender Addon to get started:</h3>
+            <ol>
+                <li>Go to <code>Edit &gt; Preferences &gt; Add-ons</code> and click the down arrow
+                    <code>ˇ</code> in the upper right.
+                </li>
+                <li>Click <code>Install from Disk...</code> and select the <code>Folded Paper Engine</code> Blender
+                    addon zip file.
+                </li>
+                <li>Click <code>Install from Disk</code>.</li>
+                <li>Restart Blender.</li>
+            </ol>
+
+            <h3>Create some ground to stand on:</h3>
+            <ol>
+                <li>Once back in your Blender file, add a Mesh Cube to the scene.</li>
+                <li>Make it a static body for Godot by adding <code>-col</code> to the end of the name.</li>
+                <li>This is already supported by Godot. See all of the options: <a
+                        href="https://docs.godotengine.org/en/4.5/tutorials/assets_pipeline/importing_3d_scenes/node_type_customization.html"
+                        target="_blank" rel="noopener">Godot node type customization</a>.
+                </li>
+            </ol>
+
+            <h3>Make a basic Player object with Folded Paper Engine:</h3>
+            <ol>
+                <li>Create a new mesh object (a sphere is fine).</li>
+                <li>Select the sphere and press <code>N</code> to open the viewport properties panel.</li>
+                <li>Go to the <code>Item</code> tab.</li>
+                <li>
+                    Under Folded Paper Engine in the <code>Item</code> tab, check <code>Player</code>.
+                    <strong>IMPORTANT:</strong> A player should be about <code>1 meter</code> tall.
+                </li>
+                <li><strong>CONGRATS!</strong> You now have a player!</li>
+            </ol>
+
+            <h3>Export a GLB/GLTF for use with Godot:</h3>
+            <ol>
+                <li>Go to <code>File &gt; Export</code> and choose <code>glTF</code>.</li>
+                <li>Check <code>Remember Export Settings</code>. (You'll thank me later 😊)</li>
+                <li>Click the down arrow <code>ˇ</code> next to <code>Include</code> and check the box that says <code>Custom
+                    Properties</code>.
+                </li>
+                <li>Optionally, check the boxes for <code>Cameras</code> and <code>Punctual Lights</code> if exporting
+                    cameras and lights.
+                </li>
+                <li>Name the file and choose a location inside your Godot project folder.</li>
+                <li>Click <code>Export</code>.</li>
+                <li>Your file is now ready to be used by Folded Paper Engine in Godot. See the Godot setup <a
+                        href="./godot-feature-docs.html">here</a>.
+                </li>
+            </ol>
+        </main>
+    </section>
+    <section
+            class="section content-section"
+    >
+        <header>
+            <div
+                    class="section-title"
+            >
+                Blender Panels
+            </div>
+        </header>
+        <main set:html={docsHtml}>
+            <!--${ENGINE_FEATURE_DOCS}-->
+        </main>
+    </section>
+    <section
+            class="section content-section last"
+    >
+        <header>
+            <div
+                    class="section-title"
+            >
+                Type Legend
+            </div>
+        </header>
+        <main set:html={legendHtml}>
+            <!--${ENGINE_FEATURE_LEGEND}-->
+        </main>
+    </section>
+</SiteLayout>
