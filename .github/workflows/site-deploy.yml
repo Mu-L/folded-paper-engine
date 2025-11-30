@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/website/**'
-      - 'src/Game/**'
   workflow_dispatch:
 
 permissions:
@@ -22,9 +19,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
 
-      # Build website + docs (no need to package ZIPs here)
+      # Setup website directory
       - name: Build website
-        run: yarn deploy-website
+        run: yarn setup-website-dir
 
       # Godot bits (same as your current flow) — keeps demo + docs fresh
       - name: Cache Godot
@@ -106,8 +103,9 @@ jobs:
             --no-docbase \
             --gdscript-docs res://addons/folded_paper_engine
 
-      - name: Convert Addon Docs XML → HTML
-        run: yarn deploy-docs
+      # Build website + docs (no need to package ZIPs here)
+      - name: Build website
+        run: yarn build:web
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4

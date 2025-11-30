@@ -9,7 +9,7 @@ export default defineConfig({
   // Layouts already in src/website/layouts
 
   // Where to put the built static site
-  outDir: './dist/website',
+  outDir: './dist',
 
   // Optional: set site URL later when you want
   // site: 'https://fpe.papercraft.games',
