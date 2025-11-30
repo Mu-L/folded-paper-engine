@@ -1,0 +1,15 @@
+---
+import SiteLayout from "./SiteLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<SiteLayout title={title}>
+    <Fragment slot="head">
+        <link rel="stylesheet" href="/assets/css/docs.css"/>
+        <link rel="stylesheet" href="/assets/css/guide.css"/>
+        <slot name="head" />
+    </Fragment>
+
+    <slot />
+</SiteLayout>

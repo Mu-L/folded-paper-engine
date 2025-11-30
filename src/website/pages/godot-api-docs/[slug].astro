@@ -14,6 +14,9 @@ const {page} = Astro.props as { page: GodotApiPage };
 ---
 
 <GodotApiLayout title={page.title}>
+    <a href="../">
+        <button class="button blue">&lt; Back</button>
+    </a>
     <article class="api-doc-article">
         <div class="api-doc-body" set:html={page.bodyHtml}/>
     </article>
