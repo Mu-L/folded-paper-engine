@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/website/**'
-      - 'src/Game/**'
-  release:
-    types: [ published ]   # redeploy site when a new release is published
   workflow_dispatch:
 
 permissions:
@@ -24,26 +19,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 18 }
 
-      - name: Resolve VERSION from latest release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Try latest *stable* (non-draft, non-prerelease)
-          TAG=$(gh api repos/${{ github.repository }}/releases/latest -q .tag_name 2>/dev/null || true)
-          # Fallback to most recent release of any type
-          if [ -z "$TAG" ]; then
-            TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null || true)
-          fi
-          V="${TAG#v}"
-          echo "VERSION=${V:-0.0.0}" >> $GITHUB_ENV
-          echo "Using VERSION=${V:-0.0.0}"
-
-      - name: Install deps
-        run: yarn
-
-      # Build website + docs (no need to package ZIPs here)
+      # Setup website directory
       - name: Build website
-        run: yarn deploy-website
+        run: yarn setup-website-dir
 
       # Godot bits (same as your current flow) — keeps demo + docs fresh
       - name: Cache Godot
@@ -125,14 +103,15 @@ jobs:
             --no-docbase \
             --gdscript-docs res://addons/folded_paper_engine
 
-      - name: Convert Addon Docs XML → HTML
-        run: yarn deploy-docs
+      # Build website + docs (no need to package ZIPs here)
+      - name: Build website
+        run: yarn build:web
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: dist
+          folder: dist/website
           clean: true
           single-commit: true

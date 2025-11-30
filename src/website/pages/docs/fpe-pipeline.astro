@@ -1,0 +1,28 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+---
+<GuideLayout title="Pipeline and Runtime Lifecycle">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Pipeline and Runtime Lifecycle
+                <div class="section-subtitle">GLB import, pointer capture, and feature registration</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Engine node responsibilities</h2>
+            <ul>
+                <li><strong>Pointer capture:</strong> when a <code>FoldedPaperEngine</code> node enters the tree, it remembers the prior
+                    mouse mode and captures the pointer if <code>Capture Pointer</code> is true. On exit it restores the original mode.</li>
+                <li><strong>Load and unload:</strong> <code>_enter_tree</code> defers <code>_setup</code>, which calls <code>global_load_level</code> with the configured path. <code>_exit_tree</code> defers <code>_teardown</code> to unload the active GLB and detach any listeners.</li>
+                <li><strong>Global registries:</strong> the engine stores a global <code>FeatureUtils</code> instance, the current stage node, and the active <code>WorldEnvironment</code> so sub-scenes and events share the same context.</li>
+            </ul>
+            <h2>Load flow</h2>
+            <ol>
+                <li><strong>Input setup:</strong> device change listeners are connected on first load so controllers can be remapped at runtime.</li>
+                <li><strong>Scene creation:</strong> the GLB/GLTF is instantiated under the engine node. Feature utils parse user data for scene settings, objects, triggers, animations, and inventory.</li>
+                <li><strong>Frame events:</strong> a <code>FrameEventRunner</code> is attached and populated with animation-specific frame triggers so events can fire at precise timestamps.</li>
+            </ol>
+        </div>
+    </section>
+</GuideLayout>

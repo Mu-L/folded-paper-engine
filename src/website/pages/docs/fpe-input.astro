@@ -1,0 +1,29 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+---
+<GuideLayout title="Input">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Input (Advanced)
+                <div class="section-subtitle">Action maps and controller support</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Default Actions</h2>
+            <ul>
+                <li>FPE ships with sensible defaults for Move, Look, Jump and Use.</li>
+            </ul>
+            <h2>Controllers</h2>
+            <ul>
+                <li>FPE includes mappings for Keyboard & Mouse, Xbox, Play Station and Switch controllers out-of-the-box.</li>
+            </ul>
+            <h2>Live Remapping (Advanced)</h2>
+            <ul>
+                <li>The entire purpose of the way Inputs are handled in FPE is so that Players can setup their own controller mappings at game runtime.</li>
+                <li>The Input utilities can be used, in code, to create interfaces for remapping controls. See <code>FPEInputManager</code> in the Godot API docs.</li>
+                <li>There is an example Input mapping interface in the Godot plugin called <code>FPEInputMapper</code>.</li>
+            </ul>
+        </div>
+    </section>
+</GuideLayout>

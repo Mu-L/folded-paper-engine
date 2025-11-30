@@ -1,0 +1,33 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+---
+<GuideLayout title="Conversations">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Conversations
+                <div class="section-subtitle">Dialogue data and progression</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Author dialogue data</h2>
+            <ul>
+                <li>Conversations are stored as comments with replies in a Conversation resource in Godot. Each reply can point to the next comment, so you can build linear or branching dialogue.</li>
+                <li>Required characters and optional sidekicks are tracked per conversation so the correct speakers appear in Godot.</li>
+                <li>When a conversation starts, the engine creates an instance with its own ID and keeps track of the current comment until no replies remain.</li>
+            </ul>
+            <h2>Start and advance a conversation (Advanced)</h2>
+            <ol>
+                <li>Trigger the conversation from gameplay (for example, triggering a Scene Event Command that starts the dialogue).</li>
+                <li>In Godot, call <code>FPEConversationManager.select_reply</code> when the player chooses a response. The Conversation Manager moves to the next comment and ends when replies run out.</li>
+                <li>Use your UI to show the current speaker name and comment text; the conversation instance already provides the data for each step.</li>
+            </ol>
+            <h2>Practical tips</h2>
+            <ul>
+                <li>Keep each conversation focused. Short comments with 2–3 replies are easier for players to follow and for you to script.</li>
+                <li>Test with multiple characters present; required characters must be present (if specified in the Conversation resource).</li>
+                <li>Pair conversations with animation or audio by firing a Scene Event or Frame Event when a key line is reached.</li>
+            </ul>
+        </div>
+    </section>
+</GuideLayout>

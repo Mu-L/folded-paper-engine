@@ -1,0 +1,35 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+---
+<GuideLayout title="Troubleshooting">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Troubleshooting
+                <div class="section-subtitle">Common pipeline issues and fixes</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>GLB import issues</h2>
+            <ul>
+                <li><strong>Correct export settings:</strong> in Blender’s GLTF export dialog check <strong>Custom Properties</strong>, <strong>Cameras</strong>, <strong>Punctual Lights</strong>, and <strong>Remember Export Settings</strong> before saving to your Godot project folder.</li>
+                <li><strong>Missing behaviors:</strong> ensure <strong>Custom Properties</strong> are enabled in the Blender export dialog so metadata reaches Godot.</li>
+                <li><strong>Stale data:</strong> after re-exporting, let Godot reimport the GLB to refresh metadata.</li>
+                <li><strong>Wrong scale/origin:</strong> apply transforms in Blender before export; FPE uses the mesh to build triggers areas.</li>
+            </ul>
+            <h2>Runtime hiccups</h2>
+            <ul>
+                <li><strong>No input:</strong> verify the plug-in is enabled and that the <strong>Folded Paper Engine</strong> node’s <code>Capture Pointer</code> matches is configured as expected.</li>
+                <li><strong>Music or speakers silent:</strong> confirm paths are correct and that autoplay is set if you expect immediate playback. Speakers clear when nodes are removed, so check node names match command targets.</li>
+                <li><strong>Triggers not firing:</strong> make sure trigger groups match and the initiator is a <code>RigidBody3D</code>.</li>
+                <li><strong>Removing one-shot triggers:</strong> animate the trigger out of the way after it fires, or place it in a group and call <strong>Delete By Group</strong> so it disappears after one use.</li>
+                <li><strong>Stuck UI overlays:</strong> if a fade or prompt hangs around after a level load, ensure the sub-scene hosting it is unloaded or removed from any persistent groups.</li>
+            </ul>
+            <h2>Level flow</h2>
+            <ul>
+                <li><strong>Paused controls:</strong> if movement is frozen, check the global deactivate flags (player controls, character movement, etc.). Commands may have toggled these during cutscenes.</li>
+                <li><strong>Missing transition fades:</strong> load the fade sub-scene just before running <strong>Load Level</strong>, then unload it in the new scene once the player regains control.</li>
+            </ul>
+        </div>
+    </section>
+</GuideLayout>

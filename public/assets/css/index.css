@@ -1,0 +1,378 @@
+:root {
+    --button-top-color: #9acd32;
+    --button-bottom-color: #2e8b57;
+    --button-glow-color: #2e8b57;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-offset: 0.1em;
+    --shadow-size: 0.25em;
+    --text-shadow-offset: 0.0625em;
+    --text-shadow-size: 0.0625em;
+    --basic-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-size) var(--shadow-color);
+    --title-text-shadow: var(--text-shadow-offset) var(--text-shadow-offset) var(--text-shadow-size) var(--shadow-color);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.red {
+    --button-top-color: #ea7f79;
+    --button-bottom-color: #cc3934;
+    --button-glow-color: #f13e83;
+}
+
+.blue {
+    --button-top-color: #779f9c;
+    --button-bottom-color: #4c7379;
+    --button-glow-color: #4c97a8;
+}
+
+@font-face {
+    font-family: 'ZCOOLKuaiLe-Regular';
+    src: url('../fonts/ZCOOLKuaiLe-Regular.ttf');
+    font-weight: normal;
+}
+
+.button {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
+    background: linear-gradient(to bottom, var(--button-top-color) 0%, var(--button-bottom-color) 100%);
+    border-radius: 0.5em;
+    border: 0.125em solid #fff;
+    color: #fff;
+    font-size: 2em;
+    padding: 0.5em;
+    box-shadow: var(--basic-shadow);
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: background 0.5s;
+
+    &:hover {
+        background: linear-gradient(to bottom, var(--button-top-color) 25%, var(--button-bottom-color) 100%);
+    }
+
+    &:active {
+        background: linear-gradient(to bottom, var(--button-top-color) 25%, var(--button-bottom-color) 75%, var(--button-glow-color) 100%);
+    }
+
+    & > .button-icon {
+        margin: -0.5em;
+    }
+}
+
+.spacer {
+    flex: 1 1 auto;
+
+    &.section-spacer {
+        height: 8em;
+    }
+}
+
+html,
+body {
+    background-color: #ffc100;
+    color: black;
+    font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    flex-wrap: wrap;
+    padding: 2em;
+    background: linear-gradient(to bottom, #ffc100 60%, #ffe380 100%);
+
+    .logo {
+        max-width: 80dvw;
+    }
+
+    @media screen and (max-width: 768px) {
+        justify-content: center;
+
+        & > .spacer {
+            display: none;
+        }
+
+        & > .logo {
+            margin-bottom: 1em;
+        }
+    }
+}
+
+.dl-icon {
+    width: 3.5em;
+    margin: -2em -1em -1em -0.5em;
+}
+
+@keyframes item-float {
+    to {
+        offset-distance: 100%;
+    }
+}
+
+@keyframes inverse-item-float {
+    to {
+        offset-distance: -100%;
+    }
+}
+
+.web-splash {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #9fb837;
+
+    & > .web-splash-inner {
+        position: relative;
+
+        &.base-background {
+            background: url('../images/web-splash-bg.png') center center no-repeat;
+            background-size: cover;
+            aspect-ratio: 27 / 10;
+        }
+
+        /* size box: 1080×400 target, shrink on narrow screens */
+        width: min(100dvw, 1080px);
+        margin: 0 auto;
+        overflow: hidden;
+
+        /* Godot canvas fills this box */
+
+        & > canvas.godot-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* frame overlay above canvas (hidden at runtime by JS) */
+
+        & > .web-splash-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        & > .apple-sticker {
+            position: absolute;
+            left: 12.5%;
+            bottom: -12%;
+            width: 20%;
+            filter: drop-shadow(var(--basic-shadow));
+            z-index: 3;
+        }
+
+        & > .star-sticker {
+            position: absolute;
+            filter: drop-shadow(var(--basic-shadow));
+            offset-path: circle(5px at 50% 50%);
+            offset-distance: 0%;
+            offset-rotate: 0deg;
+            animation: item-float 5s linear infinite;
+            z-index: 3;
+        }
+
+        & > .demo-button {
+            position: absolute;
+            offset-path: circle(5px at 35% 52%);
+            offset-distance: 0%;
+            offset-rotate: 0deg;
+            animation: inverse-item-float 5s linear infinite;
+            will-change: transform;
+            z-index: 3;
+        }
+
+        @media screen and (max-width: 768px) {
+            & > .index-web-splash {
+                opacity: 0;
+            }
+
+            & > .apple-sticker {
+                display: none;
+            }
+
+            & > .star-sticker {
+                display: none;
+            }
+
+            & > .demo-button {
+                left: 50%;
+                bottom: 50%;
+                offset-path: none;
+                transform: translate(-50%, 50%);
+                animation: none;
+            }
+        }
+    }
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background: #ffc100;
+    padding: 8em 8em 0 8em;
+
+    &.top-section {
+        background: linear-gradient(to bottom, #ffe380 0%, #ffc100 15%, #ffc100 100%);
+    }
+
+    header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5em;
+        margin-bottom: 4em;
+
+        &.flipped {
+            flex-direction: row-reverse;
+
+            & > .section-title {
+                text-align: right;
+            }
+        }
+
+        .title-graphic {
+            max-width: 15%;
+        }
+
+        .section-title {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: var(--title-text-shadow);
+
+            .section-subtitle {
+                font-size: 0.5em;
+            }
+        }
+    }
+
+    main {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2em;
+        flex-wrap: wrap;
+
+        & > .stack {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 2em;
+
+            & > .stack-link {
+                color: #fff;
+                font-size: 2em;
+                text-shadow: var(--title-text-shadow);
+                margin-left: 0.5em;
+
+                &:hover,
+                &:active {
+                    color: #e28903;
+                }
+
+                &:visited {
+                    color: #fff;
+                }
+            }
+
+            @media screen and (max-width: 768px) {
+                align-items: center;
+
+                & > .stack-link {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.75em;
+        padding: 2em;
+    }
+}
+
+.footer {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #e28903;
+    margin-top: 8em;
+    padding: 2em;
+    gap: 4em;
+
+    & a {
+        text-decoration: none;
+    }
+
+    & .papercraft-logo {
+        max-width: 80dvw;
+    }
+
+    & > .social {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2em;
+
+        & img {
+            max-width: 20dvw;
+        }
+    }
+}
+
+.pickle-footer {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    padding: 2em;
+    color: #fff;
+    font-size: 1.5em;
+
+    & > .pickle-box {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        & > img {
+            width: 3em;
+            transition: width 0.5s;
+
+            &:hover {
+                width: 4em;
+            }
+        }
+    }
+}

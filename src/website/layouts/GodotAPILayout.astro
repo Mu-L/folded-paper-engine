@@ -1,0 +1,42 @@
+---
+import SiteLayout from "./SiteLayout.astro";
+
+const { title } = Astro.props;
+---
+
+<SiteLayout title={title}>
+    <Fragment slot="head">
+        <link rel="stylesheet" href="/assets/css/docs.css"/>
+        <link rel="stylesheet" href="/assets/css/api-docs.css"/>
+        <slot name="head" />
+    </Fragment>
+
+    <section class="web-splash">
+        <div class="web-splash-inner base-background">
+            <img
+                    class="web-splash-img"
+                    src="/assets/images/godot-feature-splash.png"
+                    alt="Godot Feature Splash"
+            />
+        </div>
+    </section>
+
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Godot Addon API Docs
+            </div>
+        </header>
+    </section>
+
+    <section class="section content-section">
+        <header>
+            <div class="section-title">
+              {title}
+            </div>
+        </header>
+        <main>
+            <slot />
+        </main>
+    </section>
+</SiteLayout>

@@ -1,0 +1,57 @@
+---
+import GodotApiLayout from "../../layouts/GodotAPILayout.astro";
+import {loadGodotApiPages} from "../../godotApiDocs";
+
+const pages = await loadGodotApiPages();
+
+// Light-weight search index we can embed into the page as JSON
+const searchIndex = pages.map((p) => ({
+  slug: p.slug,
+  title: p.title,
+  summary: p.summary,
+}));
+// Build the browser script as a string, with searchIndex baked in
+const searchScript = `const index = ${JSON.stringify(searchIndex)};
+
+const input = document.getElementById("api-search-input");
+const list  = document.getElementById("api-search-results");
+
+if (input && list) {
+  input.addEventListener("input", () => {
+    const query = input.value.toLowerCase().trim();
+    const items = Array.from(list.querySelectorAll("li"));
+
+    if (query === "") {
+      items.forEach((li) => {
+        li.style.display = "";
+      });
+    } else {
+      items.forEach((li) => {
+        const text = (li.textContent || "").toLowerCase();
+        li.style.display = text.includes(query) ? "" : "none";
+      });
+    }
+  });
+}
+`;
+---
+
+<GodotApiLayout title="Godot Add-on API Docs">
+    <section class="api-index">
+        <div class="api-search">
+            <label for="api-search-input">Search</label>
+            <input id="api-search-input" type="search" placeholder="Search classes…"/>
+        </div>
+
+        <ul id="api-search-results" class="api-index-list">
+          {pages.map((p) => (
+                  <li>
+                      <a href={`/godot-api-docs/${p.slug}/`}>{p.title}</a>
+                      <span class="api-index-summary">{p.summary}</span>
+                  </li>
+          ))}
+        </ul>
+    </section>
+
+    <script is:inline set:html={searchScript}></script>
+</GodotApiLayout>

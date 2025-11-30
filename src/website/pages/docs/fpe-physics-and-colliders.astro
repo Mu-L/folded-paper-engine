@@ -1,0 +1,31 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+---
+<GuideLayout title="Physics and Colliders">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Physics and Colliders
+                <div class="section-subtitle">Rigid bodies, collision generation, and movement flags</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>Rigid bodies</h2>
+            <ul>
+                <li>Objects tagged with physics data become <code>RigidBody3D</code> instances. Movement and jump forces are applied in the physics step.</li>
+                <li>Characters use the advanced rigid body base to support jump forgiveness, run toggles, and dampening.</li>
+                <li>Player controls gate physics input when global deactivation flags are set (used during cutscenes or menus).</li>
+            </ul>
+            <h2>Collision shapes</h2>
+            <ul>
+                <li><code>ShapeGuesser</code> builds colliders from imported meshes; opt into simplified boxes for triggers and hold zones to keep performance predictable.</li>
+                <li>Holdable objects keep their rigid body properties; gravity scales and damping are saved/restored when picked up.</li>
+            </ul>
+            <h2>Gravity and movement</h2>
+            <ul>
+                <li>Scene-level gravity overrides affect all rigid bodies. Characters read the global default gravity when applying forces.</li>
+                <li>Player turn speed, mouse sensitivity, and camera pitch clamping are configurable in Blender and applied at runtime.</li>
+            </ul>
+        </div>
+    </section>
+</GuideLayout>

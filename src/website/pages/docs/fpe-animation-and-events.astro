@@ -1,0 +1,48 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+---
+<GuideLayout title="Animation and Frame Events">
+    <section class="section top-section">
+        <header>
+            <div class="section-title">
+                Animation and Frame Events
+                <div class="section-subtitle">Beginner-friendly timing for cutscenes, doors, and VFX</div>
+            </div>
+        </header>
+        <div class="section-body">
+            <h2>How animation import works</h2>
+            <ul>
+                <li>Every Action you key in Blender keeps its name when exported. FPE registers mesh animations and sprite animations in a global map when the GLB loads so commands can find them later.</li>
+            </ul>
+
+            <h2>Marking frame events in Blender (no code)</h2>
+            <ol>
+                <li>In Blender, select the object that owns the action/animation and open the Action Editor.</li>
+                <li>Open the properties panel in the Action Editor.</li>
+                <li>Move the playhead to the frame where you want to trigger a Frame Event.</li>
+                <li>In the <strong>Frame Events</strong> section, add a new row. Each row has a <em>Frame Number</em> and <em>Event Name</em>.</li>
+                <li>Use clear event names like <code>DOOR_OPENED</code> or <code>PLAY_CHIME</code>. These names must be exactly the same as the names of the Scene Events you want to trigger.</li>
+            </ol>
+
+            <h2>What happens in Godot (Technical)</h2>
+            <ul>
+                <li>When the animation plays, a <code>FrameEventRunner</code> watches the timeline. When the playback head reaches your marked frame (with a small tolerance), the runner dispatches an <code>FPEEvent</code> named after your Event Name.</li>
+                <li>Events target the node that owns the animation, so you can catch them with triggers, commands, or your own script.</li>
+                <li>All events are reset when the level unloads, preventing cross-level leaks.</li>
+            </ul>
+
+            <h2>Connecting events to actions (Examples)</h2>
+            <ul>
+                <li><strong>Play a sound mid-animation:</strong> Add a frame event named <code>PLAY_CHIME</code>. Place a Trigger or Speaker nearby that listens for the <code>PLAY_CHIME</code> event and fires a <code>Speaker Trigger</code> command.</li>
+                <li><strong>Unlock a door on frame 12:</strong> Mark frame 12 as <code>UNLOCK_DOOR</code>. Add a Trigger on the door mesh that reacts to <code>UNLOCK_DOOR</code> by disabling the collider or running <code>Animations</code> to play the open clip.</li>
+                <li><strong>Cutscene camera swap:</strong> Use two frame events, <code>CAM_CUT</code> and <code>CAM_RETURN</code>, and bind them to the <strong>Activate Camera</strong> and <strong>Reactivate Player Camera</strong> commands to manage controls and the current view.</li>
+            </ul>
+
+            <h2>Quick checklist if nothing fires</h2>
+            <ul>
+                <li>Double-check the Event Name spelling in Blender and in the listening trigger/command.</li>
+                <li>Make sure the GLB was re-exported after adding events and that Godot re-imported it.</li>
+            </ul>
+        </div>
+    </section>
+</GuideLayout>

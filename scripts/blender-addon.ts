@@ -1,11 +1,10 @@
-import {FoldedPaperEngineAddon} from "../src/Blender Add-on/Templating/FoldedPaperEngineAddon";
+import {FoldedPaperEngineAddon} from "../src/Blender Add-on/FoldedPaperEngineAddon";
 import Path from "path";
 import AdmZip from "adm-zip";
 import FS from "fs";
-import {getVersion, getVersionInfo} from "./utils/get-version";
+import {getVersionInfo} from "./utils/get-version";
 import {BlenderAddon} from "../src/Blender Add-on/Templating/BlenderAddon";
 
-const VERSION = getVersion();
 const VERSION_INFO = getVersionInfo();
 const ADDON = {
   ...FoldedPaperEngineAddon,
@@ -17,7 +16,7 @@ const OutputPath = Path.resolve(
   __dirname,
   "..",
   "dist",
-  `folded_paper_engine_${VERSION}.zip`
+  'folded_paper_engine_blender.zip'
 );
 const PYFileOutputPath = Path.resolve(__dirname, "..", "dist", FileName);
 const zip = new AdmZip();

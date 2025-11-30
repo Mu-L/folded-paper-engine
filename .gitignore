@@ -163,3 +163,4 @@ data_*/
 mono_crash.*.json
 
 .DS_Store
+.astro/
