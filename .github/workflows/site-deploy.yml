@@ -107,7 +107,7 @@ jobs:
 
       - name: Export Godot Web Demo
         run: |
-          mkdir -p dist/demo-game
+          mkdir -p dist/website/demo-game
           ~/.local/bin/godot --headless --path src/Game --export-release "Web" ../../dist/website/demo-game/index.html
 
       - name: Deploy to gh-pages
