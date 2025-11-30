@@ -2,11 +2,9 @@ import Path from "path";
 import FS from "fs";
 import {FoldedPaperEngineAddon} from "../src/Blender Add-on/Templating/FoldedPaperEngineAddon";
 import {marked} from 'marked';
-import {getVersion} from "./utils/get-version";
 import {BlenderPanelPropertyProps, BlenderPanelProps} from "../src/Blender Add-on/Templating/Types";
 import {PropTypeMap} from "../src/Blender Add-on/Templating/Utils";
 
-const VERSION = getVersion();
 const EngineFeatureLegendMap: Omit<Record<keyof typeof PropTypeMap, string>, "hidden" | "operator"> & {
   csv: string;
 } = {
@@ -64,7 +62,6 @@ const MDSection = ({
 ${properties.filter(({hidden}) => !hidden).map(MDProp).join("\n")}`;
 const IndexFilePath = Path.resolve(__dirname, "..", "dist", "index.html");
 const BlenderPanelDocsFilePath = Path.resolve(__dirname, "..", "dist", "blender-panel-docs.html");
-const EngineVersionInsertionPoint = /\$\{VERSION\}/gmi;
 const EngineFeatureDocsInsertionPoint = "${ENGINE_FEATURE_DOCS}";
 const EngineFeatureLegendInsertionPoint = "${ENGINE_FEATURE_LEGEND}";
 const EngineFeatureDocs = FoldedPaperEngineAddon.panels
@@ -96,10 +93,6 @@ const exportHTML = async () => {
   const EngineTemplate = FS.readFileSync(BlenderPanelDocsFilePath, "utf8");
   const LegendHTML = await marked(EngineFeatureLegend);
   const FullIndexHTML = IndexTemplate
-    .replace(
-      EngineVersionInsertionPoint,
-      VERSION,
-    );
   const FullEngineDocHTML = EngineTemplate
     .replace(
       EngineFeatureDocsInsertionPoint,
@@ -109,10 +102,6 @@ const exportHTML = async () => {
       EngineFeatureLegendInsertionPoint,
       LegendHTML,
     )
-    .replace(
-      EngineVersionInsertionPoint,
-      VERSION,
-    );
 
   FS.writeFileSync(IndexFilePath, FullIndexHTML, "utf8");
   FS.writeFileSync(BlenderPanelDocsFilePath, FullEngineDocHTML, "utf8");
