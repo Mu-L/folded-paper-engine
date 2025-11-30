@@ -5,6 +5,10 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 <SiteLayout
         title="Home"
 >
+    <Fragment slot="head">
+        <script type="module" src="assets/js/index.js" is:inline></script>
+    </Fragment>
+
     <section
             class="web-splash"
     >
