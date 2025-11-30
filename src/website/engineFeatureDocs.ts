@@ -1,5 +1,5 @@
 import { marked } from "marked";
-import { FoldedPaperEngineAddon } from "../Blender Add-on/Templating/FoldedPaperEngineAddon";
+import { FoldedPaperEngineAddon } from "../Blender Add-on/FoldedPaperEngineAddon";
 import {
   BlenderPanelPropertyProps,
   BlenderPanelProps,

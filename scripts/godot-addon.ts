@@ -9,7 +9,7 @@ const VERSION = getVersion();
 const repoRoot = resolve(__dirname, ".."); // scripts/ -> repo root
 const addonSrc = resolve(repoRoot, "src/Game/addons");
 const distDir = resolve(repoRoot, "dist");
-const zipPath = resolve(distDir, `folded_paper_engine_godot_${VERSION}.zip`);
+const zipPath = resolve(distDir, 'folded_paper_engine_godot.zip');
 
 mkdirSync(distDir, {recursive: true});
 
