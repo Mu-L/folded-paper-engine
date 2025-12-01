@@ -33,6 +33,39 @@ jobs:
         run: yarn deploy-blender-addon
       - name: Build Godot add-on ZIP
         run: yarn deploy-godot-addon
+      - name: Build Blender Extension ZIP
+        run: |
+          EXT_DIR="dist/fpe-extension"
+          mkdir -p "$EXT_DIR"
+
+          # Copy the addon code (already built in dist)
+          cp dist/folded_paper_engine.py "$EXT_DIR/"
+
+          # Copy license + readme
+          cp LICENSE.txt "$EXT_DIR/"
+          cp README.md "$EXT_DIR/"
+
+          # Create blender_manifest.toml dynamically using VERSION from env
+          cat > "$EXT_DIR/blender_manifest.toml" <<EOF
+          schema_version = "1.0.0"
+          
+          id = "folded_paper_engine"
+          version = "${VERSION}"
+          name = "Folded Paper Engine"
+          tagline = "Define gameplay in Blender and play it in Godot with a few clicks."
+          maintainer = "Papercraft Games <contact@papercraft.games>"
+          type = "add-on"
+          
+          license = ["SPDX:MIT"]
+          website = "https://github.com/papercraftgames/folded-paper-engine"
+          
+          blender_version_min = "4.4.0"
+          tags = ["Import-Export", "Game Engine", "Pipeline"]
+          EOF
+          
+          # Zip the extension
+          cd dist
+          zip -r folded_paper_engine_extension.zip fpe-extension
 
       # Attach zips to the release
       - name: Upload ZIPs to release
