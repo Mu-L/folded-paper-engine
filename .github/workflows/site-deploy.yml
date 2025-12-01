@@ -93,10 +93,15 @@ jobs:
           filesystem/import/blender/blender_path = "/home/runner/.local/bin/blender"
           EOF
 
+      # ORDER MATTERS: Exporting the web demo runs and import process which doc generation requires.
+      - name: Export Godot Web Demo
+        run: |
+          mkdir -p dist/demo-game
+          ~/.local/bin/godot --headless --path src/Game --export-release "Web" ../../dist/demo-game/index.html
+
       - name: Generate Addon Docs (XML)
         run: |
           mkdir -p dist/docs/ref-xml
-          ~/.local/bin/godot --headless --path src/Game --editor --quit
           ~/.local/bin/godot --headless --path src/Game \
             --doctool ../../dist/docs/ref-xml \
             --no-docbase \
@@ -107,11 +112,7 @@ jobs:
         run: |
           yarn build:web
           yarn copy-cname
-
-      - name: Export Godot Web Demo
-        run: |
-          mkdir -p dist/website/demo-game
-          ~/.local/bin/godot --headless --path src/Game --export-release "Web" ../../dist/website/demo-game/index.html
+          cp -a dist/demo-game dist/website/demo-game
 
       - name: Deploy to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
