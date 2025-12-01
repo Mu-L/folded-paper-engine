@@ -100,6 +100,7 @@ jobs:
             --doctool ../../dist/docs/ref-xml \
             --no-docbase \
             --gdscript-docs res://addons/folded_paper_engine
+          ls -alh dist/docs/ref-xml
 
       # Build website + docs (no need to package ZIPs here)
       - name: Build website
