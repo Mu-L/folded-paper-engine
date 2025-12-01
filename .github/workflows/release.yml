@@ -35,7 +35,7 @@ jobs:
         run: yarn deploy-godot-addon
       - name: Build Blender Extension ZIP
         run: |
-          EXT_DIR="dist/fpe-extension"
+          EXT_DIR="dist/folded_paper_engine"
           mkdir -p "$EXT_DIR"
 
           # Copy the addon code (already built in dist)
@@ -65,7 +65,7 @@ jobs:
           
           # Zip the extension
           cd dist
-          zip -r folded_paper_engine_extension.zip fpe-extension
+          zip -r folded_paper_engine_blender_extension.zip folded_paper_engine
 
       # Attach zips to the release
       - name: Upload ZIPs to release
