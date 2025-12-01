@@ -52,11 +52,11 @@ jobs:
           id = "folded_paper_engine"
           version = "${VERSION}"
           name = "Folded Paper Engine"
-          tagline = "Define gameplay in Blender and play it in Godot with a few clicks."
+          tagline = "Define gameplay in Blender and play it in Godot with a few clicks"
           maintainer = "Papercraft Games <contact@papercraft.games>"
           type = "add-on"
           
-          license = ["SPDX:MIT"]
+          license = ["SPDX:GPL-3.0-or-later", "SPDX:MIT"]
           website = "https://github.com/papercraftgames/folded-paper-engine"
           
           blender_version_min = "4.4.0"
