@@ -52,7 +52,7 @@ jobs:
           id = "folded_paper_engine"
           version = "${VERSION}"
           name = "Folded Paper Engine"
-          tagline = "Define gameplay in Blender and play it in Godot with a few clicks"
+          tagline = "Define gameplay in Blender and play in Godot with a few clicks"
           maintainer = "Papercraft Games <contact@papercraft.games>"
           type = "add-on"
           
