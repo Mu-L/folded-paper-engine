@@ -22,9 +22,9 @@ jobs:
       - name: Install deps
         run: yarn
 
-      # Setup website directory
-      - name: Setup website directory
-        run: yarn setup-website-dir
+      # Setup dist
+      - name: Setup dist
+        run: yarn setup-dist
 
       # Godot bits (same as your current flow) — keeps demo + docs fresh
       - name: Cache Godot
@@ -104,7 +104,9 @@ jobs:
 
       # Build website + docs (no need to package ZIPs here)
       - name: Build website
-        run: yarn build:web
+        run: |
+          yarn build:web
+          yarn copy-cname
 
       - name: Export Godot Web Demo
         run: |

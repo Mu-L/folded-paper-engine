@@ -6,7 +6,8 @@
     "dev:web": "astro dev",
     "build:web": "astro build",
     "preview:web": "astro preview",
-    "setup-website-dir": "rm -rf ./dist && mkdir -p dist/website && cp -a src/website/* dist && cp ./CNAME ./dist/website/CNAME",
+    "setup-dist": "rm -rf ./dist && mkdir -p dist",
+    "copy-cname": "cp ./CNAME ./dist/website/CNAME",
     "deploy-blender-addon": "ts-node ./scripts/blender-addon.ts",
     "deploy-godot-addon": "ts-node ./scripts/godot-addon.ts"
   },
