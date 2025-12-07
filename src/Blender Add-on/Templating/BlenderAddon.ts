@@ -355,5 +355,4 @@ if __name__ == "__main__":
     register()
 `
     .split("\n")
-    .filter((l) => l.trim().length > 0)
     .join("\n");

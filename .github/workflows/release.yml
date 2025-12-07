@@ -57,7 +57,7 @@ jobs:
           type = "add-on"
           
           license = ["SPDX:GPL-3.0-or-later", "SPDX:MIT"]
-          website = "https://github.com/papercraftgames/folded-paper-engine"
+          website = "https://fpe.papercraft.games"
           
           blender_version_min = "4.4.0"
           tags = ["Import-Export", "Game Engine", "Pipeline"]
