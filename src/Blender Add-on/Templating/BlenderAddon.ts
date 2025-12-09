@@ -35,36 +35,27 @@ def item_to_dict(item):
     return {attr: getattr(item, attr) for attr in dir(item) if not callable(getattr(item, attr)) and not attr.startswith("__")}
 
 def add_keyframe_to_channel(obj, prop_name, frame, value):
-    # Add or update the property value
+    # Store whatever your exporter / panel logic expects
     obj[prop_name] = value
 
-    # Ensure the action exists
+    # Make sure anim data + action exist in a generic way
     if not obj.animation_data:
         obj.animation_data_create()
     if not obj.animation_data.action:
-        obj.animation_data.action = bpy.data.actions.new(obj.name + "Action")
+        obj.animation_data.action = bpy.data.actions.new(obj.name + "_Action")
 
-    # Find or create the specific fcurve for this property
-    fcurve = next((fc for fc in obj.animation_data.action.fcurves if fc.data_path == f'["{prop_name}"]'), None)
-    if not fcurve:
-        fcurve = obj.animation_data.action.fcurves.new(data_path='["' + prop_name + '"]')
-        fcurve.lock = True
-
-    # Insert or update the keyframe
-    keyframe = next((k for k in fcurve.keyframe_points if k.co[0] == frame), None)
-    if keyframe:
-        keyframe.co[1] = value
-    else:
-        fcurve.keyframe_points.insert(frame, value)
+    # Let Blender handle fcurves/channels internally (4.4 & 5.x safe)
+    obj.keyframe_insert(
+        data_path=f'["{prop_name}"]',
+        frame=frame,
+        group="FPE Frame Events",  # just for UI grouping, optional
+    )
 
 def remove_keyframe_from_channel(obj, prop_name, frame):
-    # Find the specific fcurve for this property
-    fcurve = next((fc for fc in obj.animation_data.action.fcurves if fc.data_path == f'["{prop_name}"]'), None)
-    if fcurve:
-        # Find and remove the specific keyframe
-        keyframe_index = next((i for i, k in enumerate(fcurve.keyframe_points) if k.co[0] == float(frame)), None)
-        if keyframe_index is not None:
-            fcurve.keyframe_points.remove(fcurve.keyframe_points[keyframe_index])
+    obj.keyframe_delete(
+        data_path=f'["{prop_name}"]',
+        frame=frame,
+    )
 
 def is_bpy_prop_collection(obj):
     return hasattr(obj, "add") and hasattr(obj, "remove")
