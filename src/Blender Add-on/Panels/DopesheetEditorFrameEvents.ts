@@ -21,18 +21,18 @@ export const DopesheetEditorFrameEvents: BlenderPanelProps = {
       subItemDefaultValues: [
         {
           key: "FrameNumber",
-          value: "FPE_FRAME_EVENT_FRAME_NUMBER",
+          value: "'FPE_FRAME_EVENT_FRAME_NUMBER'",
           valueIsFunction: true,
         },
         {
           key: "FrameTime",
-          value: "FPE_FRAME_EVENT_FRAME_TIME",
+          value: "'FPE_FRAME_EVENT_FRAME_TIME'",
           valueIsFunction: true,
         },
       ],
       subItemProperties: FrameEventPropertyGroup.properties,
-      onAddSubItem: "FPE_ON_ADD_FRAME_EVENT",
-      onRemoveSubItem: "FPE_ON_REMOVE_FRAME_EVENT",
+      onAddSubItem: "'FPE_ON_ADD_FRAME_EVENT'",
+      onRemoveSubItem: "'FPE_ON_REMOVE_FRAME_EVENT'",
     },
   ],
 };
