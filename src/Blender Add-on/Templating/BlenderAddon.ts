@@ -31,61 +31,6 @@ bl_info = {
     "warning": "${warning}"
 }
 
-# --- Default-value handlers -------------------------------------------------
-
-def _fpe_default_frame_number(context, context_base, context_object, item):
-    # Just current frame
-    return context.scene.frame_current
-
-def _fpe_default_frame_time(context, context_base, context_object, item):
-    scene = context.scene
-    fps = scene.render.fps / scene.render.fps_base
-    return scene.frame_current / fps
-
-DEFAULT_VALUE_FUNCTIONS = {
-    "FPE_FRAME_EVENT_FRAME_NUMBER": _fpe_default_frame_number,
-    "FPE_FRAME_EVENT_FRAME_TIME": _fpe_default_frame_time,
-}
-
-# --- on_add / on_remove handlers --------------------------------------------
-
-def _fpe_on_add_frame_event(context, context_base, context_object, item):
-    add_keyframe_to_channel(
-        context.object,
-        "FPE_FRAME_EVENTS",
-        frame=context.scene.frame_current,
-        value=context.scene.frame_current,
-    )
-
-def _fpe_on_remove_frame_event(context, context_base, context_object, item):
-    frame = item.get("FrameNumber")
-    if frame is None:
-        return
-
-    frame_events = getattr(context_object, "FrameEvents", None)
-    if frame_events is None:
-        # No collection left, safe to remove the keyframe
-        remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
-        return
-
-    for fe in frame_events:
-        if fe.FrameNumber == frame:
-            # At least one event still on this frame — keep the keyframe
-            return
-
-    # No events left on this frame — now we can remove the keyframe
-    remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
-
-ON_ADD_HANDLERS = {
-    "FPE_ON_ADD_FRAME_EVENT": _fpe_on_add_frame_event,
-}
-
-ON_REMOVE_HANDLERS = {
-    "FPE_ON_REMOVE_FRAME_EVENT": _fpe_on_remove_frame_event,
-}
-
-# ----------------------------------------------------------------------------
-
 def item_to_dict(item):
     return {attr: getattr(item, attr) for attr in dir(item) if not callable(getattr(item, attr)) and not attr.startswith("__")}
 
@@ -180,6 +125,61 @@ def find_file_upwards(starting_path, target_file):
 def do_redraw_all():
     for area in bpy.context.screen.areas:
         area.tag_redraw()
+
+# --- Default-value handlers -------------------------------------------------
+
+def _fpe_default_frame_number(context, context_base, context_object, item):
+    # Just current frame
+    return context.scene.frame_current
+
+def _fpe_default_frame_time(context, context_base, context_object, item):
+    scene = context.scene
+    fps = scene.render.fps / scene.render.fps_base
+    return scene.frame_current / fps
+
+DEFAULT_VALUE_FUNCTIONS = {
+    "FPE_FRAME_EVENT_FRAME_NUMBER": _fpe_default_frame_number,
+    "FPE_FRAME_EVENT_FRAME_TIME": _fpe_default_frame_time,
+}
+
+# --- on_add / on_remove handlers --------------------------------------------
+
+def _fpe_on_add_frame_event(context, context_base, context_object, item):
+    add_keyframe_to_channel(
+        context.object,
+        "FPE_FRAME_EVENTS",
+        frame=context.scene.frame_current,
+        value=context.scene.frame_current,
+    )
+
+def _fpe_on_remove_frame_event(context, context_base, context_object, item):
+    frame = item.get("FrameNumber")
+    if frame is None:
+        return
+
+    frame_events = getattr(context_object, "FrameEvents", None)
+    if frame_events is None:
+        # No collection left, safe to remove the keyframe
+        remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
+        return
+
+    for fe in frame_events:
+        if fe.FrameNumber == frame:
+            # At least one event still on this frame — keep the keyframe
+            return
+
+    # No events left on this frame — now we can remove the keyframe
+    remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
+
+ON_ADD_HANDLERS = {
+    "FPE_ON_ADD_FRAME_EVENT": _fpe_on_add_frame_event,
+}
+
+ON_REMOVE_HANDLERS = {
+    "FPE_ON_REMOVE_FRAME_EVENT": _fpe_on_remove_frame_event,
+}
+
+# ----------------------------------------------------------------------------
 
 class DefaultsPropertyGroup(bpy.types.PropertyGroup):
     key: bpy.props.StringProperty()
