@@ -31,6 +31,57 @@ bl_info = {
     "warning": "${warning}"
 }
 
+# --- Default-value handlers -------------------------------------------------
+
+def _fpe_default_frame_number(context, context_base, context_object, item):
+    # Just current frame
+    return context.scene.frame_current
+
+
+def _fpe_default_frame_time(context, context_base, context_object, item):
+    scene = context.scene
+    fps = scene.render.fps / scene.render.fps_base
+    return scene.frame_current / fps
+
+
+DEFAULT_VALUE_FUNCTIONS = {
+    "FPE_FRAME_EVENT_FRAME_NUMBER": _fpe_default_frame_number,
+    "FPE_FRAME_EVENT_FRAME_TIME": _fpe_default_frame_time,
+}
+
+
+# --- on_add / on_remove handlers --------------------------------------------
+
+def _fpe_on_add_frame_event(context, context_base, context_object, item):
+    add_keyframe_to_channel(
+        context.object,
+        "FPE_FRAME_EVENTS",
+        frame=context.scene.frame_current,
+        value=context.scene.frame_current,
+    )
+
+
+def _fpe_on_remove_frame_event(context, context_base, context_object, item):
+    # item is already a dict from item_to_dict in RemoveItemOperator
+    frame = item.get("FrameNumber")
+    if frame is not None:
+        remove_keyframe_from_channel(
+            context.object,
+            "FPE_FRAME_EVENTS",
+            frame=frame,
+        )
+
+
+ON_ADD_HANDLERS = {
+    "FPE_ON_ADD_FRAME_EVENT": _fpe_on_add_frame_event,
+}
+
+ON_REMOVE_HANDLERS = {
+    "FPE_ON_REMOVE_FRAME_EVENT": _fpe_on_remove_frame_event,
+}
+
+# ----------------------------------------------------------------------------
+
 def item_to_dict(item):
     return {attr: getattr(item, attr) for attr in dir(item) if not callable(getattr(item, attr)) and not attr.startswith("__")}
 
@@ -151,15 +202,24 @@ class AddItemOperator(Operator):
         if self.defaults:
             for default in self.defaults:
                 key = default.key
+
                 if default.value_is_function:
-                    value = eval(default.value)
+                    func = DEFAULT_VALUE_FUNCTIONS.get(default.value)
+                    if func is not None:
+                        value = func(context, context_base, context_object, item)
+                    else:
+                        # Fallback: treat as literal if handler missing
+                        value = default.value
                 else:
                     value = default.value
+
                 setattr(item, key, value)
-                
+
         if self.on_add:
-            eval(self.on_add)
-            
+            handler = ON_ADD_HANDLERS.get(self.on_add)
+            if handler is not None:
+                handler(context, context_base, context_object, item)
+
         do_redraw_all()
 
         return {'FINISHED'}
@@ -178,13 +238,15 @@ class RemoveItemOperator(Operator):
         context_base = getattr(context, self.context_base) if self.context_base else context.object
         context_object = get_value_by_path(context_base, self.context_object_path)
         prop = getattr(context_object, self.prop_name)
-        
+
         item = item_to_dict(prop[self.item_index])
         prop.remove(self.item_index)
-        
+
         if self.on_remove:
-            eval(self.on_remove)
-            
+            handler = ON_REMOVE_HANDLERS.get(self.on_remove)
+            if handler is not None:
+                handler(context, context_base, context_object, item)
+
         do_redraw_all()
 
         return {'FINISHED'}
