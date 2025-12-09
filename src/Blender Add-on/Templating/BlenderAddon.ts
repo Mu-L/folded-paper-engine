@@ -35,36 +35,27 @@ def item_to_dict(item):
     return {attr: getattr(item, attr) for attr in dir(item) if not callable(getattr(item, attr)) and not attr.startswith("__")}
 
 def add_keyframe_to_channel(obj, prop_name, frame, value):
-    # Add or update the property value
+    # Store whatever your exporter / panel logic expects
     obj[prop_name] = value
 
-    # Ensure the action exists
+    # Make sure anim data + action exist in a generic way
     if not obj.animation_data:
         obj.animation_data_create()
     if not obj.animation_data.action:
-        obj.animation_data.action = bpy.data.actions.new(obj.name + "Action")
+        obj.animation_data.action = bpy.data.actions.new(obj.name + "_Action")
 
-    # Find or create the specific fcurve for this property
-    fcurve = next((fc for fc in obj.animation_data.action.fcurves if fc.data_path == f'["{prop_name}"]'), None)
-    if not fcurve:
-        fcurve = obj.animation_data.action.fcurves.new(data_path='["' + prop_name + '"]')
-        fcurve.lock = True
-
-    # Insert or update the keyframe
-    keyframe = next((k for k in fcurve.keyframe_points if k.co[0] == frame), None)
-    if keyframe:
-        keyframe.co[1] = value
-    else:
-        fcurve.keyframe_points.insert(frame, value)
+    # Let Blender handle fcurves/channels internally (4.4 & 5.x safe)
+    obj.keyframe_insert(
+        data_path=f'["{prop_name}"]',
+        frame=frame,
+        group="FPE Frame Events",  # just for UI grouping, optional
+    )
 
 def remove_keyframe_from_channel(obj, prop_name, frame):
-    # Find the specific fcurve for this property
-    fcurve = next((fc for fc in obj.animation_data.action.fcurves if fc.data_path == f'["{prop_name}"]'), None)
-    if fcurve:
-        # Find and remove the specific keyframe
-        keyframe_index = next((i for i, k in enumerate(fcurve.keyframe_points) if k.co[0] == float(frame)), None)
-        if keyframe_index is not None:
-            fcurve.keyframe_points.remove(fcurve.keyframe_points[keyframe_index])
+    obj.keyframe_delete(
+        data_path=f'["{prop_name}"]',
+        frame=frame,
+    )
 
 def is_bpy_prop_collection(obj):
     return hasattr(obj, "add") and hasattr(obj, "remove")
@@ -135,6 +126,61 @@ def do_redraw_all():
     for area in bpy.context.screen.areas:
         area.tag_redraw()
 
+# --- Default-value handlers -------------------------------------------------
+
+def _fpe_default_frame_number(context, context_base, context_object, item):
+    # Just current frame
+    return context.scene.frame_current
+
+def _fpe_default_frame_time(context, context_base, context_object, item):
+    scene = context.scene
+    fps = scene.render.fps / scene.render.fps_base
+    return scene.frame_current / fps
+
+DEFAULT_VALUE_FUNCTIONS = {
+    "FPE_FRAME_EVENT_FRAME_NUMBER": _fpe_default_frame_number,
+    "FPE_FRAME_EVENT_FRAME_TIME": _fpe_default_frame_time,
+}
+
+# --- on_add / on_remove handlers --------------------------------------------
+
+def _fpe_on_add_frame_event(context, context_base, context_object, item):
+    add_keyframe_to_channel(
+        context.object,
+        "FPE_FRAME_EVENTS",
+        frame=context.scene.frame_current,
+        value=context.scene.frame_current,
+    )
+
+def _fpe_on_remove_frame_event(context, context_base, context_object, item):
+    frame = item.get("FrameNumber")
+    if frame is None:
+        return
+
+    frame_events = getattr(context_object, "FrameEvents", None)
+    if frame_events is None:
+        # No collection left, safe to remove the keyframe
+        remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
+        return
+
+    for fe in frame_events:
+        if fe.FrameNumber == frame:
+            # At least one event still on this frame — keep the keyframe
+            return
+
+    # No events left on this frame — now we can remove the keyframe
+    remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
+
+ON_ADD_HANDLERS = {
+    "FPE_ON_ADD_FRAME_EVENT": _fpe_on_add_frame_event,
+}
+
+ON_REMOVE_HANDLERS = {
+    "FPE_ON_REMOVE_FRAME_EVENT": _fpe_on_remove_frame_event,
+}
+
+# ----------------------------------------------------------------------------
+
 class DefaultsPropertyGroup(bpy.types.PropertyGroup):
     key: bpy.props.StringProperty()
     value: bpy.props.StringProperty()
@@ -160,15 +206,24 @@ class AddItemOperator(Operator):
         if self.defaults:
             for default in self.defaults:
                 key = default.key
+
                 if default.value_is_function:
-                    value = eval(default.value)
+                    func = DEFAULT_VALUE_FUNCTIONS.get(default.value)
+                    if func is not None:
+                        value = func(context, context_base, context_object, item)
+                    else:
+                        # Fallback: treat as literal if handler missing
+                        value = default.value
                 else:
                     value = default.value
+
                 setattr(item, key, value)
-                
+
         if self.on_add:
-            eval(self.on_add)
-            
+            handler = ON_ADD_HANDLERS.get(self.on_add)
+            if handler is not None:
+                handler(context, context_base, context_object, item)
+
         do_redraw_all()
 
         return {'FINISHED'}
@@ -187,13 +242,15 @@ class RemoveItemOperator(Operator):
         context_base = getattr(context, self.context_base) if self.context_base else context.object
         context_object = get_value_by_path(context_base, self.context_object_path)
         prop = getattr(context_object, self.prop_name)
-        
+
         item = item_to_dict(prop[self.item_index])
         prop.remove(self.item_index)
-        
+
         if self.on_remove:
-            eval(self.on_remove)
-            
+            handler = ON_REMOVE_HANDLERS.get(self.on_remove)
+            if handler is not None:
+                handler(context, context_base, context_object, item)
+
         do_redraw_all()
 
         return {'FINISHED'}

@@ -21,20 +21,18 @@ export const DopesheetEditorFrameEvents: BlenderPanelProps = {
       subItemDefaultValues: [
         {
           key: "FrameNumber",
-          value: "'bpy.context.scene.frame_current'",
+          value: "'FPE_FRAME_EVENT_FRAME_NUMBER'",
           valueIsFunction: true,
         },
         {
           key: "FrameTime",
-          value: "'bpy.context.scene.frame_current / (bpy.context.scene.render.fps / bpy.context.scene.render.fps_base)'",
+          value: "'FPE_FRAME_EVENT_FRAME_TIME'",
           valueIsFunction: true,
         },
       ],
       subItemProperties: FrameEventPropertyGroup.properties,
-      onAddSubItem:
-        "'add_keyframe_to_channel(context.object, \\'FPE_FRAME_EVENTS\\', frame=context.scene.frame_current, value=context.scene.frame_current)'",
-      onRemoveSubItem:
-        "'remove_keyframe_from_channel(context.object, \\'FPE_FRAME_EVENTS\\', frame=item[\\'FrameNumber\\'])'",
+      onAddSubItem: "'FPE_ON_ADD_FRAME_EVENT'",
+      onRemoveSubItem: "'FPE_ON_REMOVE_FRAME_EVENT'",
     },
   ],
 };
