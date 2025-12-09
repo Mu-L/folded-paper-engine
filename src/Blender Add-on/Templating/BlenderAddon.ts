@@ -37,18 +37,15 @@ def _fpe_default_frame_number(context, context_base, context_object, item):
     # Just current frame
     return context.scene.frame_current
 
-
 def _fpe_default_frame_time(context, context_base, context_object, item):
     scene = context.scene
     fps = scene.render.fps / scene.render.fps_base
     return scene.frame_current / fps
 
-
 DEFAULT_VALUE_FUNCTIONS = {
     "FPE_FRAME_EVENT_FRAME_NUMBER": _fpe_default_frame_number,
     "FPE_FRAME_EVENT_FRAME_TIME": _fpe_default_frame_time,
 }
-
 
 # --- on_add / on_remove handlers --------------------------------------------
 
@@ -60,17 +57,24 @@ def _fpe_on_add_frame_event(context, context_base, context_object, item):
         value=context.scene.frame_current,
     )
 
-
 def _fpe_on_remove_frame_event(context, context_base, context_object, item):
-    # item is already a dict from item_to_dict in RemoveItemOperator
     frame = item.get("FrameNumber")
-    if frame is not None:
-        remove_keyframe_from_channel(
-            context.object,
-            "FPE_FRAME_EVENTS",
-            frame=frame,
-        )
+    if frame is None:
+        return
 
+    frame_events = getattr(context_object, "FrameEvents", None)
+    if frame_events is None:
+        # No collection left, safe to remove the keyframe
+        remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
+        return
+
+    for fe in frame_events:
+        if fe.FrameNumber == frame:
+            # At least one event still on this frame — keep the keyframe
+            return
+
+    # No events left on this frame — now we can remove the keyframe
+    remove_keyframe_from_channel(context.object, "FPE_FRAME_EVENTS", frame=frame)
 
 ON_ADD_HANDLERS = {
     "FPE_ON_ADD_FRAME_EVENT": _fpe_on_add_frame_event,
