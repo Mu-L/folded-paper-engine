@@ -1,16 +1,10 @@
 // astro.config.mjs
 import {defineConfig} from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // Treat your existing website folder as Astro's src dir
   srcDir: './src/website',
-
-  // Pages are already in src/website/pages
-  // Layouts already in src/website/layouts
-
-  // Where to put the built static site
   outDir: './dist/website',
-
-  // Optional: set site URL later when you want
-  // site: 'https://fpe.papercraft.games',
+  site: 'https://fpe.papercraft.games',
+  integrations: [sitemap()],
 });

@@ -16,6 +16,7 @@
     "marked": "^15.0.7"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "^3.6.0",
     "@types/adm-zip": "^0.5.7",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.5.2",
