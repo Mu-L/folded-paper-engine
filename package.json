@@ -7,7 +7,7 @@
     "build:web": "astro build",
     "preview:web": "astro preview",
     "setup-dist": "rm -rf ./dist && mkdir -p dist",
-    "copy-cname": "cp ./CNAME ./dist/website/CNAME",
+    "copy-cname": "cp ./CNAME ./dist/website/CNAME && touch ./dist/website/.nojekyll",
     "deploy-blender-addon": "ts-node ./scripts/blender-addon.ts",
     "deploy-godot-addon": "ts-node ./scripts/godot-addon.ts"
   },
