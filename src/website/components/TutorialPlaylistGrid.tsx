@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
 const PLAYLIST_ID = "PLM1XlwxBilobr6XVs-7H6O_mMXAiHZEcz";
 // NOTE: Restricted API Key
@@ -24,7 +24,7 @@ async function fetchPlaylist(): Promise<Video[]> {
   let index = 1;
 
   // Playlist pagination (50 per page)
-  for (;;) {
+  for (; ;) {
     const url = new URL(baseUrl);
     url.searchParams.set("part", "snippet,contentDetails");
     url.searchParams.set("maxResults", "50");
@@ -66,7 +66,7 @@ async function fetchPlaylist(): Promise<Video[]> {
   return videos;
 }
 
-const TutorialPlaylistGrid: React.FC<Props> = ({ iframeId }) => {
+const TutorialPlaylistGrid: React.FC<Props> = ({iframeId}) => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -84,7 +84,9 @@ const TutorialPlaylistGrid: React.FC<Props> = ({ iframeId }) => {
         if (live) setLoading(false);
       });
 
-    return () => { live = false };
+    return () => {
+      live = false
+    };
   }, []);
 
   function openVideo(
@@ -98,7 +100,7 @@ const TutorialPlaylistGrid: React.FC<Props> = ({ iframeId }) => {
     if (!iframe) return;
 
     iframe.src = `https://www.youtube.com/embed/${videoId}?list=${PLAYLIST_ID}&index=${index}`;
-    iframe.scrollIntoView({ behavior: "smooth", block: "center" });
+    iframe.scrollIntoView({behavior: "smooth", block: "center"});
   }
 
   if (loading) {
@@ -138,12 +140,9 @@ const TutorialPlaylistGrid: React.FC<Props> = ({ iframeId }) => {
           >
             <div
               className="doc-card-title"
-              style={{ backgroundImage: `url('${v.thumbnailUrl}')` }}
+              style={{backgroundImage: `url('${v.thumbnailUrl}')`}}
             >
               {v.title}
-            </div>
-            <div className="doc-card-body">
-              {v.description || "Watch tutorial"}
             </div>
           </a>
         ))}
