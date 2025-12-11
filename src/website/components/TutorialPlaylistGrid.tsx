@@ -131,7 +131,7 @@ const TutorialPlaylistGrid: React.FC<Props> = ({iframeId}) => {
   return (
     <div className="section-body doc-tiles">
       <div className="doc-grid">
-        {videos.map((v) => (
+        {videos.map((v, idx) => (
           <a
             key={v.videoId}
             className="doc-card"
@@ -142,6 +142,9 @@ const TutorialPlaylistGrid: React.FC<Props> = ({iframeId}) => {
               className="doc-card-title"
               style={{backgroundImage: `url('${v.thumbnailUrl}')`}}
             >
+              {idx + 1}
+            </div>
+            <div className="doc-card-body">
               {v.title}
             </div>
           </a>
