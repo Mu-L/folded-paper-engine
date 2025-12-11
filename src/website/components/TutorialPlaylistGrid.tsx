@@ -99,7 +99,7 @@ const TutorialPlaylistGrid: React.FC<Props> = ({iframeId}) => {
     const iframe = document.getElementById(iframeId) as HTMLIFrameElement | null;
     if (!iframe) return;
 
-    iframe.src = `https://www.youtube.com/embed/${videoId}?list=${PLAYLIST_ID}&index=${index}`;
+    iframe.src = `https://www.youtube.com/embed/${videoId}?list=${PLAYLIST_ID}&index=${index}&autoplay=1`;
     iframe.scrollIntoView({behavior: "smooth", block: "center"});
   }
 
