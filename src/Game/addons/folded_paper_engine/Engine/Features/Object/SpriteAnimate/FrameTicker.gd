@@ -61,4 +61,4 @@ func pause() -> void:
 
 func stop() -> void:
 	_PLAYING = false
-	_current_frame = 0.0
+	_current_frame = 1.0
