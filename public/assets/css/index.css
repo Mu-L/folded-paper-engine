@@ -414,3 +414,42 @@ body {
         background-position: calc(var(--stripe) * var(--tile-ratio)) 0;
     }
 }
+
+/* Homepage Information */
+
+.intro-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.intro-content {
+    line-height: 1.6;
+}
+
+.intro-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.intro-content h3 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: #444;
+}
+
+.intro-content p {
+    margin-bottom: 1rem;
+}
+
+.intro-content ul,
+.intro-content ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.intro-content li {
+    margin-bottom: 0.5rem;
+}

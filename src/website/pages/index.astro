@@ -4,6 +4,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <SiteLayout
         title="Home"
+        description="Folded Paper Engine: Blender-to-Godot addon that reduces boilerplate when creating game levels. Tag gameplay in Blender, export standard GLTF, import to Godot with functionality auto-wired."
 >
     <Fragment slot="head">
         <script type="module" src="/assets/js/index.js" is:inline></script>
@@ -63,6 +64,72 @@ import SiteLayout from "../layouts/SiteLayout.astro";
                 <img class="button-icon" src="/assets/images/guide-icon.png" alt="Folded Paper Engine guide owl">
             </a>
         </main>
+    </section>
+    <section class="section intro-section">
+        <div class="intro-content">
+            <h2>What is Folded Paper Engine?</h2>
+            <p>
+                Folded Paper Engine (FPE) is a Blender-to-Godot addon that dramatically reduces boilerplate setup when
+                creating game levels. Define gameplay properties and behaviors directly in Blender using custom panels,
+                then export as standard GLTF. When imported into Godot, FPE's addon automatically wires up the
+                functionality based on your tagged properties.
+            </p>
+            <p>
+                <strong>Work the way that makes sense to you.</strong> Artists can build interactive levels without
+                touching code. Programmers can use FPE to handle the repetitive setup, then extend everything with
+                custom scripts. FPE provides the foundation and gets out of your way.
+            </p>
+
+            <h3>Who is FPE for?</h3>
+            <ul>
+                <li><strong>Artists and designers</strong> who want to prototype interactive scenes quickly</li>
+                <li><strong>Solo developers</strong> who want to spend less time on boilerplate and more time on
+                    gameplay
+                </li>
+                <li><strong>Teams</strong> where level designers work in Blender and need a clean handoff to Godot</li>
+                <li><strong>Anyone</strong> who's tired of manually setting up triggers, collision, audio, and scene
+                    metadata for every level
+                </li>
+            </ul>
+
+            <h3>How it works</h3>
+            <ol>
+                <li><strong>Tag objects in Blender</strong> – Use FPE's custom panels to mark objects as Players,
+                    Triggers, Speakers, Holdable Items, and configure their properties
+                </li>
+                <li><strong>Export standard GLTF</strong> – FPE embeds your custom properties into the GLTF file using
+                    Godot's existing import system
+                </li>
+                <li><strong>Import to Godot</strong> – Add the FoldedPaperEngine node, assign your GLTF file, and FPE's
+                    modular system automatically enhances the imported nodes with the behaviors you defined
+                </li>
+            </ol>
+            <p>No custom file formats. No reinvented wheels. Just standard GLTF with smart automation on the Godot
+                side.</p>
+
+            <h3>Key Features</h3>
+            <p>FPE provides structured Blender panels for defining:</p>
+            <ul>
+                <li><strong>Characters & Players</strong> – Rigs, NPCs, camera behavior</li>
+                <li><strong>Triggers & Events</strong> – Area triggers, command catalogs, automation</li>
+                <li><strong>Physics & Interaction</strong> – Holdable items, inventory, rigid bodies</li>
+                <li><strong>Scene Management</strong> – Sky color, sub-scenes, level loading, animation frame events
+                </li>
+                <li><strong>Audio</strong> – Music imports, autoplay, looping, background tracks</li>
+            </ul>
+
+            <h3>Scales with your needs</h3>
+            <p>
+                Start simple with no-code interactive scenes. When you need more control, FPE provides escape hatches at
+                every level:
+            </p>
+            <ul>
+                <li>Override any auto-generated behavior with custom scripts</li>
+                <li>Extend FPE's mod system with your own gameplay modules</li>
+                <li>Use FPE for the tedious parts, code the unique parts yourself</li>
+            </ul>
+            <p>FPE handles the repetitive setup so you can focus on what makes your game special.</p>
+        </div>
     </section>
     <section
             id="download"
