@@ -2,6 +2,7 @@
     --button-top-color: #9acd32;
     --button-bottom-color: #2e8b57;
     --button-glow-color: #2e8b57;
+    --button-font-size: 2em;
     --shadow-color: rgba(0, 0, 0, 0.5);
     --shadow-offset: 0.1em;
     --shadow-size: 0.25em;
@@ -27,6 +28,14 @@
     --button-glow-color: #4c97a8;
 }
 
+.medium {
+    --button-font-size: 1.5em;
+}
+
+.small {
+    --button-font-size: 1em;
+}
+
 @font-face {
     font-family: 'ZCOOLKuaiLe-Regular';
     src: url('../fonts/ZCOOLKuaiLe-Regular.ttf');
@@ -45,7 +54,7 @@
     border-radius: 0.5em;
     border: 0.125em solid #fff;
     color: #fff;
-    font-size: 2em;
+    font-size: var(--button-font-size);
     padding: 0.5em;
     box-shadow: var(--basic-shadow);
     cursor: pointer;
@@ -418,9 +427,14 @@ body {
 /* Homepage Information */
 
 .intro-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
+    font-family: sans-serif;
+    background-color: #ffffff;
+    margin: 6em auto 0 auto;
+    padding: 4em 8em;
+
+    @media screen and (max-width: 768px) {
+        padding: 4em;
+    }
 }
 
 .intro-content {
@@ -428,16 +442,14 @@ body {
 }
 
 .intro-content h2 {
-    font-size: 2rem;
     margin-bottom: 1rem;
-    color: #333;
+    font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
 }
 
 .intro-content h3 {
-    font-size: 1.5rem;
     margin-top: 2rem;
     margin-bottom: 0.75rem;
-    color: #444;
+    font-family: 'ZCOOLKuaiLe-Regular', sans-serif;
 }
 
 .intro-content p {
