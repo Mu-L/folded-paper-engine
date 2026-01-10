@@ -7,8 +7,19 @@ export default defineConfig({
   srcDir: './src/website',
   outDir: './dist/website',
   site: 'https://fpe.papercraft.games',
+  build: {
+    format: "file",
+  },
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      serialize(item) {
+        if (item.url === "https://fpe.papercraft.games/") {
+          return {...item, url: "https://fpe.papercraft.games"};
+        }
+
+        return item;
+      }
+    }),
   ],
 });
