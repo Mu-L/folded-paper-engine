@@ -26,3 +26,15 @@ level and gameplay creation as easy as a few clicks!
 - **Team:**  
   - RyAnne Graff — Development, System Design, 3D Art
   - Rose Billington — Mechanics Design, QA, 3D Art
+
+---
+
+### ❤️ Support Folded Paper Engine
+
+Folded Paper Engine is free and open-source software, maintained with care.
+
+If you find it useful and want to support ongoing maintenance, documentation, and long-term sustainability, you can sponsor Papercraft Games on GitHub:
+
+👉 https://github.com/sponsors/papercraftgames
+
+Thank you for supporting open-source development.
