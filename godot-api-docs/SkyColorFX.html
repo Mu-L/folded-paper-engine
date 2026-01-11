@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-QM9RJ9QDWL"></script><script type="application/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'G-QM9RJ9QDWL');
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".pickle-box img").forEach((p, i) => {
+          p.addEventListener("mouseenter", () => {
+            gtag('event', 'pickle_hover', {
+              pickle_index: i + 1
+            });
+          });
+        });
+
+        const blenderDownloadButton = document.querySelector(".blender-download");
+        if (blenderDownloadButton) {
+          blenderDownloadButton.addEventListener("click", () => {
+            gtag('event', 'download_blender', {
+              event_category: 'download',
+              event_label: 'blender_plugin'
+            });
+          });
+        }
+
+        const godotDownloadButton = document.querySelector(".godot-download");
+        if (godotDownloadButton) {
+          godotDownloadButton.addEventListener("click", () => {
+            gtag('event', 'download_godot', {
+              event_category: 'download',
+              event_label: 'godot_plugin'
+            });
+          });
+        }
+      });
+    </script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Folded Paper Engine – Blender-to-Godot addon that makes level and gameplay creation as easy as a few clicks!"><title>Folded Paper Engine | SkyColorFX</title><link rel="canonical" href="https://fpe.papercraft.games"><link rel="sitemap" href="/sitemap-index.xml"><link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/icons/favicon.svg"><link rel="shortcut icon" href="/icons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="Folded Paper Engine"><link rel="manifest" href="/icons/site.webmanifest.json"><link rel="stylesheet" href="/assets/css/index.css"> <link rel="stylesheet" href="/assets/css/docs.css"> <link rel="stylesheet" href="/assets/css/api-docs.css">  </head> <body> <header class="header"> <a href="/"> <img class="logo" src="/assets/images/logo.png" alt="Logo"> </a> <div class="spacer"></div> <a class="button" href="/#download">
+Download
+<img class="dl-icon" src="/assets/images/dl-icon.png" alt="Download"> </a> </header> <main>   <section class="web-splash"> <div class="web-splash-inner base-background"> <img class="web-splash-img" src="/assets/images/godot-feature-splash.png" alt="Godot Feature Splash"> </div> </section> <section class="section top-section"> <header> <div class="section-title">
+Godot Addon API Docs
+</div> </header> </section> <section class="section content-section"> <header> <div class="section-title"> SkyColorFX </div> </header> <main>  <article class="api-doc-article"> <div class="api-doc-body"><div class="api-grid">
+  <aside class="api-aside">
+    <div class="api-card">
+      <div><strong>Class:</strong> SkyColorFX</div>
+      <div class="small">Inherits: SceneFeatureBase</div>
+      <hr class="small"/><div>
+	</div>
+    </div>
+  </aside>
+  <section class="api-main">
+    <div class="api-card">
+	</div>
+    
+    <div class="api-card"><h2>Methods</h2><ul class="api-list"><li>
+          <div><code class="code">void apply(WorldEnvironment env, Variant data)</code></div>
+          <div class="small">
+			</div>
+        </li></ul></div>
+    
+    
+  </section>
+</div></div> </article>  </main> </section>  </main> <footer class="footer"> <a href="https://papercraft.games" target="_blank"> <img class="papercraft-logo" src="/assets/images/papercraft-games-logo.png" alt="Papercraft Games"> </a> <div class="social"> <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank"> <img src="/assets/images/github-logo.png" alt="GitHub"> </a> <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank"> <img src="/assets/images/youtube-logo.png" alt="YouTube"> </a> <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank"> <img src="/assets/images/bluesky-logo.png" alt="Bluesky"> </a> <a href="https://www.facebook.com/profile.php?id=61584265860990" target="_blank"> <img src="/assets/images/facebook-logo.png" alt="Facebook"> </a> <a href="https://discord.gg/gdGk2tBevz" target="_blank"> <img src="/assets/images/discord-logo.png" alt="Discord"> </a> </div> </footer> <footer class="pickle-footer"> <div>© 2026 Folded Paper Engine. All rights reserved.</div> <a class="button medium" href="https://github.com/sponsors/papercraftgames" target="_blank" rel="noopener noreferrer"> <img class="sponsor-icon" src="/assets/images/top-hat.png" alt="Sponsor Top Hat">
+Support FPE
+</a> <div class="pickle-box"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> </div> </footer> </body></html>

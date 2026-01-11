@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-QM9RJ9QDWL"></script><script type="application/javascript">
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'G-QM9RJ9QDWL');
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".pickle-box img").forEach((p, i) => {
+          p.addEventListener("mouseenter", () => {
+            gtag('event', 'pickle_hover', {
+              pickle_index: i + 1
+            });
+          });
+        });
+
+        const blenderDownloadButton = document.querySelector(".blender-download");
+        if (blenderDownloadButton) {
+          blenderDownloadButton.addEventListener("click", () => {
+            gtag('event', 'download_blender', {
+              event_category: 'download',
+              event_label: 'blender_plugin'
+            });
+          });
+        }
+
+        const godotDownloadButton = document.querySelector(".godot-download");
+        if (godotDownloadButton) {
+          godotDownloadButton.addEventListener("click", () => {
+            gtag('event', 'download_godot', {
+              event_category: 'download',
+              event_label: 'godot_plugin'
+            });
+          });
+        }
+      });
+    </script><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Folded Paper Engine – Blender-to-Godot addon that makes level and gameplay creation as easy as a few clicks!"><title>Folded Paper Engine | Engine Guide</title><link rel="canonical" href="https://fpe.papercraft.games"><link rel="sitemap" href="/sitemap-index.xml"><link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/icons/favicon.svg"><link rel="shortcut icon" href="/icons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="Folded Paper Engine"><link rel="manifest" href="/icons/site.webmanifest.json"><link rel="stylesheet" href="/assets/css/index.css"> <link rel="stylesheet" href="/assets/css/docs.css"> <link rel="stylesheet" href="/assets/css/guide.css">  </head> <body> <header class="header"> <a href="/"> <img class="logo" src="/assets/images/logo.png" alt="Logo"> </a> <div class="spacer"></div> <a class="button" href="/#download">
+Download
+<img class="dl-icon" src="/assets/images/dl-icon.png" alt="Download"> </a> </header> <main>    <section class="web-splash"> <div class="web-splash-inner base-background"> <img class="web-splash-img" src="/assets/images/guide-splash.png" alt="Folded Paper Engine docs owl"> </div> </section> <section class="section top-section"> <header> <div class="section-title">
+Engine Guide
+<div class="section-subtitle">
+Blender → Godot workflows, behaviors, and runtime reference
+</div> </div> </header> <div class="section-body doc-tiles"> <div class="doc-grid"> <a class="doc-card" href="/docs/fpe-scene-settings"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/scene-settings.png');">
+Scene Settings
+</div> <div class="doc-card-body">Sky color, gravity overrides, music, and scene-level events.</div> </a> <a class="doc-card" href="/docs/fpe-characters-players-and-cameras"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/characters.png');">
+Characters, Players and Cameras
+</div> <div class="doc-card-body">Player rigs, NPCs and camera behavior.</div> </a> <a class="doc-card" href="/docs/fpe-animation-and-events"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/animation.png');">
+Animation and Frame Events
+</div> <div class="doc-card-body">Animation imports, frame-timed events, and playback control.</div> </a> <a class="doc-card" href="/docs/fpe-audio"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/audio.png');">
+Audio
+</div> <div class="doc-card-body">Speakers, autoplay, looping, and background music playlists.</div> </a> <a class="doc-card" href="/docs/fpe-triggers-commands"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/triggers.png');">
+Triggers and Commands
+</div> <div class="doc-card-body">Areas, trigger filters, command catalog, and automation.</div> </a> <a class="doc-card" href="/docs/fpe-inventory-and-holdables"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/inventory.png');">
+Inventory and Holdables
+</div> <div class="doc-card-body">Inventory kinds, stack sizes, and hand-held items.</div> </a> <a class="doc-card" href="/docs/fpe-conversations"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/conversations.png');">
+Conversations (Advanced)
+</div> <div class="doc-card-body">Dialogue authoring and reply selection.</div> </a> <a class="doc-card" href="/docs/fpe-ui"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/ui-elements.png');">
+UI and Cursors
+</div> <div class="doc-card-body">UI Elements, menu flow and overlays.</div> </a> <a class="doc-card" href="/docs/fpe-input"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/input.png');">
+Input (Advanced)
+</div> <div class="doc-card-body">Action maps and controller support.</div> </a> <a class="doc-card" href="/docs/fpe-cameras"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/cameras.png');">
+Cameras
+</div> <div class="doc-card-body">Player camera settings, switching, and best practices.</div> </a> <a class="doc-card" href="/docs/fpe-subscenes-and-levels"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/sub-scene.png');">
+Sub Scenes and Level Loading
+</div> <div class="doc-card-body">Friendly recipes for doors, hubs, and streamed interiors.</div> </a> <a class="doc-card" href="/docs/fpe-troubleshooting"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/troubleshooting.png');">
+Troubleshooting
+</div> <div class="doc-card-body">Common pipeline issues and fixes.</div> </a> <a class="doc-card" href="/docs/fpe-physics-and-colliders"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/physics.png');">
+Physics and Colliders (Technical)
+</div> <div class="doc-card-body">Rigid bodies, collider generation, holdable bodies, and movement.</div> </a> <a class="doc-card" href="/docs/fpe-pipeline"> <div class="doc-card-title" style="background-image: url('/docs/thumbs/pipeline.png');">
+Pipeline and Runtime (Technical)
+</div> <div class="doc-card-body">GLB import flow, load/unload lifecycle, and feature registration.</div> </a> </div> </div> </section>   </main> <footer class="footer"> <a href="https://papercraft.games" target="_blank"> <img class="papercraft-logo" src="/assets/images/papercraft-games-logo.png" alt="Papercraft Games"> </a> <div class="social"> <a href="https://github.com/papercraftgames/folded-paper-engine" target="_blank"> <img src="/assets/images/github-logo.png" alt="GitHub"> </a> <a href="https://www.youtube.com/@PapercraftGamesOfficial" target="_blank"> <img src="/assets/images/youtube-logo.png" alt="YouTube"> </a> <a href="https://bsky.app/profile/papercraftgames.bsky.social" target="_blank"> <img src="/assets/images/bluesky-logo.png" alt="Bluesky"> </a> <a href="https://www.facebook.com/profile.php?id=61584265860990" target="_blank"> <img src="/assets/images/facebook-logo.png" alt="Facebook"> </a> <a href="https://discord.gg/gdGk2tBevz" target="_blank"> <img src="/assets/images/discord-logo.png" alt="Discord"> </a> </div> </footer> <footer class="pickle-footer"> <div>© 2026 Folded Paper Engine. All rights reserved.</div> <a class="button medium" href="https://github.com/sponsors/papercraftgames" target="_blank" rel="noopener noreferrer"> <img class="sponsor-icon" src="/assets/images/top-hat.png" alt="Sponsor Top Hat">
+Support FPE
+</a> <div class="pickle-box"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> <img src="/assets/images/pickle-icon.png" alt="A green pickle"> </div> </footer> </body></html>
