@@ -424,6 +424,11 @@ body {
     }
 }
 
+.sponsor-icon {
+    width: 2em;
+    margin: -0.5em
+}
+
 /* Homepage Information */
 
 .intro-section {
